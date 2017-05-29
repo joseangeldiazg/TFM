@@ -1,0 +1,63 @@
+%?????????????????????????
+% Nombre: capitulo3.tex  
+% 
+% Texto del capitulo 3
+%---------------------------------------------------
+
+\chapter{Marco de trabajo}
+\label{marco}
+
+Antes de comenzar abordar el estado del arte del análisis de tendencias o \textit{minería de opiniones}, y más concretamente su aplicación en el ámbito de la web 2.0, es necesario abordar algunos conceptos teóricos que nos permitan comprender mejor los conceptos de los trabajos de los que discutiremos en los puntos finales del capítulo. Sobre ello, discutiremos en este capítulo.
+
+\section{Minería de medios sociales digitales}
+
+La reciente incursión de las redes sociales digitales en nuestro mundo han cambiado el paradigma de trabajo, económico y social de la sociedad. Dada su importancia, diversos sectores y ámbitos de estudio han puesto el punto de mira en el estudio de estos nuevos paradigmas sociales. La minería de datos es uno de los campos que estudia los medios sociales digitales originando una nueva vertiente de la misma denominada como  \textbf{minería de medios sociales}. 
+
+La \textbf{minería de medios sociales}, acorde a  P. Gundecha \cite{liu1}, comprende el proceso de representar, analizar y extraer de datos provenientes de medios sociales patrones con significado y valor. La minería de medios sociales es por tanto un campo multidisciplinar y su alcance puede ser dividido en los siguientes ámbitos de aplicación:
+
+\begin{itemize}
+	\item \textbf{Análisis de comunidades}: Por medio de teoría de grafos, se obtienen comunidades dentro de nuestra población objetivo. Estos pueden ser usuarios con similares intereses, gustos o preferencias.
+	\item  \textbf{Sistemas de Recomendaciones colaborativos} : Se basa en la hipótesis en que usuarios similares tendrán gustos similares por lo que se pueden afinar los sistemas de recomendación teniendo estos factores en cuenta. 
+	\item  \textbf{Estudios de Influencia}: Se basan en la obtención de la influencia de marcas o personas en determinados sectores. 
+	\item  \textbf{Difusión de la información}: En un mundo saturado de información como el actual, saber de que manera tendremos que difundirla para llegar a un mayor número de personas es un factor decisivo. Esto es lo que estudia este área dentro de la minera de medios sociales. 
+	\item  \textbf{Privacidad, seguridad y veracidad}: Este punto se centra en la verificación automática de cuentas falsas, identificación de fuentes de spam así como de la identificación de la veracidad de información o identificación de problemas de violación de privacidad. 
+	
+	\item \textbf{Opinion mining}: Este punto, es uno de los más estudiados en \textbf{minería de medios sociales}, podemos encontrarlo junto a el análisis de sentimientos aunque como veremos en el punto siguiente hay ligeras diferencias. Dada la relevancia de cara al presente trabajo ampliaremos este concepto en la sección siguiente. 
+	\end{itemize}
+
+\section{Minería de opiniones}
+
+La minería de opiniones o \textit{opinion mining}, es una vertiente al alza dentro de la famosa minería de textos y tienen su raíz por tanto en las técnicas de procesamiento de lenguaje natural. Como todas las especializaciones o vertientes dentro de este área de la minería de datos, en \textit{opinion mining} tratamos de obtener información relevante y valor a partir de textos, como por ejemplo blogs, tweets o diversas redes sociales, de ahí que sea estudiada dentro del proceso de \textit{social media mining} descrito anteriormente, ya que podríamos decir que una técnica complementa a la otra. Pero, ¿qué es una opinión? Acorde a la definición dada por Liu en \cite{liu}, una opinión es una quintupla compuesta de los siguientes elementos:
+
+
+\begin{enumerate}
+\item \textbf{Entidad}: Puede ser un objeto, persona, servicio, lugar sobre el que se emite la opinión.
+\item \textbf{Emisor}: Entidad que emite la opinión. 
+\item \textbf{Aspecto}: Es un aspecto que se valora sobre la \textbf{entidad} en cuestión.  
+\item \textbf{Orientación}: Puede ser positiva, negativa o neutra. 
+\item \textbf{Momento temporal}: Corresponde al momento en que la opinión se emite, ya que mismos \textbf{emisores, entidades y aspectos} podrán cambiar de \textbf{orientacion} en momentos distintos, por lo que es un registro importante a tener en cuenta. 
+\end{enumerate}
+
+Pese a que aún no hemos entrado en el estudio de las redes sociales ni de la \textbf{anatomía} de un tweet, estos serán la fuente y la unidad minima de información en nuestro proyecto. En puntos siguientes trazaremos un claro paralelismo entre esta definición y los tweets en concreto. 
+
+La minería de opiniones, se centrará por tanto en obtener de textos que podrán provenir de diferentes fuentes, \textit{aspectos} de opinión, esto difiere \cite{diff} \cite{diff2} en cierta medida del proceso de \textit{análisis de sentimientos} que se centra desde un enfoque mayormente supervisado en la clasificación de estas entidades textuales acorde a sentimientos u orientación. Analizando estos \textit{aspectos} y sus implicaciones sobre su \textit{entidad} relacionada, podremos obtener por tanto ventajas muy relevantes como por ejemplo saber que opinan los consumidores de una marca en concreto, posicionar productos u obtener análisis de confianza entre otras muchas aplicaciones. 
+
+En el presente proyecto, obviaremos la rama supervisada, para centrarnos en el enfoque no supervisado dentro del campo de la \textit{minería de opiniones}, en el que no conocemos las clases o \textit{etiquetas} a priori. Las técnicas de aprendizaje no supervisado que estudiaremos, son el clustering y las reglas de asociación, ambas las estudiaremos en el siguiente punto.
+
+\section{Técnicas}
+\label{tecnicas}
+Pese a la gran relación que existe entre las técnicas mencionadas en \ref{contex}, estas difieren en factores tan dispares como su utilización, su aplicación o la información que aportan sobre un problema. El análisis de estos factores nos ayudará a elegir la técnica o el conjunto de técnicas adecuadas para problema concreto, es decir, podemos partir de enfoques diferentes que se apoyen y retroalimenten mutuamente. Cabe destacar y diferenciar las  técnicas más relevantes aplicadas a los problemas inherentes al estudio del análisis de tendencias, para así poder comprender mejor los siguientes capítulos y nuestro problema en cuestión. 
+
+\subsection{Clustering}
+\label{cluster}
+
+Las técnicas de clustering, se basan en la obtención de grupos o clases en función de un determinado conjunto de muestras o población, sin conocer a priori estas clases. Las técnicas de clustering, están enmarcadas dentro del aprendizaje no supervisado y basan la obtención de estos grupos y clases en dos factores como pueden ser la distancia o la similitud. De todos los problemas mencionados anteriormente estas técnicas son muy utilizadas en estudios relativos al marketing y estudios sociales, donde es relevante obtener agrupaciones. Un ejemplo concreto sería discernir entre los distintos tipos de cliente que compran regularmente en un supermercado, para poder ofrecer ofertas concretas en función del grupo de manera que estas sean personalizadas en función de cada cliente, permitiendo así que los beneficios se incrementen \cite{mkt}. 
+
+\subsection{Reglas de asociación}
+\label{reglas}
+
+La reglas de asociación dentro del ámbito de la informática no son muy distintas, al menos en el concepto general, de la búsqueda de relaciones en cualquier ámbito. Las reglas de asociación se enmarcan dentro del aprendizaje automático o minería de datos y no es algo nuevo sino que llevan siendo usadas y estudiadas desde mucho tiempo atrás, datando una de las primeras referencias a estas, del año 1993 \cite{agrawal}. Podríamos definirlas como una implicación de la forma \textbf{X->Y} donde \textbf{X}, es un conjunto de items que representa el antecedente e \textbf{Y} un item consecuente.  Las reglas de asociación se presentan como un método de extracción de relaciones aparentemente ocultas entre ítems o elementos dentro de bases de datos transaccionales u otros tipos de almacenes de datos de los que es interesante extraer información de ayuda en el proceso de toma de decisiones de las organizaciones. Su uso ha sido extendido en campos como las telecomunicaciones, gestión de riesgos, control de inventarios \cite{reglas1} \cite{reglas2} o almacenes y recientemente en el minado de redes sociales representando en este ámbito una de las vertientes más estudiadas actualmente en campos de estudio como por ejemplo el análisis de sentimientos \cite{sentimientos}. Dada la importancia de estas técnicas en nuestro trabajo las estudiaremos con detalle en el capítulo \ref{arte}.
+
+\pagebreak
+\clearpage
+%---------------------------------------------------
