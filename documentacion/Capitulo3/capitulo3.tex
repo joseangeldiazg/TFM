@@ -27,7 +27,7 @@ La \textbf{minería de medios sociales}, acorde a  P. Gundecha \cite{liu1}, compr
 
 \section{Minería de opiniones}
 
-La minería de opiniones, conocida en el ámbito internacional como \textit{opinion mining}, es una vertiente al alza dentro de la famosa minería de textos y tiene su raíz por tanto en las técnicas de procesamiento de lenguaje natural. Si analizamos la web o las publicaciones en redes sociales, encontraremos cientos de miles de \textit{reviews} o posts de personas acerca de un producto o marca, el potencial de analizar la finalidad de esta opinión, ver si es una crítica constructiva, si se promueve el producto o si simplemente lo critica puede suponer una gran ventaja competitiva para las empresas y marcas, por ello, son más las que cada vez usan estas técnicas en sus procesos de vigilancia tecnológica u obtención del \textit{feedback} del consumidor. 
+La minería de opiniones, conocida en el ámbito internacional como \textit{opinion mining}, es una vertiente al alza dentro de la famosa minería de textos y tiene su raíz por tanto en las técnicas de procesamiento de lenguaje natural. Si analizamos la web o las publicaciones en redes sociales, encontraremos cientos de miles de \textit{reviews} o posts de personas acerca de un producto o marca, el potencial de analizar la finalidad de esta opinión, ver si es una crítica constructiva, si se promueve el producto o si simplemente lo crítica puede suponer una gran ventaja competitiva para las empresas y marcas, por ello, son más las que cada vez usan estas técnicas en sus procesos de vigilancia tecnológica u obtención del \textit{feedback} del consumidor. 
 
 Como todas las especializaciones o vertientes dentro del área de la minería de textos, en \textit{opinion mining} tratamos por tanto de obtener información relevante y valor a partir de textos, como los que hemos mencionado anteriormente, blogs, tweets o diversas redes sociales, de ahí que sea estudiada dentro del proceso de \textit{social media mining} descrito anteriormente, ya que podríamos decir que una técnica complementa a la otra. Pero, ¿qué es una opinión? Acorde a la definición dada por Liu en \cite{liu}, una opinión es una quíntupla compuesta de los siguientes elementos:
 
@@ -44,7 +44,7 @@ Pese a que aún no hemos entrado en el estudio de las redes sociales ni de la \te
 
 La minería de opiniones, se centrará por tanto en obtener de textos que podrán provenir de diferentes fuentes, \textit{aspectos} de opinión, esto difiere  en cierta medida del proceso de \textit{análisis de sentimientos} \cite{diff} \cite{diff2} que se centra desde un enfoque mayormente supervisado en la clasificación de estas entidades textuales acorde a sentimientos u orientación. Analizando estos \textit{aspectos} y sus implicaciones sobre su \textit{entidad} relacionada, podremos obtener por tanto ventajas muy relevantes como por ejemplo saber qué opinan los consumidores de una marca en concreto, posicionar productos u obtener análisis de confianza entre otras muchas aplicaciones. 
 
-En el presente proyecto, obviaremos la rama supervisada, para centrarnos en el enfoque no supervisado dentro del campo de la \textit{minería de opiniones}, en el que no conocemos las clases o \textit{etiquetas} a priori. Las técnicas de aprendizaje no supervisado que estudiaremos, son el clustering y las reglas de asociación, ambas las trataremos en el siguiente punto.
+En el presente proyecto, obviaremos la rama supervisada, para centrarnos en el enfoque no supervisado dentro del campo de la \textit{minería de opiniones}, en el que no conocemos las clases o \textit{etiquetas} a priori, aunque si que si incluya una cierta polarización básica sobre las opiniones, ya que es información relevante en el conjunto del proceso. Las técnicas de aprendizaje no supervisado que estudiaremos, son el clustering y las reglas de asociación, ambas las trataremos en el siguiente punto.
 
 \section{Técnicas}
 \label{tecnicas}
@@ -60,7 +60,7 @@ Las técnicas de clustering, se basan en la obtención de grupos o clases en funci
 
 La reglas de asociación dentro del ámbito de la informática no son muy distintas, al menos en el concepto general, de la búsqueda de relaciones en cualquier ámbito. Las reglas de asociación se enmarcan dentro del aprendizaje automático o minería de datos y no es algo nuevo sino que llevan siendo usadas y estudiadas desde mucho tiempo atrás, datando una de las primeras referencias a estas, del año 1993 \cite{agrawal}. Estas se representan según la forma \textbf{X->Y} donde \textbf{X}, es un conjunto de items que representa el antecedente e \textbf{Y} un item consecuente, por ende, podemos concluir que los ítems \textbf{consecuentes}  guardan una relación de co-ocurrencia con los ítems \textbf{antecedentes}. Esta relación puede ser obvia en algunos casos, pero en otros necesitará del uso de algoritmos de extracción de reglas de asociación que podrán desvelar relaciones no triviales y que puedan ser de mucho valor.  Podremos presentar por tanto a las reglas de asociación, como un método de extracción de relaciones aparentemente ocultas entre ítems o elementos dentro de bases de datos transaccionales, \textit{datawarehouses} u otros tipos de almacenes de datos de los que es interesante extraer información de ayuda en el proceso de toma de decisiones de las organizaciones. 
 
-La bondad o ajuste de las reglas de asociacion a un determinado problema, vendrá dada por las medidas del \textbf{soporte} y la \textbf{confianza}, que podremos definir de la siguiente manera:
+La bondad o ajuste de las reglas de asociación a un determinado problema, vendrá dada por las medidas del \textbf{soporte} y la \textbf{confianza}, que podremos definir de la siguiente manera:
 
 \begin{itemize}
 	\item{Soporte}: Se representa como \textit{supp (X->Y)}, y representa la fracción de las transacciones que contiene tanto a X como a Y. 
@@ -69,8 +69,40 @@ La bondad o ajuste de las reglas de asociacion a un determinado problema, vendrá
 
 Las reglas de asociación pueden abordarse desde dos perspectivas, solución por fuerza bruta (prohibitivo) o desde un enfoque basado en dos etapas. La primera de estas etapas es la generación de itemsets frecuentes, a partir de los cuales, en la segunda etapa se obtienen las reglas de asociación, que tendrán si todo ha ido correctamente un valor de confianza aceptable o elevado. 
 
-Su uso ha sido extendido en campos como las telecomunicaciones, gestión de riesgos, control de inventarios \cite{reglas1} \cite{reglas2} o almacenes y recientemente en el minado de redes sociales representando en este ámbito una de las vertientes más estudiadas actualmente en campos de estudio como por ejemplo el análisis de sentimientos \cite{sentimientos}. Dada la importancia de estas técnicas en nuestro trabajo las estudiaremos con detalle en el capítulo \ref{arte}.
+Su uso ha sido extendido en campos como las telecomunicaciones, gestión de riesgos, control de inventarios \cite{reglas1} \cite{reglas2} o almacenes y recientemente en el minado de redes sociales representando en este ámbito una de las vertientes más estudiadas actualmente en campos de estudio como por ejemplo el análisis de sentimientos \cite{sentimientos}. Dada la importancia de estas técnicas en nuestro trabajo las estudiaremos con detalle en el capítulo \ref{arte}, donde veremos su aplicación en diversos trabajos relacionados en menor o mayor medida con el nuestro.
 
+\section{Big Data}
+
+Como hemos visto en puntos anteriores, la `explosión'  y expansión de la era digital ha hecho que el volumen de datos de los que disponemos, así como de las fuentes que generan estos datos se hayan multiplicado exponencialmente. Erraríamos por tanto, si pensáramos que las técnicas tradicionales de carga, procesado y análisis de datos tradicionales pudieran ser aplicadas a estos grandes volúmenes de datos, por lo que ha sido necesario la implantación y creación de nuevas técnicas capaces de lidiar con estos grandes volúmenes de datos, y a esto es lo que conocemos como \textit{Big Data Analytics}. 
+
+\subsection{Historia}
+
+Pese a que es un término que llevamos pocos años escuchando, su acuñamiento data del año 1998, donde el libro \textit{Predictive data mining: a practical guide.} \cite{bdm1}, ya hacía referencia a los grandes volúmenes de datos y sus problemas relacionados, bajo el término de BigData, pero no fue hasta entrado el año 2000 cuando empezaron a aparecer los primeros artículos académicos, que podrían enmarcarse dentro del BigData. Pocos años después, con la aparición y expansión de las redes sociales, estas empresas necesitaron nuevos paradigmas y algoritmos para procesar esta gran cantidad de información que venía de las mismas. Fue en este punto, y tras otros estudios como el llevado a cabo por Alex `Sandy' Pentland en el MIT \cite{bdm2}, cuando se comenzó a hablar de las \textbf{3 V's del Big Data}  \cite{bdm3}, tomando por tanto este nuevo concepto su forma actual y comenzando la expansión que le llevaría a ser hoy en día una de las `tecnologías' más punteras.  
+ 
+\subsection{Las V's del Big Data}
+
+En este punto, entraremos a hablar de las conocidas \textbf{V`s del Big Data}, adjetivos que en su conjunción lo definen como tal y que en sus orígenes, fueron 3, aunque pronto se fueron complementando y extendiendo, hasta nuestros días donde el BigData quedaría caracterizado por 5 V`s:
+
+\begin{enumerate}
+\item \textbf{Volumen}: La relación de esta palabra con el concepto Big Data es clara. Y es que el tamaño de los datos continua aumentando, hasta volúmenes de los mismos nunca antes vistos. 
+\item \textbf{Variedad}: Los tipos de los datos son muy distintos y provienen de fuentes muy dispares. 
+\item \textbf{Velocidad}: Los datos son muy volubles y deben ser recogidos y analizados rápidamente, véase por ejemplo en el concepto de una aplicación de Big Data en bolsa, donde tan solo un segundo puede suponer perdidas o beneficios muy importantes. 
+\item \textbf{Variabilidad}: Los datos pueden cambiar de estructura o interpretación. 
+\item \textbf{Valor}: En última instancia, sin valor, no hay Big Data y es que estos datos una vez procesados deben aportar conocimiento y valor a la empresa y organización. 
+\end{enumerate}
+ 
+\subsection{Aplicaciones} 
+ 
+ Las aplicaciones del BigData, dado su interés, están presentes en numerosas áreas, algunas de las cuales pueden ser las siguientes:
+ 
+ \begin{itemize}
+ \item{Negocios y marketing}: Análisis de comportamientos en el comprador, detección de comunidades. 
+ \item{TIC}: En este sector los beneficios son muy relevantes y evidentes, como por ejemplo reducir el tiempo de procesamiento de horas e incluso días a unos pocos segundos. 
+ \item{Salud y ciencia}: En este área el BigData ha supuesto una autentica revolución. Disponer de nuevos algoritmos y formas de procesar datos más eficientes y potentes han supuesto la posibilidad de obtener el mapa genético de una persona en concreto a velocidades y costes antes nunca pensados, esto tiene grandes beneficios para la ciencia y la salud de esta persona que podrá incluso prevenir enfermedades futuras. 
+ \end{itemize}
+ 
+Todas estas aplicaciones, tienen como último fin mejorar los procesos de negocio y en ultima medida la vida diaria de las personas de a pie, lo que hace que aún cuando el concepto del Big Data esté aun en sus albores de lo que podrá ser en un futuro sus beneficios pueden notarse desde ya en el día a día de la sociedad. 
+ 
 \pagebreak
 \clearpage
 %---------------------------------------------------
