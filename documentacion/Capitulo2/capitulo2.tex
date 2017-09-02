@@ -7,16 +7,16 @@
 \chapter{Planificación del proyecto}
 
 Una correcta planificación puede suponer el éxito o rotundo fracaso del proyecto en cualquier ámbito o disciplina aplicable. Si esta disciplina es a su vez la ingeniería en cualquiera de sus vertientes, la necesidad de una correcta planificación se acentúa aún más llegando a convertirse en una de las partes cruciales y más importantes del proyecto en sí.
-Si hablamos de ingeniería del software, la planificación tiene tal relevancia que ha derivado en multitud de standards y modelos de planificación unificados y usados por la práctica totalidad de los profesionales que se dedican al desarrollo de software a cualquier escala. Si bien estos modelos no son rígidos y están sujetos a variaciones, es importante seguir una estructuración y correcta organización del proyecto, consiguiendo así que las posteriores versiones sean fácilmente implementables, modificables y que el producto final sea sólido y eficiente.
-En este capítulo haremos un resumen de la planificación del proyecto versando este en los recursos software, humano y hardware empleados así como de la  la planificación temporal seguida con el proyecto.
+
+En este capítulo haremos un resumen de la planificación del proyecto versando este en los recursos software, humano y hardware empleados así como de la  la planificación temporal seguida por el proyecto.
 
 \section{Gestión de recursos}
 
-En esta sección se hará un repaso por los recursos utilizados, siendo estos como vimos en la introducción del capítulo tres categorías bien diferenciadas, recursos de personal, hardware y software los cuales son a su vez los tres pilares clave de un proyecto de ingeniería del software.
+En esta sección se hará un repaso por los recursos utilizados, siendo estos como vimos en la introducción del capítulo tres categorías bien diferenciadas, recursos de personal, hardware y software los cuales son a su vez los tres pilares clave de un proyecto de ingeniería informática, a pesar de que en este caso que nos compete esté más enfocado al ámbito de investigación que al de la diseño y desarrollo de un producto final, como sería el caso de un proyecto íntegro de ingeniería del software.
 
 \subsection{Personal}
 
-El personal del proyecto radica exclusivamente en el autor José Ángel Díaz García, encargado de todas las partes del mismo, bajo la supervisión de los tutores. 
+El personal del proyecto radica exclusivamente en el autor José Ángel Díaz García, encargado de todas las partes del mismo, bajo la supervisión de los tutores del mismo. 
 
 \subsection{Hardware}
 
@@ -39,9 +39,13 @@ El personal del proyecto radica exclusivamente en el autor José Ángel Díaz Garcí
 El software utilizado es en su práctica totalidad software libre, siendo el restante software propietario cuyas licencias vienen incluidas en el sistema operativo de la máquina usada siendo este OS X . El software usado es:
 
 
-\begin{itemize}\item \textbf{TeXShop}: procesador de textos basado en Latex usado para elaborar la documentación del presente proyecto. Web de TeXShop\item \textbf{Scrapy}: Librería de Python que ofrece un \textit{framework} para la creación de \textit{web crawlers}.
+\begin{itemize}
+\item \textbf{TeXShop}: procesador de textos basado en Latex usado para elaborar la documentación del presente proyecto. Web de TeXShop
+\item \textbf{Scrapy}: Librería de Python que ofrece un \textit{framework} para la creación de \textit{web crawlers}.
 \item \textbf{Twitter}: Red social de microblogging. 
-\item \textbf{MongoDB}: Base datos noSQL usada como almacén persistente de los datos
+\item \textbf{MongoDB}: Base datos noSQL usada como almacén persistente de los datos.
+\item \textbf{RStudio}: Entorno de Desarrollo en R donde se ha realizado la mayor parte del proceso del proyecto. 
+\item \textbf{RSpark}: Librería para R que ofrece grandes ventajas a la hora de procesar grandes cantidades de datos bajo este lenguaje de programación. 
 \end{itemize}
 
 
@@ -57,6 +61,8 @@ La parte más importante de esta sección radica en la planificación temporal segu
  \item Selección de herramientas: Una vez fijado Twitter como medio objetivo, se llevó a cabo una investigación sobre las herramientas más oportunas para la obtención de los tuits de la red social. Esta etapa tomo lugar entre final de junio y principio de julio de 2017. 
  
 \item Obtención del dataset: Para poder comenzar a hacer pruebas y desarrollar el sistema basado en reglas, una vez elegida la herramienta, (Scrapy), se comenzó a obtener datos de la red social durante unos días ininterrumpidamente para tener un conjunto de entrenamiento suficiente. Esta tarea tomo lugar a mediados de julio de 2017. 
+
+\item Carga y preprocesado de los datos: Una vez obtenidos los datos y almacenados en MongoDB se hizo necesaria su carga y limpieza, esta tarea no es trivial ya que necesitó de técnicas de procesado del lenguaje natural y aplicaciones de Big Data para poder trabajar con un volumen de datos muy elevado en una máquina estándar como es el caso. Esta tarea fue llevada a cabo entre los meses de julio y agosto de 2017. 
 
 \end{enumerate}
 
