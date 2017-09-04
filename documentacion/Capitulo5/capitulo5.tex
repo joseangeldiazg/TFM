@@ -55,7 +55,7 @@ Es por tanto evidente, la relación entre un tuit y una opinión, poniendo al desc
 \end{figure}
 
 \subsection{Twitter API}
-
+\label{api}
 Twitter abrió sus datos al mundo al hacer disponible una serie de APIs mediante las cuales se permite a terceros tanto la obtención de estos datos para su estudio como la implementación de software que trabaje sobre estos datos. Estas APIs necesitan del protocolo de seguridad y autenticación OAuth, además ofrecen ciertas limitaciones a la hora de obtener los datos por lo que solo se permiten entre 150 y 300 solicitudes por hora y además hay una ventana temporal cerrará el flujo de información cada 15 minutos. Las APIs disponibles son:
 
 \begin{itemize}
@@ -64,9 +64,22 @@ Twitter abrió sus datos al mundo al hacer disponible una serie de APIs mediante 
 \item \textbf{REST API}: Obtiene los datos mediante HTTP, el formato puede venir en XML, HTML, o JSON, la limitación aquí viene definida por el número de resultados devueltos por página que no puede ser superior a 3200 tweets. 
 \end{itemize}
 
-Como podemos observar, estas limitaciones pueden suponer un gran problema a la hora de obtener una gran cantidad de datos para que nuestro trabajo tenga un cierto rigor y peso, por ello, en el punto siguiente ahondaremos en el proceso seguido y tecnologías usadas para la obtención de un gran volumen de datos a pesar de estas restricciones. 
+Como podemos observar, estas limitaciones pueden suponer un gran problema a la hora de obtener una gran cantidad de datos para que nuestro trabajo tenga un cierto rigor y peso, por ello, en los puntos siguiente ahondaremos en el proceso seguido y tecnologías usadas para la obtención y almacenamiento de un gran volumen de datos a pesar de estas restricciones. 
+
+\section{Persistencia de los datos}
+
+Tras analizar los requisitos de los datos a almacenar y las operaciones que realizaríamos sobre ellos, la opción por la que el proyecto se ha decantado ha sido MongoDB \cite{mongo}. Esta base de datos es de tipo NoSQL y es la más extendida en procesos que van a trabajar con una gran cantidad de datos (Big Data). 
+
+Dado que en nuestro problema no necesitamos una gran consistencia, sino una versatilidad y facilidad a la hora de trabajar con grandes volúmenes de datos, así como una gran facilidad para conectarse a las herramientas que veremos en el punto anterior, nos hemos decantado por este sistema de base de datos. 
 
 \section{Obtención de datos}
+\label{obtenciondatos}
+
+Como hemos visto en el punto \ref{api}, la obtención de los datos mediante la API de Twitter tiene serias restricciones a la hora de permitir peticiones de datos a la misma. Es por esto, que para la obtención de los datos, se usaron y probaron distintas herramientas y librerías disponibles de manera que esta tarea fuera lo más sencilla y eficiente posible. 
+
+\subsection{Tweepy}
+
+Tweepy es una de las librerías más extendidas a la hora 
 
 \section{Especificaciones del dataset}
 
