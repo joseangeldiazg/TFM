@@ -15,11 +15,13 @@ Twitter nace en Estados Unidos en el año 2006, partiendo de la idea de los antig
 
 El crecimiento de la red social en los últimos años ha sido exponencial, hecho que no la ha alejado de tener serios problemas de rentabilidad, pero que confirman su éxito y aceptación por parte del gran público. A principios de 2010 el número de usuarios activos al mes de la misma se fijaba en torno a los 30 millones, número claramente superado en la actualidad donde se estima en torno a los 313 millones de usuarios activos mensuales (Dreamgrow Marketing, 2017).
 
+Recientemente, la red social ha aumentado el número de palabras en cada tuit a 280, lo que en conjunción con nuevas medidas como la facilidad para incluir videos o demás contenido multimedia y lo vistoso de estas publicaciones con un diseño intachable, constatan la salud de la red social. 
+
 \subsection{Funcionamiento}
 
 El funcionamiento de la red social en sí es muy sencillo, en esta podemos acotar un rol muy sencillo, el de \textbf{seguidor} que serán aquellas personas que quieren seguir nuestras publicaciones y de las cuales podremos ser seguidores o no, es decir, puede no es de obligada existencia el carácter bidireccional en una relación de `amistad' dentro de esta red social al igual que existe en otras redes sociales como por ejemplo Facebook. 
 
-Este tipos de relaciones, son muy interesantes y han sido estudiados en la literatura como parte de la teoría de grafos y extendidos a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle entre las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows}?). Por otro lado, si que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
+Este tipos de relaciones, son muy interesantes y han sido estudiados en la literatura como parte de la teoría de grafos y extendidos a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle entre las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows} ). Por otro lado, si que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
 
 \subsection{Anatomía de un tuit}
 \label{anatomia}
@@ -87,9 +89,47 @@ Si nos centramos en la relevancia de esta librería respecto a nuestro proyecto, 
 
 Scrapy \cite{scrapy}, al igual que en el caso anterior, es una librería \textit{open source} para Python que nos permite mediante una framework de desarrollo la creación de \textit{web crawlers}, conocidos como \textit{spiders}. Estos \textit{spiders}, sirven para recorrer la web, acorde a patrones previamente programados, y obtienen datos que pueden ser relevantes para múltiples funciones. 
 
+Utilizando por tanto, esta herramienta y códigos de ejemplo disponibles en las especificaciones de la misma en internet, se modificó un crawler para recorrer la web de Twitter,  en un rango de fechas y lugar especificados. Estos datos, se obtenían de la página de búsqueda de Twitter por lo que permite evitar las restricciones de las API vistas anteriormente. Los pasos realizados por el crawler serían:
+
+\begin{itemize}
+	\item {Definición de parámetros, en nuestro caso fecha y lugar.}
+	\item {El crawler comenzaría a buscar en la web de twitter tuits acorde a nuestros parámetros.}
+	\item {Dado que el html que ofrece esta web es muy fácil de parsear, se construye un objeto con los principales datos del tuit.}
+	\item {Se almacena este objeto en la base de datos MongoDB con la que el programa ha conectado.}
+\end{itemize}
 
 
 \section{Especificaciones del dataset}
+
+Una vez vista la naturaleza de los datos, el método de almacenamiento y  el proceso de obtención de los mismos, es turno de hablar de las especificaciones técnicas del mismo. 
+
+El dataset está formado por un total de 1.697.229 tuits, obtenidos en EEUU, entre los meses de enero y junio de 2016 y que son de habla inglesa. Estos tuits se organizan en un dataframe de R cuyos datos y especificaciones podemos ver en la tabla \ref{tabla-datos}
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Variable} & \textbf{Tipo} & \textbf{Uso}                                     \\ \hline
+ID                & Entero        & Identifica cada tuit en la red social.           \\ \hline
+datetime          & String        & Contiene la fecha y la hora de emisión del tuit. \\ \hline
+has\_media        & Booleano      & Indica si el tuit tiene elementos multimedia.    \\ \hline
+is\_reply         & Booleano      & Indica si el tuit es una respuesta o no.         \\ \hline
+is\_retweet       & Booleano      & Indica si el tuit es un RT  o no.                \\ \hline
+nbr\_retweet      & Entero        & Indica el número de RTs que tiene el tuit.       \\ \hline
+nbr\_favourite    & Entero        & Indica el número de favoritos que tiene el tuit. \\ \hline
+nba\_reply        & Entero        & Indica el número de respuestas del tuit.         \\ \hline
+text              & String        & Es el cuerpo del texto del tuit.                 \\ \hline
+url               & String        & Urls que pueda haber en el tuit.                 \\ \hline
+userid            & Entero        & Es el id del usuario emisor del tuit.            \\ \hline
+usernameTweer     & Srting        & Es el nombre del usuario emisor del tuit         \\ \hline
+\end{tabular}%
+}
+\caption{Especificaciones del dataset}
+\label{tabla-datos}
+\end{table}
+
+Queda constatada la potencia del proceso de obtención de los datos ya que se ha generado un dataset muy rico y que se presta a la utilización del mismo en múltiples problemas que estudiaremos en el capítulo \ref{conclusiones} . Aún así, nuestro dataset se reducirá a un objeto de tipo \textit{\textbf{corpus}} donde nos quedaremos con el texto en cuestión, ya que es la parte más interesante para aplicar técnicas de minería de opiniones. 
 
 \pagebreak
 \clearpage

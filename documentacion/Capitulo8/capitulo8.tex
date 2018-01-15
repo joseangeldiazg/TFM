@@ -17,6 +17,8 @@ Este capítulo cierra el trabajo de varios meses en la materia y se da por finali
 
 Tal y como se habló en la sección \ref{obtenciondatos}, sería interesante la extensión del proyecto a un enfoque en la nube, de manera que se pudiera mantener este en ejecución en máquinas virtuales de algún proveedor de servicios cloud, como puede ser Amazon. Esto, eliminaría las restricciones de las máquinas personales, ya que prescindir de la misma y dejarla ejecutando grandes franjas de tiempo es inviable  y permitirían un análisis más detallado, por ejemplo manteniendo la búsqueda de Tweets en streaming y estos siendo almacenados directamente en otra máquina virtual en la nube con MongoDB a la que podríamos acceder en remoto y analizar los datos eliminando el proceso de carga y sincronización y restringiendo este la configuración inicial de la arquitectura. 
 
+Por otro lado, el dataset generado es muy rico en información y se presta a la ampliación del problema y su enriquecimiento, como por ejemplo, en lugar de eliminar los tuits cuyo valor de \textit{is\_rt} sea igual a \textit{true} estos pueden ser considerados como pesos y darle más valor, ya que en prácticamente la totalidad de los casos un RT implicará que se está de acuerdo con una opinión. Teniendo también los id de tuit y usuario, podría incluso montarse una red de grafos en el que se pudiera ver en el espacio  la red de usuarios formada en torno a una opinión o tendencia. 
+
 \pagebreak
 \clearpage
 %---------------------------------------------------
