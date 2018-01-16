@@ -7,10 +7,10 @@
 \chapter{Carga y pre-procesado de datos}
 \label{limpieza-datos}
 
-En este capítulo veremos las técnicas de tratamiento de datos utilizadas para la limpieza y refinamiento de un dataset que pueda ser usado para procesos posteriores como la visualización, el análisis de sentimientos y la obtención de reglas de asociación. Dado el volumen de los datos, y la naturaleza de los mismos, donde prácticamente cada uno de los 1.7M de tuits contiene algún elemento que hace que sea totalmente distinto de los demás, esta etapa fue una de las que más tiempo requirió. 
+En este capítulo veremos las técnicas de tratamiento de datos utilizadas para la limpieza y refinamiento de un dataset que pueda ser usado para procesos posteriores como la visualización, el análisis de sentimientos y la obtención de reglas de asociación. Dado el volumen de los datos, y la naturaleza de los mismos, donde prácticamente cada uno de los 1.7M de tuits contiene algún elemento que hace que sea totalmente distinto de los demás, esta etapa fue una de las que más tiempo requirió. En la primera parte del capítulo veremos por tanto el proceso y técnicas usados para obtener e integrar los datos en el sistema RStudio mientras que en la parte final del mismo estudiaremos las distintas técnicas de pre-procesado de datos usadas para  obtener un conjunto de datos de calidad de cara a los procesos posteriores. 
 
 \section{Carga de datos}
-
+\label{carga}
 Una vez obtenidos y almacenados los datos en MongoDB, el siguiente paso lógico del problema es pasarlos a RStudio, donde por medio de nuestros scripts comenzaríamos con el tratamiento de los mismos. Es en este punto, donde topamos con el primer problema que nos lleva a un enfoque basado en Big Data del problema dado que ninguna de las herramientas nativas de R ni las conexiones directas de R con MongoDB de paquetes como \textit{rmongodb} pueden manejar el dataset completo para obtener 1.7M  de documentos almacenados en MongoDB y pasar su contenido a un tipo de dato \textit{data-frame} de R. 
 
 La solución, la encontramos en el paquete \textbf{\textit{SparkR}}. Este paquete \cite{sparkr}, crea una sesión distribuida por medio de virtualización (figura \ref{sparkrdis}) en Spark que ofrece funciones de filtrado, agregación y selección entre otras muchas, de manera similar a como se podría hacer con los dataframes nativos de R, con la diferencia de que al ser desde un enfoque distribuido, hace uso de unos objetos denominados, \textit{SparkDataFrames}. Estos objetos, pueden manejar grandes colecciones de datos ya que los distribuyen en columnas, que pueden ser construidas como en nuestro caso con una base de datos noSQL externa, aunque hay otras técnicas viables.
@@ -26,8 +26,70 @@ Una vez obtenidos los datos, en nuestra sesión de Spark en RStudio, debemos pasa
 
 \section{Pre-procesado}
 
+El pre-procesado de datos es una de las tareas más importantes en un proyecto de minería de datos. Podríamos definirlo como aquellas técnicas enmarcadas en ciencia de datos cuya finalidad es la de obtener datos de mayor calidad, más comprensibles, de menor dimensión y que puedan ser tratados apropiadamente por aquellas técnicas de minería de datos o \textit{machine learning} que habría que aplicar después.  La importancia de este proceso viene dada por motivos tales como:
+
+\begin{enumerate}
+\item Los datos en origen pueden ser impuros o de mala calidad, lo que conducirá a malos modelos una vez apliquemos minería de datos. 
+\item El pre-procesado, puede generar un conjunto de datos de dimensiones inferiores al original, con la consiguiente mejora que esto ofrece. 
+\item Al final del proceso de pre-procesado de datos, obtendremos datos de calidad, o al menos, mejores que si no fueran pre-procesados. Por consiguiente, los modelos basados en minería de datos, funcionarán mejor y podrán ser en muchos casos más interpretables. 
+\end{enumerate}
+
+Los procesos de pre-procesado de datos abarcan métodos que van desde la integración de los datos, hasta la reducción de variables u observaciones, pasando por distintos métodos de limpieza como filtrados de ruido, eliminación de palabras vacías o imputación de valores perdidos entre otros. Dado que nuestro problema, podría enmarcarse en minería de textos, las técnicas usadas vienen marcadas distintas técnicas de tratamiento de textos y procesado del lenguaje natural que veremos a continuación.
+
+\subsection{Integración}
+
+Al finalizar la etapa vista en la sección \ref{carga} tendremos datos en forma de DataFrame, o lo que es lo mismo, similares a una tabla. De cara a aplicar técnicas de minería de textos, estamos manteniendo mucha más información (tabla \ref{tabla-datos}) que la necesaria para nuestro análisis del campo \textit{text} de nuestros tuits.  Lo ideal sería una estructura de datos que cumpliera las siguientes premisas:
+
+\begin{itemize}
+	\item Pudiera trabajar de manera eficiente con grandes conjuntos de textos. 
+	\item Mantuviera para cada texto (tuit) metadatos de manejos de cadenas, como longitud, ids.
+\end{itemize}
+
+La solución a estas necesidades reside por tanto en los objetos de tipo \textbf{\textit{Corpus}} del paquete \textbf{tm} \cite{tm} de minería de textos para R. Con simples instrucciones, tendremos integrados todos los tuits en nuestro \textit{corpus} de tal manera, en la que cada tuit es considerado un documento independiente en nuestra colección. 
+
+\subsection{Limpieza}
+\label{limpieza}
+
+El proceso de limpieza, ha sido sencillo ya que son pasos bastante estandarizados en el campo de la minería de textos. En resumen, los distintos procesos de limpieza de textos aplicados han sido:
+
+\begin{enumerate}
+	\item Eliminación de palabras vacías en inglés. A estas se le ha añadido la palabra \textbf{\textit{via}}, que podemos considerar vacía en el ámbito que nos incumbe. 
+	\item Eliminación de enlaces. Dado el alcance del problema, esta tarea ha conllevado la localización de las principales redes sociales que se usan para compartir enlaces en Twittter, tales como Facebook, Youtube, SmartURL, Vine, OwLy o BitLy entre otras varias. El motivo de esta localización has sido la elaboración de expresiones regulares que por medio de funciones se han usado para su eliminación. 
+	\item Eliminación de signos de puntuación y caracteres no alfanuméricos. 
+\end{enumerate}
 
 
+Cabe remarcar que hemos obviado el proceso de \textit{steaming} o lo que es lo mismo, guardar solo las raíces léxicas de cada palabra, debido a que consideramos que se podría perder interpretabilidad de cara a los procesos posteriores de obtención de reglas de asociación.
+
+\subsection{Valores perdidos}
+
+Tras el proceso de limpieza anterior en un volumen tan grande de datos cabe esperar que algún documento (tuit) estuviera formado por tan solo palabras vacías, enlaces o combinaciones de estos, es por ello, que por medio de filtrado básico de R se obtienen aquellos que no contienen ninguna palabra y se elimina del conjunto del dataset para evitar problemas en los procesos posteriores.
+
+\subsection{Selección de instancias}
+
+La selección de instancias trata de obtener un conjunto de datos de dimensión inferior al original de manera que los procesos posteriores de minería puedan manejar mejor estos datos, u obtener información con valor de una manera menos influenciada por el ruido de observaciones no relevantes para el problema en cuestión. 
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{METODO}                        & \textbf{10 TUITS} & \textbf{100 TUITS} & \textbf{1000 TUITS} & \textbf{10000 TUITS} & \textbf{1.7M TUITS}  \\ \hline
+\textit{SECUENCIAL}                    & 47s 148ms         & 8min 23s 756ms     & 1h 21min 29s 29ms   & -                    & -                    \\ \hline
+\textit{PARALELO}                      & 7s 737ms          & 1min 15s 212ms     & 11min 21s 953ms     & 1h 47min 26s 858ms   & -                    \\ \hline
+\textit{LAPPLY}                        & 47s 712ms         & 8min               & 15min 54s 123ms     & -                    & -                    \\ \hline
+\textit{PARALELO CON IFELSE}           & 18s 483ms         & 1min 5s 682ms      & 8min 49s 789ms      & 1h 29min 39s 516ms   & -                    \\ \hline
+\textit{CLUSTER (PARALELO CON IFELSE)} & 1min 55s 682ms    & 1min 54s 453ms     & 2min 57s 810ms      & 20min 15s 324ms      & 1d 5h 0min 31s 836ms \\ \hline
+\end{tabular}%
+}
+\caption{Tiempos de ejecución del proceso NER con distintos métodos}
+\label{tabla-tiempos}
+\end{table}
+
+Al finalizar este proceso, se vuelven a aplicar las técnicas de limpieza vistas en la sección \ref{limpieza} a las que se añade el paso a minúsculas de todo el contenido. Este paso había sido obviado anteriormente para favorecer el proceso de \textit{NER}.
+
+Al final de estos puntos, hemos conseguido reducir nuestro dataset de 1.7M de instancias a 140.718 limpias de caracteres raros o palabras vacías, donde además, todas y cada una de ellas hablan o hacen referencia a personas, por lo que muy seguramente con los procesos posteriores de análisis exploratorio de datos y minería de datos podremos obtener información relevante. 
+ 
 \pagebreak
 \clearpage
 %---------------------------------------------------
