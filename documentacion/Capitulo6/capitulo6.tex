@@ -50,7 +50,7 @@ La solución a estas necesidades reside por tanto en los objetos de tipo \textbf{
 \subsection{Limpieza}
 \label{limpieza}
 
-El proceso de limpieza, ha sido sencillo ya que son pasos bastante estandarizados en el campo de la minería de textos. En resumen, los distintos procesos de limpieza de textos aplicados han sido:
+El proceso de limpieza, ha sido sencillo ya que son pasos bastante estandarizados en el campo de la minería de textos. En resumen, las técnicas aplicadas han sido:
 
 \begin{enumerate}
 	\item Eliminación de palabras vacías en inglés. A estas se le ha añadido la palabra \textbf{\textit{via}}, que podemos considerar vacía en el ámbito que nos incumbe. 
@@ -69,6 +69,47 @@ Tras el proceso de limpieza anterior en un volumen tan grande de datos cabe espe
 
 La selección de instancias trata de obtener un conjunto de datos de dimensión inferior al original de manera que los procesos posteriores de minería puedan manejar mejor estos datos, u obtener información con valor de una manera menos influenciada por el ruido de observaciones no relevantes para el problema en cuestión. 
 
+Dado el gran volumen de datos que manejamos, y la variedad infinita de temáticas posibles que se pudieran estar hablando en Twitter durante los meses de obtención de datos, cabe esperar en la etapa de minería de datos una gran  explosión de itemsets frecuentes y  reglas de asociación, que en la mayoría de los casos no serían relevantes para el estudio de tendencias u opiniones respecto a personas, lo cual es nuestro objetivo. Por ello, parece un paso claro que antes de llegar a etapas superiores del modelo, filtremos y eliminemos aquellos tuits que no hacen referencia a personas. 
+
+Necesitamos por tanto reconocer las entidades presentes en un tuit y esto puede hacerse usando la técnica de \textit{Name Entity Recognition} \cite{ner} , de ahora en adelante NER por sus siglas en inglés.  Propuesto por la Universidad de Stanford, el método está implementado en Java, aunque viene integrado en diversos paquetes para R, por lo que permite de una manera sencilla la obtención de `\textit{entidades nombradas}' en un texto en función del tipo que deseemos buscar, como por ejemplo, personas, lugares, empresas e incluso monedas. El algoritmo usado para este proceso ha sido el siguiente:  
+ 
+ 
+\begin{algorithm}[H]
+\begin{algorithmic} 
+	\ForAll {tuit in tuits}
+		\State $string \gets entidad(tuit)$
+			\If {String distinto de null}
+            			\State $listaNombres \gets string$
+        			\Else
+             			\State $listaNombres \gets idTuit$
+			\EndIf
+	\EndFor			
+ 	\ForAll {elemento en listaNombres}
+  		 \If {elemento.id = tuit.id}
+     			borramos el tuit
+   		\Else
+   			 \State $datasetFinal \gets tuit$
+		\EndIf
+	\EndFor
+\end{algorithmic}  
+\caption{Obtiene los tuits que hacen referencia a personas}	
+\end{algorithm}
+
+
+Este proceso, es un proceso lento, pero fácilmente paralelizable con las herramientas para programación paralela que R ofrece. Concretamente, en este punto se investigó bastante las opciones más rápidas de ejecución y como optimizar el código en R al máximo para obtener buenos resultados. Las configuraciones y pruebas realizadas, cuyos tiempos de ejecución pueden verse la tabla \ref{tabla-tiempos}, fueron las siguientes.
+
+\begin{itemize}
+\item Ejecución secuencial. 
+\item Ejecución en paralelo con 3 núcleos. 
+\item Utilización de la función lapply en lugar de bucles.
+\item Sustitución de los bloques \textit{if-else} por la función \textit{ifelse()} de R.
+\item Sustitución de los bloques \textit{if-else} por la función \textit{ifelse()} de R + Ejecución en paralelo con 3 núcleos. 
+\item Utilización de la función \textit{ifelse()} de R, junto con ejecución paralela en un cluster con 31 núcleos. 
+\end{itemize}
+
+
+Tras la ejecución del proceso \textit{NER}, obtenemos resultados bastante aceptables donde se localizan 140.718 tuits que hacen referencia a personas.  Sobre este conjunto de tuits se vuelven a aplicar un nuevo refinamiento de las técnicas de limpieza vistas en la sección \ref{limpieza}, a las que se añade el \textbf{paso a minúsculas} de todo el contenido. Este paso había sido obviado anteriormente para favorecer el proceso de \textit{NER}.
+
 \begin{table}[]
 \centering
 \resizebox{\textwidth}{!}{%
@@ -76,9 +117,9 @@ La selección de instancias trata de obtener un conjunto de datos de dimensión in
 \hline
 \textbf{METODO}                        & \textbf{10 TUITS} & \textbf{100 TUITS} & \textbf{1000 TUITS} & \textbf{10000 TUITS} & \textbf{1.7M TUITS}  \\ \hline
 \textit{SECUENCIAL}                    & 47s 148ms         & 8min 23s 756ms     & 1h 21min 29s 29ms   & -                    & -                    \\ \hline
-\textit{PARALELO}                      & 7s 737ms          & 1min 15s 212ms     & 11min 21s 953ms     & 1h 47min 26s 858ms   & -                    \\ \hline
+\textit{PARALELO (3 CORES)}                      & 7s 737ms          & 1min 15s 212ms     & 11min 21s 953ms     & 1h 47min 26s 858ms   & -                    \\ \hline
 \textit{LAPPLY}                        & 47s 712ms         & 8min               & 15min 54s 123ms     & -                    & -                    \\ \hline
-\textit{PARALELO CON IFELSE}           & 18s 483ms         & 1min 5s 682ms      & 8min 49s 789ms      & 1h 29min 39s 516ms   & -                    \\ \hline
+\textit{PARALELO (3 CORES) CON IFELSE}           & 18s 483ms         & 1min 5s 682ms      & 8min 49s 789ms      & 1h 29min 39s 516ms   & -                    \\ \hline
 \textit{CLUSTER (PARALELO CON IFELSE)} & 1min 55s 682ms    & 1min 54s 453ms     & 2min 57s 810ms      & 20min 15s 324ms      & 1d 5h 0min 31s 836ms \\ \hline
 \end{tabular}%
 }
@@ -86,9 +127,9 @@ La selección de instancias trata de obtener un conjunto de datos de dimensión in
 \label{tabla-tiempos}
 \end{table}
 
-Al finalizar este proceso, se vuelven a aplicar las técnicas de limpieza vistas en la sección \ref{limpieza} a las que se añade el paso a minúsculas de todo el contenido. Este paso había sido obviado anteriormente para favorecer el proceso de \textit{NER}.
 
-Al final de estos puntos, hemos conseguido reducir nuestro dataset de 1.7M de instancias a 140.718 limpias de caracteres raros o palabras vacías, donde además, todas y cada una de ellas hablan o hacen referencia a personas, por lo que muy seguramente con los procesos posteriores de análisis exploratorio de datos y minería de datos podremos obtener información relevante. 
+
+Como resumen final una vez finalizado el pre-procesado de datos, hemos conseguido reducir nuestro dataset de 1.7M de instancias a 140.718 limpias de caracteres raros o palabras vacías, donde además, todas y cada una de ellas hablan o hacen referencia a personas, por lo que muy seguramente con los procesos posteriores de análisis exploratorio de datos y minería de datos podremos obtener información relevante. 
  
 \pagebreak
 \clearpage
