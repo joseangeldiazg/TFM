@@ -5,21 +5,51 @@
 %---------------------------------------------------
 
 \chapter{Análisis exploratorio de datos}
-\label{limpieza-datos}
+\label{Análisis exploratorio}
 
+El análisis exploratorio de datos o EDA por sus siglas en inglés, se centra en gran medida en indagar en los datos que recibimos de la etapa de pre-procesado para comenzar a obtener información relevante o que pueda ser de utilizad para afinar en procesos posteriores o incluso anteriores. El análisis exploratorio, tiene su mayor aliado en los gráficos, ya que una representación gráfica de los mismos será de gran ayuda para comprender el problema y poder dirigir mejor las demás acciones. 
 
+Este capítulo comienza por tanto en el estudio y visualización de los datos obtenidos en el capítulo \ref{limpieza-datos}, y finalizará con un análisis de sentimiento básico, necesario para posteriores etapas, donde trataremos de obtener los sentimientos asociados a las reglas de asociación que obtendremos en el capítulo \ref{minería}.
 
 \section{Visualización de datos}
 
+Llegados a este punto, sabemos que nuestro dataset está formado por 140.718 tuits que hacen referencia a alguna persona, no tienen caracteres raros o palabras vacías, contienen pocos enlaces y su contenido está en minúsculas. Pero, ¿qué hay del contenido de estos tuits? ¿cómo sabremos si nuestro posterior proceso de minería de datos obtendrá opiniones relevantes sobre personas? La respuesta a estas preguntas reside en los gráficos y su interpretación. 
 
 \section{Análisis de sentimientos}
 
-%\begin{figure}[h]
-%\centering
-%\includegraphics[width=15cm]{./Capitulo5/imagenes/tuit.png}
-%\caption{Ejemplo de un tuit.}
-%\label{tuit}
-%\end{figure}
+Como vimos al comienzo de este capítulo, la motivación para realizar análisis de sentimientos es el tener la posibilidad de polarizar las reglas de asociación que obtendremos en la siguiente etapa en función de los términos que aparezcan en el antecedente o consecuente de las mismas. R ofrece una gran cantidad de paquetes para el análisis de sentimientos, en este trabajo se ha usado concretamente el paquete \textit{\textbf{syuzhet}}, que usa en su capa inferior el coreNLP de la Universidad de Standford \cite{nlp}.
+
+Este paquete, contiene diccionarios muy potentes para la identificación de sentimientos y permite obtener estos por distintas técnicas y algoritmos en función de lo que se pase como argumento a la función \textit{get\_sentiments()}. Otro factor muy interesante del paquete es la posibilidad de obtener gráficos de como evolucionan los sentimientos en un texto, por ejemplo, los personajes de un libro empiezan tristes y acaban felices o viceversa. Dado nuestro problema donde en ningún caso podríamos considerar un tuit, como la continuación del otro, o que exista relación alguna entre ellos, esta funcionalidad carece de uso, y tendremos que fijarnos solo en los conteos de sentimientos y las palabras asociadas a cada uno de ellos. 
+
+\subsection{Distribución de sentimientos en Twitter}
+
+Al igual que hicimos para obtener las frecuencias de las palabras más usadas, obtendremos las frecuencias de los sentimientos para hacernos una idea del sentimiento de los americanos en Twitter en la primera mitad del año 2016. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{./Capitulo7/imagenes/histsent.png}
+\caption{Histograma de los sentimientos.}
+\label{histsent}
+\end{figure}
+
+El histograma realizado puede verse en el gráfico \ref{histsent}, donde parece que  un número muy elevado de tuits hablan de \textbf{veracidad o afirmaciones}. Esto es normal ya que en twitter mucha gente afirma hechos o noticias por lo que era de esperar que este sentimiento fuera el mayoritario. Por otro lado,  vemos que la \textbf{diversión} o el agrado tiene también una gran representación. Del mismo modo ocurre con la \textbf{anticipación}, este último debe ser analizado para ver que términos se asocian con anticipación, ya que es ambiguo. El resto de los sentimientos están mas o menos equilibrados y frente a lo que cabría esperar de encontrarnos una sociedad enfadada o molesta parece que estos sentimientos están por detrás de otros más amables. 
+
+\subsection{Palabras asociadas a los sentimientos}
+
+El punto anterior nos informa del número de sentimientos de cada tipo, muy útil para ver la polaridad o el `estado de ánimo' el pueblo americano durante aquellas fechas, pero de cara a la obtención de que palabras representan que sentimientos, usaremos una nube de palabras, similar a las vistas anteriormente, pero categorizadas por colores en función de los sentimientos. El resultado de este gráfico podemos verlo en la figura \ref{cloudsent}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{./Capitulo7/imagenes/cloudsent.png}
+\caption{Palabras asociadas a los sentimientos.}
+\label{cloudsent}
+\end{figure}
+
+Si entramos en el análisis del mismo, queda bastante más claro los datos con los que estamos trabajando y como se han polarizado los sentimientos. Vemos que trump, suscita sorpresa y que es la palabra más usada dentro de esta categoría. El sentimiento anticipación parece focalizarse en tiempos, y momentos temporales. Además hay cosas interesantes como relacionar \textbf{enfado} con los políticos, los asesinatos o la piratería entre otros casos. 
+
+Un sentimiento muy interesante es el miedo, donde vemos un claro ejemplo de la sociedad americana. Vemos que la policía o el ejercito suscitan miedo, pero también aparece la palabra \textbf{transgenero}, bien sabido es la homofobia del país que tenemos entre manos, por lo que parece que nuestro proceso ha funcionado bastante bien. 
+
+Si paráramos en este punto, en base al conocimiento adquirido, podríamos obtener los temas tratados en Twitter durante aquel período de tiempo, así como categorizar sin ninguna duda cuales eran las personas más influyentes e incluso que políticas o sentimientos se podrían asociar con ellos. Queda constatada la potencia del análisis exploratorio de datos y la importancia de esta etapa en un proyecto de análisis de datos, pero, también cabe preguntarse si aún hay conocimiento de valor implícito en estos datos. El tratar de resolver esta pregunta será lo que abordaremos en el siguiente capítulo, donde desarrolaremos la última etapa de nuestro modelo, la etapa de \textbf{minería de datos}. 
 
 \pagebreak
 \clearpage
