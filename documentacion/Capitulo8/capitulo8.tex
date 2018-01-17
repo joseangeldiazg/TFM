@@ -7,10 +7,29 @@
 \chapter{Minería de datos: Reglas de asociación}
 \label{minería}
 
+En este capítulo nos centramos en la última etapa del modelo que vimos en el gráfico \ref{flujo}, donde por medio de técnicas de minería de datos basadas en el uso de las reglas de asociación trataremos de obtener información implícita en los datos y que sirva bien de apoyo o bien para corroborar, las ideas o premisas que hemos obtenido de nuestro proceso de análisis exploratorio de datos. 
+
+Para la obtención de reglas se usarán dos algoritmos, el \textbf{Apriori} y el \textbf{FP-Growth}, con el fin de poder contrastar información y realizar una comparativa entre los resultados ofrecidos por ambos. Se estudiarán por tanto al inicio de capítulo los detalles de cada uno de los algoritmos.  Al finalizar el capítulo se verán distintas técnicas de visualización de las reglas obtenidas en el proceso experimental, así como la interpretación de las mismas. 
 
 \section{Algoritmo Apriori}
 
+Apriori tiene bastantes factores o limitaciones relacionados con la eficiencia del algoritmo y que pueden afectar en gran medida al proceso de minería de datos que en algunos problemas específicos podría incluso resultar prohibitivo por tiempos o espacio. Algunas de estas limitaciones serían:
+
+\begin{enumerate}
+\item Soporte: Umbrales demasiado bajos conllevarán a una explosión del número de itemsets frecuentes lo que está directamente relacionado con una mayor necesidad de memoria y tiempo. 
+\item Número de ítems distintos: Esta limitación, está ligada a la necesidad del algoritmo apriori de almacenar el soporte de cada uno de éstos, lo que puede conllevar problemas de memoria. 
+\item Tamaño de la base de datos: Este punto está ligado, al anterior, pero en lugar de tener en cuenta los ítems individuales se tienen en cuenta el número de transacciones. Apriori al ser exhaustivo realiza múltiples pasadas por toda la base de datos por lo que el tiempo de ejecución puede ser muy elevado o incluso no llegar a acabar en varios días o semanas. 
+\item Longitud de las transacciones: Ligado al problema anterior, si las transacciones a su vez están formadas por muchos ítems, almacenar esto en memoria puede llegar a ser privativo e incluso imposible. 
+\end{enumerate}
+
+Estas limitaciones, nos han llevado a el estudio de otro método menos sensible a los requisitos temporales o de espacio, de cara a las posibles ampliaciones del problema a mayores cantidades de datos aún. Este método es el algoritmo FP-Growth y lo estudiaremos en la siguiente sección.
+
+\section{Algoritmo FP-Growth}
+
+
 \section{Proceso experimental y obtención de reglas}
+
+\subsection{Comparativa de rendimiento de ambos algoritmos}
 
 \section{Visualización de reglas}
 
