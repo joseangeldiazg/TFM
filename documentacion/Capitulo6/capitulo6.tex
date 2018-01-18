@@ -66,7 +66,7 @@ Cabe remarcar que hemos obviado el proceso de \textit{steaming} o lo que es lo m
 Tras el proceso de limpieza anterior en un volumen tan grande de datos cabe esperar que algún documento (tuit) estuviera formado por tan solo palabras vacías, enlaces o combinaciones de estos, es por ello, que por medio de filtrado básico de R se obtienen aquellos que no contienen ninguna palabra y se elimina del conjunto del dataset para evitar problemas en los procesos posteriores.
 
 \subsection{Selección de instancias}
-
+\label{seleccion}
 La selección de instancias trata de obtener un conjunto de datos de dimensión inferior al original de manera que los procesos posteriores de minería puedan manejar mejor estos datos, u obtener información con valor de una manera menos influenciada por el ruido de observaciones no relevantes para el problema en cuestión. 
 
 Dado el gran volumen de datos que manejamos, y la variedad infinita de temáticas posibles que se pudieran estar hablando en Twitter durante los meses de obtención de datos, cabe esperar en la etapa de minería de datos una gran  explosión de itemsets frecuentes y  reglas de asociación, que en la mayoría de los casos no serían relevantes para el estudio de tendencias u opiniones respecto a personas, lo cual es nuestro objetivo. Por ello, parece un paso claro que antes de llegar a etapas superiores del modelo, filtremos y eliminemos aquellos tuits que no hacen referencia a personas. 

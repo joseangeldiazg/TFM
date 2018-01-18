@@ -66,10 +66,37 @@ Una vez acotadas estas palabras, nuestro problema se ha reducido a una matriz de
 
 \subsection{Visualización}
 
-Al reducir el problema, podemos comenzar a realizar gráficos para obtener información relevante, para ello, nos basaremos en dos de los gráficos más extendidos en minería de textos, las nubes de palabras y los gráficos de frecuencia o histogramas. 
+Al reducir el problema, podemos comenzar a realizar gráficos para obtener información relevante. Para ello, nos basaremos en dos de los gráficos más extendidos en minería de textos, las nubes de palabras y los gráficos de frecuencia o histogramas.
 
+La nube de palabras parece una buena representación para hacernos una idea de que se hablaba en Twitter durante aquellos meses por lo que comenzaremos con esta representación, acotando las palabras a las que aparecen por lo menos en 300 tuits. El resultado de este gráfico puede verse en la figura \ref{300}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{./Capitulo7/imagenes/300.png}
+\caption{Nube de palabras con 300 ocurrencias mínimo.}
+\label{300}
+\end{figure}
+
+En este gráfico comenzamos a ver patrones interesantes, como por ejemplo los nombres propios de \textbf{Trump, Clinton, Obama, Drake, Simmons o Hillary}, entre otros, por lo que parece que el proceso NER descrito en la sección \ref{seleccion} ha funcionado correctamente. Por otro lado, la premisa de los objetivos del proyecto de obtener tendencias y opiniones sobre personas desde un enfoque no dirigido, está comenzando a cumplirse. 
+
+Destacar la importancia en el proceso, de la aparición de estos nombres propios como frecuentes, pudiendo ya catalogarlos a los mismos de influencers, al menos, en este período de tiempo, que tras una investigacion corresponde con la campaña electoral en EEUU. Debido a este evento político y social, a partir de ahora cabrá esperar temas políticos y opiniones sobre los mismos en nuestro proceso de minería de datos. 
+
+Para finalizar este punto, se realizó un histograma para ver cuales eran las palabras más frecuentes. El fin de este es obtener y entender posibles tendencias en Twitter en esta época, que como hemos averiguado corresponde a las elecciones presidenciales. El punto de corte para el gráfico lo situaremos en palabras con al menos 1700 ocurrencias, es decir, haremos un estudio de las tendencias más acentuadas en esta época. 
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=12cm]{./Capitulo7/imagenes/1700.png}
+\caption{Palabras más frecuentes con al menos 1700 ocurrencias.}
+\label{1700}
+\end{figure}
+
+
+Si estudiamos en detalle el gráfico \ref{1700} vemos como la tendencia en Twitter era hablar de \textit{Trump, Clinton u Obama}, por lo que podremos centrar nuestros esfuerzos en el área política donde seguro obtendremos resultados e información relevante. Cabe también destacar, la presencia de nombres propios como, \textbf{donald}, que casi con probabilidad representará el nombre de pila del actual presidente de EEUU. Este factor es clave, ya que si minamos reglas de asociación, estas tendrán más fuerza y funcionarán mejor y eliminarán ruido, si pudiéramos relacionar o fusionar términos como \textbf{donald}, en un solo nombre propio del tipo \textbf{donald-trump} o \textbf{hillary-clinton}. Para  realizar esto, nos basaremos en un estudio basado en \textit{bi-grams}. 
 
 \subsection{N-gramas}
+
+
 
 \section{Análisis de sentimientos}
 
