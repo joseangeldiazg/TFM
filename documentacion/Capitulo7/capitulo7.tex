@@ -15,6 +15,36 @@ Este capítulo comienza por tanto en el estudio y visualización de los datos obte
 
 Llegados a este punto, sabemos que nuestro dataset está formado por 140.718 tuits que hacen referencia a alguna persona, no tienen caracteres raros o palabras vacías, contienen pocos enlaces y su contenido está en minúsculas. Pero, ¿qué hay del contenido de estos tuits? ¿cómo sabremos si nuestro posterior proceso de minería de datos obtendrá opiniones relevantes sobre personas? La respuesta a estas preguntas reside en los gráficos y su interpretación. 
 
+Hasta el momento nos hemos dedicado a limpiar y procesar los datos usando técnicas aprobadas por la comunidad en cuanto a minería de textos respecta, pero es a partir de ahora cuando entra en juego el criterio y la técnica del analista de datos para comenzar a obtener información relevante y refinar los procesos de limpieza sobre los datos del problema en cuestión. 
+
+\subsection{\texttif{Term Document Matrix}}
+
+En el ámbito de un problema de minería de textos, si queremos comenzar a trabajar y representar los datos, dependemos de una estructura de datos denominada \textit{\textbf{Term Document Matrix}}. La idea es poder representar el número de documentos donde un término aparece, tal y como podemos ver en el ejemplo de la tabla \ref{tdm}, donde tendríamos 5 documentos y  5 términos. 
+
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\textbf{TERMINO \textbackslash DOCUMENTO} & \textbf{DOC1} & \textbf{DOC2} & \textbf{DOC3} & \textbf{DOC4} & \textbf{DOC5} \\ \hline
+\textit{TERMINO1}                         & 0             & 1             & 0             & 0             & 1             \\ \hline
+\textit{TERMINO2}                         & 0             & 0             & 0             & 1             & 0             \\ \hline
+\textit{TERMINO3}                         & 0             & 1             & 0             & 0             & 0             \\ \hline
+\textit{TERMINO4}                         & 1             & 1             & 0             & 0             & 1             \\ \hline
+\textit{TERMINO5}                         & 0             & 1             & 1             & 0             & 0             \\ \hline
+\end{tabular}
+\caption{Ejemplo de matriz de frecuencias. }
+\label{tdm}
+\end{table}
+
+Notar la facilidad de procesado de esta estructura para recuperar por ejemplo, el número de ocurrencias del término 1 (2 ocurrencias) y los documentos en los que aparece (doc2 y doc5). Cabe mencionar la posibilidad de encontrar como variante a esta estructura, otra denominada como \textit{\textbf{Document Term  Matrix}}, donde en la columna inicial tendríamos los documentos y en la fila los términos. 
+
+En nuestro problema, tendremos tantos documentos como tuits tenemos, es decir 140.718 y tantas filas como palabras distintas puedan haberse usado en Twitter,  la variabilidad es tanta y la matriz es tan dispersa que sin procesado previo se hace imposible mantener una matriz tan grande en memoria por lo que es aquí donde el análisis exploratorio y la visualización toman un papel relevante.
+
+\subsection{Reducción del problema basada en EDA}
+
+\subsection{Histogramas}
+
+
 \section{Análisis de sentimientos}
 
 Como vimos al comienzo de este capítulo, la motivación para realizar análisis de sentimientos es el tener la posibilidad de polarizar las reglas de asociación que obtendremos en la siguiente etapa en función de los términos que aparezcan en el antecedente o consecuente de las mismas. R ofrece una gran cantidad de paquetes para el análisis de sentimientos, en este trabajo se ha usado concretamente el paquete \textit{\textbf{syuzhet}}, que usa en su capa inferior el coreNLP de la Universidad de Standford \cite{nlp}.
@@ -49,7 +79,7 @@ Si entramos en el análisis del mismo, queda bastante más claro los datos con los
 
 Un sentimiento muy interesante es el miedo, donde vemos un claro ejemplo de la sociedad americana. Vemos que la policía o el ejercito suscitan miedo, pero también aparece la palabra \textbf{transgenero}, bien sabido es la homofobia del país que tenemos entre manos, por lo que parece que nuestro proceso ha funcionado bastante bien. 
 
-Si paráramos en este punto, en base al conocimiento adquirido, podríamos obtener los temas tratados en Twitter durante aquel período de tiempo, así como categorizar sin ninguna duda cuales eran las personas más influyentes e incluso que políticas o sentimientos se podrían asociar con ellos. Queda constatada la potencia del análisis exploratorio de datos y la importancia de esta etapa en un proyecto de análisis de datos, pero, también cabe preguntarse si aún hay conocimiento de valor implícito en estos datos. El tratar de resolver esta pregunta será lo que abordaremos en el siguiente capítulo, donde desarrolaremos la última etapa de nuestro modelo, la etapa de \textbf{minería de datos}. 
+Si paráramos en este punto, en base al conocimiento adquirido, podríamos obtener los temas tratados en Twitter durante aquel período de tiempo, así como categorizar sin ninguna duda cuales eran las personas más influyentes e incluso que políticas o sentimientos se podrían asociar con ellos. Queda constatada la potencia del análisis exploratorio de datos y la importancia de esta etapa en un proyecto de análisis de datos, pero, también cabe preguntarse si aún hay conocimiento de valor implícito en estos datos. El tratar de resolver esta pregunta será lo que abordaremos en el siguiente capítulo, donde desarrollaremos la última etapa de nuestro modelo, la etapa de \textbf{minería de datos}. 
 
 \pagebreak
 \clearpage
