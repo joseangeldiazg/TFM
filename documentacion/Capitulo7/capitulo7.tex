@@ -11,13 +11,13 @@ El análisis exploratorio de datos o EDA por sus siglas en inglés, se centra en g
 
 Este capítulo comienza por tanto en el estudio y visualización de los datos obtenidos en el capítulo \ref{limpieza-datos}, y finalizará con un análisis de sentimiento básico, necesario para posteriores etapas, donde trataremos de obtener los sentimientos asociados a las reglas de asociación que obtendremos en el capítulo \ref{minería}.
 
-\section{Visualización de datos}
+\section{Proceso exploratorio}
 
 Llegados a este punto, sabemos que nuestro dataset está formado por 140.718 tuits que hacen referencia a alguna persona, no tienen caracteres raros o palabras vacías, contienen pocos enlaces y su contenido está en minúsculas. Pero, ¿qué hay del contenido de estos tuits? ¿cómo sabremos si nuestro posterior proceso de minería de datos obtendrá opiniones relevantes sobre personas? La respuesta a estas preguntas reside en los gráficos y su interpretación. 
 
 Hasta el momento nos hemos dedicado a limpiar y procesar los datos usando técnicas aprobadas por la comunidad en cuanto a minería de textos respecta, pero es a partir de ahora cuando entra en juego el criterio y la técnica del analista de datos para comenzar a obtener información relevante y refinar los procesos de limpieza sobre los datos del problema en cuestión. 
 
-\subsection{\texttif{Term Document Matrix}}
+\subsection{\textit{Term Document Matrix}}
 
 En el ámbito de un problema de minería de textos, si queremos comenzar a trabajar y representar los datos, dependemos de una estructura de datos denominada \textit{\textbf{Term Document Matrix}}. La idea es poder representar el número de documentos donde un término aparece, tal y como podemos ver en el ejemplo de la tabla \ref{tdm}, donde tendríamos 5 documentos y  5 términos. 
 
@@ -25,7 +25,7 @@ En el ámbito de un problema de minería de textos, si queremos comenzar a trabaja
 \centering
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
-\textbf{TERMINO \textbackslash DOCUMENTO} & \textbf{DOC1} & \textbf{DOC2} & \textbf{DOC3} & \textbf{DOC4} & \textbf{DOC5} \\ \hline
+\textbf{TERM \textbackslash DOC} & \textbf{DOC1} & \textbf{DOC2} & \textbf{DOC3} & \textbf{DOC4} & \textbf{DOC5} \\ \hline
 \textit{TERMINO1}                         & 0             & 1             & 0             & 0             & 1             \\ \hline
 \textit{TERMINO2}                         & 0             & 0             & 0             & 1             & 0             \\ \hline
 \textit{TERMINO3}                         & 0             & 1             & 0             & 0             & 0             \\ \hline
@@ -42,8 +42,34 @@ En nuestro problema, tendremos tantos documentos como tuits tenemos, es decir 14
 
 \subsection{Reducción del problema basada en EDA}
 
-\subsection{Histogramas}
+El primer paso lógico para reducir el problema puede estar en acotar palabras raras o que poco valor tendrán en nuestro problema por ser poco comunes y por tanto nunca poder ser parte de una tendencia u opinión recurrente. Consideraremos palabras raras aquellas cuya longitud por ejemplo exceda de 18 caracteres. Para ver que palabras eran estas usamos un gráfico de nube términos, y el resultado puede verse en la figura \ref{raras}. 
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=9cm]{./Capitulo7/imagenes/raras.png}
+\caption{Nube de palabras raras.}
+\label{raras}
+\end{figure}
+
+Parece que nuestro primer paso ha surtido efecto ya que hemos encontrado palabras y uniones de palabras provenientes de \textit{hashtags} que para nada son interesantes en nuestro problema, pero antes de borrarlas cabe la necesidad de estudiar como de frecuentes son estas palabras por lo que usaremos un histograma que contará el número de palabras en función de varios rangos de tamaños de las mismas. El resultado de este histograma podemos verlo en la figura \ref{freqraras}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=9cm]{./Capitulo7/imagenes/freqraras.png}
+\caption{Frecuencia de palabras en función del tamaño.}
+\label{freqraras}
+\end{figure}
+
+Acorde a este último gráfico, vemos como la variabilidad de nuestro problema se centra notablemente en palabras de tamaño [1-10] , lo que podríamos considerar palabras normales, por lo que acotaremos nuestro problema eliminando aquellas palabras un poco por encima de este margen, es decir, nos quedaremos con aquellas en el rango de tamaño [1-13] eliminando las de tamaño 14 y superiores donde encontramos entre otras las que vimos en el gráfico \ref{raras}.
+
+Una vez acotadas estas palabras, nuestro problema se ha reducido a una matriz de 109790x140718, aún imposible de mantener en memoria, pero tal y como hemos mencionado antes, al estar en un problema donde el resultado final es buscar tendencias de opinión, un paso obvio sería cortar este dataset en función de la frecuencia de las palabras ya que una palabra que aparece en Twitter solo 5 o 6 veces nunca podrá ser considerada parte de una tendencia por lo que nuestra \textbf{\textit{term document matrix} } final estará solo compuesta por aquellas palabras que aparezcan más de 20 veces en conjunto de tuits, reduciendo el dominio del problema a una matriz de 7323x140718, fácilmente manejable en memoria y donde por medio de suma y conteos en sus columnas y filas nos permitirán la representación de gráficos para una mejor comprensión del problema. 
+
+\subsection{Visualización}
+
+Al reducir el problema, podemos comenzar a realizar gráficos para obtener información relevante, para ello, nos basaremos en dos de los gráficos más extendidos en minería de textos, las nubes de palabras y los gráficos de frecuencia o histogramas. 
+
+
+\subsection{N-gramas}
 
 \section{Análisis de sentimientos}
 
