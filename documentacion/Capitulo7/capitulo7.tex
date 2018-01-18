@@ -92,11 +92,22 @@ Para finalizar este punto, se realizó un histograma para ver cuales eran las pal
 \end{figure}
 
 
-Si estudiamos en detalle el gráfico \ref{1700} vemos como la tendencia en Twitter era hablar de \textit{Trump, Clinton u Obama}, por lo que podremos centrar nuestros esfuerzos en el área política donde seguro obtendremos resultados e información relevante. Cabe también destacar, la presencia de nombres propios como, \textbf{donald}, que casi con probabilidad representará el nombre de pila del actual presidente de EEUU. Este factor es clave, ya que si minamos reglas de asociación, estas tendrán más fuerza y funcionarán mejor y eliminarán ruido, si pudiéramos relacionar o fusionar términos como \textbf{donald}, en un solo nombre propio del tipo \textbf{donald-trump} o \textbf{hillary-clinton}. Para  realizar esto, nos basaremos en un estudio basado en \textit{bi-grams}. 
+Si estudiamos en detalle el gráfico \ref{1700} vemos como la tendencia en Twitter era hablar de \textbf{Trump, Clinton u Obama}, por lo que podremos centrar nuestros esfuerzos en el área política donde seguro obtendremos resultados e información relevante. Cabe también destacar, la presencia de nombres propios como, \textbf{donald}, que casi con probabilidad representará el nombre de pila del actual presidente de EEUU. Este factor es clave, ya que si minamos reglas de asociación, estas tendrán más fuerza y funcionarán mejor y eliminarán ruido, si pudiéramos relacionar o fusionar términos como \textbf{donald}, en un solo nombre propio del tipo \textbf{donald-trump} o \textbf{hillary-clinton}. Para  realizar esto, nos basaremos en un estudio basado en \textit{bi-gramas}. 
 
 \subsection{N-gramas}
 
+Los n-gramas, son una técnica extendida en minería de textos y recuperación de información, que se basa en la probabilidad de co-ocurrencia. Es decir, dato un término a estudiar los \textbf{n} términos siguientes al mismo para descubrir patrones como en nuestro caso, nombres propios formados por dos palabras. Realizaremos un estudio sobre nuestros tuits basado en \textit{2-gramas}, donde trataremos de comprobar si la premisa de que habrá una gran representación  de nombres compuestos que podremos unir para obtener mejores resultados en la etapa posterior de minería de datos. 
 
+Para obtener  los bi-gramas, primero usamos un \textit{tokenizer} del paquete \textbf{RWeka} \cite{rweka}, tras lo cual, podremos usar normalmente la generación de gráficos de barras para ver cuales son las palabras que aparecen juntas con más frecuencia. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=12cm]{./Capitulo7/imagenes/bigramas.png}
+\caption{2-gramas más frecuentes.}
+\label{bigramas}
+\end{figure}
+
+Acorde al gráfico \ref{bigramas}, podemos corroborar lo esperado de que los bi-gramas más comunes corresponderían a nombres propios, al menos, en gran medida. Debido a esto y para favorecer el siguiente proceso de obtención de reglas de asociación, fusionaremos los nombres propios más comunes de nuestro problema, para que sean tenidos en cuenta como una sola palabra en lugar de dos. 
 
 \section{Análisis de sentimientos}
 
