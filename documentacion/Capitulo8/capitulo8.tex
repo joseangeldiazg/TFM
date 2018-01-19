@@ -51,9 +51,46 @@ Una vez se construye el árbol, utilizando un enfoque recursivo basado en divide 
 
 En función a lo estudiado, es obvio ver que la memoria que ocupa es mucho menor que la generada por Apriori, así como al generar itemsets por medio del principio divide y vencerás, \textbf{FP-Growth} se presta a ser usado en entornos distribuidos como por ejemplo el entorno de Big Data, Apache Spark, aumentando sus prestaciones de manera notable. 
 
-\section{Proceso experimental}
+\section{Comparativa entre algoritmos}
 
-\subsection{Comparativa de rendimiento de ambos algoritmos}
+Antes de entrar a indagar en las reglas obtenidas y su interpretación, se presenta interesante la realización de una comparativa de rendimiento entre los dos algoritmos usados. Para la comparación se han usado tres valores de soporte (0.01, 0.001 y 0.001) y un valor de confianza estático de 0.7. La idea es comprar el comportamiento de los algoritmos y su capacidad para lidiar con un conjunto de reglas que aumenta en función disminuimos el valor del soporte. 
+
+La elección de estos valores de soporte no es trivial ni aleatoria. Su justificación reside en la premisa de que los datos obtenidos representan una muestra aleatoria, por lo que si encontramos reglas con valores de soporte entre el 0.1\% y el 1\% en una `sección' de Twitter de 140000 tuits, y esto lo extrapolamos a la totalidad de Twitter, ese 1\% representaría una cantidad ingente de tuits, que podrían ser considerados como tendencia. 
+
+Los parámetros que estudiaremos son aquellos más ligados al rendimiento, concretamente, el tiempo tomado en obtener las reglas, la memoria ocupada por las mismas y el número de reglas obtenidas. Acorde a estos parámetros los resultados obtenidos pueden verse en la tabla \ref{apriorires} para el algoritmo Apriori, y en la tabla \ref{fpres} para el algoritmo FP-Growth.
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{APRIORI}   & \textbf{0,01 SUPP} & \textbf{0,001 SUPP} & \textbf{0,0001 SUPP} \\ \hline
+\textit{TIEMPO}    & 1s 344ms           & 1s 490ms            & 10s 509ms            \\ \hline
+\textit{MEMORIA}   & 16,7MB             & 18,8MB              & 209MB                \\ \hline
+\textit{Nº REGLAS} & 5                  & 34119               & 2903429              \\ \hline
+\end{tabular}%
+}
+\caption{Resultados para el algoritmo Apriori}
+\label{apriorires}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{FP-GROWTH}   & \textbf{0,01 SUPP} & \textbf{0,001 SUPP} & \textbf{0,0001 SUPP} \\ \hline
+\textit{TIEMPO}    & 6s 883ms           & 5s 992ms            & 3s 333ms             \\ \hline
+\textit{MEMORIA}   & 0,00896MB          & 24,42MB             & 3,5GB                \\ \hline
+\textit{Nº REGLAS} & 20                 & 34231               & 3764562              \\ \hline
+\end{tabular}%
+}
+\caption{Resultados para el algoritmo FP-Growth}
+\label{fpres}
+\end{table}
+
+Si estudiamos los resultados, vemos como la progresión de tiempo es mucho menor en el algoritmo FP-Growth, donde aunque no se muestran en la tabla, incluso hemos llegado a obtener reglas con soportes del orden de 0.000001 en pocos segundos, Apriori, en estos niveles provocaba la caída de R por lo que fueron obviados de los experimentos para tener datos concluyentes de ambos. 
 
 \section{Visualización de reglas}
 
