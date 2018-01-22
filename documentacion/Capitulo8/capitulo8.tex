@@ -52,7 +52,7 @@ Una vez se construye el árbol, utilizando un enfoque recursivo basado en divide 
 En función a lo estudiado, es obvio ver que la memoria que ocupa es mucho menor que la generada por Apriori, así como al generar itemsets por medio del principio divide y vencerás, \textbf{FP-Growth} se presta a ser usado en entornos distribuidos como por ejemplo el entorno de Big Data, Apache Spark, aumentando sus prestaciones de manera notable. 
 
 \section{Comparativa entre algoritmos}
-
+\label{comparativa}
 Antes de entrar a indagar en las reglas obtenidas y su interpretación, se presenta interesante la realización de una comparativa de rendimiento entre los dos algoritmos usados. Para la comparación se han usado tres valores de soporte (0.01, 0.001 y 0.001) y un valor de confianza estático de 0.7. La idea es comprar el comportamiento de los algoritmos y su capacidad para lidiar con un conjunto de reglas que aumenta en función disminuimos el valor del soporte. 
 
 La elección de estos valores de soporte no es trivial ni aleatoria. Su justificación reside en la premisa de que los datos obtenidos representan una muestra aleatoria, por lo que si encontramos reglas con valores de soporte entre el 0.1\% y el 1\% en una `sección' de Twitter de 140000 tuits, y esto lo extrapolamos a la totalidad de Twitter, ese 1\% representaría una cantidad ingente de tuits, que podrían ser considerados como tendencia. 
@@ -90,19 +90,49 @@ Los parámetros que estudiaremos son aquellos más ligados al rendimiento, concret
 \label{fpres}
 \end{table}
 
-Si estudiamos los resultados, vemos como la progresión de tiempo es mucho menor en el algoritmo FP-Growth, donde aunque no se muestran en la tabla, incluso hemos llegado a obtener reglas con soportes del orden de 0.000001 en pocos segundos, Apriori, en estos niveles provocaba la caída de R por lo que fueron obviados de los experimentos para tener datos concluyentes de ambos. 
+Si estudiamos los resultados, vemos como la progresión de tiempo es mucho menor en el algoritmo FP-Growth, donde aunque no se muestran en la tabla, incluso hemos llegado a obtener reglas con soportes del orden de 0.000001 en pocos segundos, Apriori, en estos niveles provocaba la caída de R por lo que fueron obviados de los experimentos para tener datos concluyentes de ambos. Es necesario mencionar, que al tratarse de un enfoque distribuido, el proceso FP-Growth tendrá algunos segundos más en ciertos experimentos debido al tiempo que tarda en distribuir los datos para su posterior computo. 
 
-\section{Visualización de reglas}
+Si nos fijamos en las reglas generadas, FP Growth, obtiene más que Apriori, aunque la progresión es muy similar. En cuanto al uso de memoria, cabe esperar un comportamiento anómalo de R a la hora de obtener los datos de Spark, ya que el tamaño del objeto para almacenar las últimas reglas es de 3,5GB, por lo que podríamos concluir que R no está haciendo una buena gestión de este tipo de datos y consume más memoria de la que debería. De igual modo, queda constatada la potencia del algoritmo FP-Growth para obtener reglas de asociación en grandes bases de datos. 
 
-\section{Interpretación de las reglas}
+\section{Obtención de reglas}
 
+En esta sección vamos a estudiar el proceso de obtención de reglas, así como las interpretaciones de las mismas. Pese a que nuestro proceso de selección de instancias ha conseguido reducir bastante el dataset, como hemos visto anteriormente, este aún puede conllevar a problemas de tiempo u espacio, por tanto, antes de comenzar a obtener reglas de asociación se han obtenido itemsets maximales, y cerrados para poder recuperar las reglas de manera eficiente y sin tantos requisitos de memoria. Para ilustrar la reducción de espacio, en el gráfico \ref{cerrados} podemos ver una comparativa entre los conjuntos generados para cada tipo, sin olvidar que podremos generar las mismas reglas  tanto si usamos los cerrados o maximales, como si usamos los frecuentes, con el consiguiente ahorro si nos decantamos por los primeros. 
 
-%\begin{figure}[h]
-%\centering
-%\includegraphics[width=15cm]{./Capitulo5/imagenes/tuit.png}
-%\caption{Ejemplo de un tuit.}
-%\label{tuit}
-%\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[width=9cm]{./Capitulo8/imagenes/cerrados.png}
+\caption{Proporción de itemsets cerrados, maximales y frecuentes.}
+\label{cerrados}
+\end{figure}
+
+Una vez en este punto usaremos el algoritmo Apriori, ya que ofrece dispone de más funcionalidad implementada en R que el FP-Growth, para obtener e interpretar las mejores reglas. Por los motivos explicados en la sección \ref{comparativa}, usaremos un mínimo soporte de 0.0001 y una confianza de al menos 0.7 para estudiar las reglas, que una vez obtenidas ordenaremos por orden descendente de soporte y confianza para poder estudiar las que el algoritmo considera como mejores. 
+
+En la tabla \ref{reglasmalas} podemos ver algunas de las mejores reglas de asociación obtenidas según los parámetros de soporte y confianza. Estas reglas poco dicen y carecen de interés ninguno para la detección de tendencias sobre personas sino que nos caracterizan las tendencias de aplicaciones y usos de Twitter, como dar like a videos de \textbf{Youtube}, además de desvelarnos algunas páginas web o aplicaciones muy usadas como \textbf{Runtastic}, una aplicación para practicar deporte o \textbf{Transponder Snails} un juego social.
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{ANTECEDENTE}     & \textbf{CONSECUENTE}                   & \textbf{SOPORTE} & \textbf{CONFIANZA} & \textbf{LIFT} \\ \hline
+\textit{\{liked\}}       & \textit{=\textgreater \{youtube\}}     & 0.010410893      & 0.9071207          & 39.00037      \\ \hline
+\textit{\{liked,video\}} & \textit{=\textgreater \{youtube\}}     & 0.010368254      & 0.9979480          & 42.90536      \\ \hline
+\textit{\{snail\}}       & \textit{=\textgreater \{transponder\}} & 0.004789721      & 0.9955687          & 207.85524     \\ \hline
+\textit{\{added\}}       & \textit{=\textgreater \{playlist\}}    & 0.003695334      & 0.8000000          & 192.76438     \\ \hline
+\textit{\{runtastic\}}   & \textit{=\textgreater \{tracking\}}    & 0.0001350218     & 1                  & 4539.29032    \\ \hline
+\end{tabular}%
+}
+\caption{Mejores reglas sin filtrado.}
+\label{reglasmalas}
+\end{table}
+
+Acorde a los resultados, podríamos definir ciertas tendencias en cuanto a la sociedad estudiada como, que practican deporte o usan Youtube para escuchar música frente a otros medios. Aún así, estos resultados no son buenos y si queremos obtener información y tendencias sobre personas se ve necesario un proceso de filtrado de las reglas por consecuentes o antecedentes que puedan resultar interesantes. Nos centraremos por tanto en aquellas que contengan nombres que nuestro proceso de análisis exploratorio nos desveló como relevantes. 
+
+\subsection{Filtrado de reglas}
+
+\subsection{Visualización de reglas}
+
+\subsection{Interpretación de las reglas}
 
 \pagebreak
 \clearpage
