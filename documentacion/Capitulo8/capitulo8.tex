@@ -137,6 +137,52 @@ Para la obtención de mejores resultados, filtraremos las reglas por el consecuen
 
 \subsection{Interpretación jerárquica basada en sentimientos}
 
+Las reglas de asociación pueden estudiarse e interpretarse desde un punto de vista jerárquico, es decir, en el ejemplo de cesta de la compra, la regla \textit{\{Manzanas, platanos\} => \{Yogurt\}} podría sustituirse por \textit{\{Fruta\} => \{Yogurt\}}. Esto nos permite un grado mayor de abstracción sobre los datos interesante de cara a obtener nueva información relevante. Dado que gracias a nuestro análisis de sentimientos tenemos polarizadas cada una de las palabras presentes en el dominio de nuestro problema vamos jerarquizar estas reglas en función de los sentimientos que representan a cada palabra. Para ello, filtraremos los tuits que hacen referencia a los personajes que venimos estudiando en esta sección y cambiaremos las palabras de estos tuits por el sentimiento mayoritario asociado a cada una de ellas. Posteriormente, se vuelve a obtener las reglas de asociación sobre este conjunto de datos. Los resultados para \textbf{Donald Trump} pueden verse en la tabla \ref{jertrump} mientras que los resultados obtenidos para \textbf{Hillary Clinton} podemos verlos en la tabla \ref{jerhillary}.
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{ANTECEDENTE}      & \textbf{CONSECUENTE}                    & \textbf{SOPORTE} & \textbf{CONFIANZA} & \textbf{LIFT} \\ \hline
+\textit{\{trust\}}        & \textit{=\textgreater \{donald-trump\}} & 0.94592745       & 1                  & 1             \\ \hline
+\textit{\{anticipation\}} & \textit{=\textgreater \{donald-trump\}} & 0.59411362       & 1                  & 1             \\ \hline
+\textit{\{surprise\}}     & \textit{=\textgreater \{donald-trump\}} & 0.42505133       & 1                  & 1             \\ \hline
+\textit{\{anger\}}        & \textit{=\textgreater \{donald-trump\}} & 0.34565366       & 1                  & 1             \\ \hline
+\textit{\{fear\}}         & \textit{=\textgreater \{donald-trump\}} & 0.29500342       & 1                  & 1             \\ \hline
+\textit{\{joy\}}          & \textit{=\textgreater \{donald-trump\}} & 0.22655715       & 1                  & 1             \\ \hline
+\textit{\{disgust\}}      & \textit{=\textgreater \{donald-trump\}} & 0.11293634       & 1                  & 1             \\ \hline
+\textit{\{sadness\}}      & \textit{=\textgreater \{donald-trump\}} & 0.07460643       & 1                  & 1             \\ \hline
+\end{tabular}%
+}
+\caption{Reglas jerárquicas por sentimientos sobre Donald Trump}
+\label{jertrump}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{ANTECEDENTE} & \textbf{CONSECUENTE} & \textbf{SOPORTE} & \textbf{CONFIANZA} & \textbf{LIFT} \\ \hline
+\textit{\{trust\}} & \textit{=\textgreater \{hillary-clinton\}} & 0.93968872 & 1 & 1 \\ \hline
+\textit{\{anger\}} & \textit{=\textgreater \{hillary-clinton\}} & 0.49221790 & 1 & 1 \\ \hline
+\textit{\{anticipation\}} & \textit{=\textgreater  \{hillary-clinton\}} & 0.48638132 & 1 & 1 \\ \hline
+\textit{\{fear\}} & \textit{=\textgreater \{hillary-clinton\}} & 0.29961089 & 1 & 1 \\ \hline
+\textit{\{surprise\}} & \textit{=\textgreater \{hillary-clinton\}} & 0.20038911 & 1 & 1 \\ \hline
+\textit{\{joy\}} & \textit{=\textgreater \{hillary-clinton\}} & 0.14591440 & 1 & 1 \\ \hline
+\textit{\{sadness\}} & \textit{=\textgreater \{hillary-clinton\}} & 0.07976654 & 1 & 1 \\ \hline
+\textit{\{disgust\}} & \textit{=\textgreater \{hillary-clinton\}} & 0.07782101 & 1 & 1 \\ \hline
+\end{tabular}%
+}
+\caption{Reglas jerárquicas por sentimientos sobre Hillary Clinton}
+\label{jerhillary}
+\end{table}
+
+Lo primero que resulta interesante de las reglas obtenidas, es que sin buscarlo hemos elaborado un ranking de los sentimientos que identifican a cada una de las personas estudiadas. Lo primero que sale a la vista y que podríamos concluir es que en Twitter se han emitido más tuits de apoyo y respaldo contra ambos candidatos que de otro tipo de sentimiento, esto podemos verlo ya que el sentimiento de certeza está presente en casi el 95\% de los tuits que hablan de ellos. 
+Una interpretación muy interesante es la que podemos hacer del sentimiento \textbf{anger}, donde vemos como el 50\% de los tuits que hablan de Hillary Clinton, tienen a su vez relacionados este sentimiento, por contra, Trump, tiene un 20\% menos de este sentimiento, por lo que parece que la sociedad americana a pesar de lo que parecía estaba más en contra o enfadados con  Hillary Clinton que con Trump, algo que posteriormente se vio confirmado con la victoria de la candidatura del candidato republicano. También cabe destacar el sentimiento de sorpresa en Donald Trump, ya que es mundialmente conocido sus arrebatos en redes sociales y políticas por lo que era de esperar que este sentimiento tuviera gran relevancia en los tuits que hablan del actual presidente de los Estados Unidos de América. 
+
 \pagebreak
 \clearpage
 %---------------------------------------------------
