@@ -165,7 +165,7 @@ El gráfico anterior es útil para ver que tipo de reglas hemos generado, pero ser
 \label{reglastrump}
 \end{table}
 
-Fijándonos en la anterior tabla, las tres primeras reglas han sido seleccionadas para su análisis en grupo dado que hay bastantes más reglas que hablan de lo mismo. Podemos constatar una tendencia clara en cuanto a las políticas de Trump con las personas transgénero y su posibilidad de servir en el ejercito de los Estados Unidos. Concretamente la regla \textit{\{ bans,serving, transgender\} =\textgreater \{donald-trump\}}nos deja entrever que el actual presidente tenia muy claro que prohibiría el servicio de estas personas en el ejercito, algo que ya por 2016 se venía barajando y que fue confirmado en 2017.
+Fijándonos en la anterior tabla, las tres primeras reglas han sido seleccionadas para su análisis en grupo dado que hay bastantes más reglas que hablan de lo mismo. Podemos constatar una tendencia clara en cuanto a las políticas de Trump con las personas transgénero y su posibilidad de servir en el ejercito de los Estados Unidos. Concretamente la regla \textit{\{ bans,serving, transgender\} =\textgreater \{donald-trump\}}nos deja entrever que el actual presidente tenía muy claro que prohibiría el servicio de estas personas en el ejercito, algo que ya por 2016 se venía barajando y que fue confirmado en 2017.
 
 Otra tendencia interesante puede ser marcada por las dos siguientes reglas, \textit{\{ ignored,rape\} =\textgreater \{donald-trump\} } y \textit{\{ child,rape\} =\textgreater \{donald-trump\}}, donde por medio de la minería de datos hemos obtenido una tendencia en Twitter durante la primera mitad del año 2016, donde el por aquel entonces candidato a ocupar la Casa Blanca, se vio involucrado en ciertos escándalos relacionados con violaciones o la no condena de estas.  Por último, encontramos también una regla interesante en \textit{\{ caucus,lead\} =\textgreater \{donald-trump\}}que nos constata el hecho comprobado de que todas las encuestas consideraban a este líder en intención de voto entre las personas de raza caucásica. 
 
@@ -190,6 +190,8 @@ Si atendemos por tanto a la representación de las reglas con nube de términos, h
 
 \subsubsection{Hillary Clinton}
 
+Para \textbf{Hillary Clinton} se han obtenido un total de 93 reglas de asociación. La distribución de las mismas, acorde a sus medidas de bondad puede verse en el gráfico \ref{dishillary}. Atendiendo al mismo, podemos ver como en este caso las reglas se sitúan a lo largo del eje X de manera más uniforme que como lo hacían en el gráfico \ref{distrump}, contando con un buen número de reglas en el borde derecho lo que nos indica buenos valores de soporte en las mismas. A diferencia de lo ocurrido con \textbf{Trump}, aquí casi todas las reglas implican 3 ítems, teniendo muy pocas de orden distinto a 3. 
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=13cm]{./Capitulo8/imagenes/dishillary.png}
@@ -197,12 +199,8 @@ Si atendemos por tanto a la representación de las reglas con nube de términos, h
 \label{dishillary}
 \end{figure}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=11cm]{./Capitulo8/imagenes/cloudhillary.png}
-\caption{Nube de palabras de las reglas para Hillary Clinton.}
-\label{cloudhillary}
-\end{figure}
+
+Una vez definido el conjunto de reglas generado, estudiaremos manualmente el conjunto de las mismas para obtener información relevante sobre \textbf{Hillary Clinton} al igual que hicimos con \textbf{Trump}. Tras este análisis manual, realizaremos de nuevo un gráfico de nube de palabras para tratar de corroborar las tendencias halladas manualmente e incluso localizar alguna nueva que se pudiera haber pasado a nuestro proceso de interpretación de reglas.  Una vez estudiadas las mismas, podríamos acotar las reglas de la tabla \ref{reglashillary} como las más interesantes. 
 
 \begin{table}[]
 \centering
@@ -225,6 +223,22 @@ Si atendemos por tanto a la representación de las reglas con nube de términos, h
 \label{reglashillary}
 \end{table}
 
+Si realizamos un enfoque de interpretación por grupos, podríamos definir claramente tres tendencias u grupos de opiniones en los tuits relacionados con \textbf{Hillary Clinton} :
+
+\begin{enumerate}
+\item El compromiso del mundo del espectáculo con su candidatura: Las tres primeras reglas de la tabla, \textit{\{ better,vote\} =\textgreater \{hillary-clinton\}} , \textit{\{ musician,squad\} =\textgreater \{hillary-clinton\}} y \textit{\{ musician,support\} =\textgreater \{hillary-clinton\}}, hacen referencia al apoyo recibido por la candidata por parte de grandes estrellas del mundo del espectáculo que no tardaron en salir a defender su candidatura a la presidencia en grandes eventos públicos.  
+\item La carrera con su competidor demócrata Bernie Sanders: Esta tendencia era clara, y es que antes de comenzar a analizar las reglas sabríamos que estas aparecerían ya que nuestro proceso de EDA desvelo a Bernie Sanders como uno de los nombres más usados en Twitter en aquel período de tiempo. Las reglas \textit{\{ bernie-sanders,vs\} =\textgreater \{hillary-clinton\}} , \textit{\{ bernie-sanders,better\} =\textgreater \{hillary-clinton\}} y \textit{\{ bernie-sanders,race\} =\textgreater \{hillary-clinton\}}, constatan por tanto la tendencia en Twitter a discutir sobre quien de los dos merecía más el puesto de candidato  y sus políticas asociadas. 
+\item El escándalo de los mails: Las tres últimas reglas, \textit{\{ emails,republicans\} =\textgreater \{ hillary-clinton \}} , \textit{\{ attack,republicans\} =\textgreater \{hillary-clinton\}} y \textit{\{attack,emails\} =\textgreater \{hillary-clinton\}}, hacen referencia a los mails filtrados de Hillary Clinton y al uso como ataque que los republicanos hicieron de los mismos. 
+\end{enumerate}
+
+Por último, corroboraremos nuestros resultados con la nube de palabras, donde podremos ahondar de manera sencilla en otras tendencias que \textit{apriori} podamos no haber tenido en cuenta. El gráfico elaborado puede verse en la figura \ref{cloudhillary} y en este caso constatamos la totalidad de las conclusiones obtenidas anteriormente, donde destacamos la importancia de la relación entre las opiniones de Bernie Sanders y la propia Hillary Clinton. Por otro lado, volvemos a ver Iowa, algo que ya cabría esperar desde el momento en que estudiamos la nube de términos de las reglas de \textbf{Trump}, ya que al ser un estado disputado entre ambos candidatos, las reglas relacioandas serán bidireccionales.  
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=11cm]{./Capitulo8/imagenes/cloudhillary.png}
+\caption{Nube de palabras de las reglas para Hillary Clinton.}
+\label{cloudhillary}
+\end{figure}
 
 \subsection{Interpretación jerárquica basada en sentimientos}
 
