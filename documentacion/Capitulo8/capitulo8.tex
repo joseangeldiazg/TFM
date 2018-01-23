@@ -132,7 +132,98 @@ Acorde a los resultados, podríamos definir ciertas tendencias en cuanto a la soc
 
 Para la obtención de mejores resultados, filtraremos las reglas por el consecuente o antecedente en función de nombres propios que hemos obtenido de nuestro proceso de análisis exploratorio de datos. Dado que  el período de tiempo en el que nos centramos coincide con la campaña electoral de EEUU, nos hemos decantado por obtener las reglas generadas con consecuente igual a \textbf{donald-trump} o \textbf{hillary-clinton}. Sería imposible realizar un estudio acorde para un proyecto de estas características de todas las reglas generadas para nombres propios en Twitter en este período, por ello se han cogido estas dos a modo de ejemplo, pero es necesario señalar que el mismo estudio se podría aplicar sobre otros nombres, que no tendrían ni porque pertenecer al mundo de la política. 
 
-\subsection{Visualización de reglas}
+Por tanto, filtraremos las reglas donde el consecuente es \textbf{donald-trump} o \textbf{hillary-clinton} y eliminaremos las reglas redundantes. Al finalizar este proceso, tendremos set de 156 reglas para Donald Trump y un set de 93 reglas para Hillary Clinton. Dado el número de estas, en las siguientes sub-secciones estudiaremos, visualizaremos e interpretaremos algunas de las más interesantes  que el proceso ha obtenido. 
+
+\subsubsection{Donald Trump}
+
+Como hemos mencionado anteriormente, para Donald Trump se ha generado un set de 156 reglas cuya distribución en función de soporte, confianza y número de ítems en la regla puede verse en el gráfico \ref{distrump}. Atendiendo a este gráfico, podemos ver como la práctica totalidad de las reglas se sitúan en la parte izquierda lo que nos indica que los valores de soporte son más bien bajos aunque aceptables en función de la cantidad de datos con los que está formada la muestra. Por otro lado la confianza se distribuye normalmente y  la práctica totalidad de las reglas están formadas por tres o cuatro ítems. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm]{./Capitulo8/imagenes/distrump.png}
+\caption{Distribución de reglas para Donald Trump.}
+\label{distrump}
+\end{figure}
+
+El gráfico anterior es útil para ver que tipo de reglas hemos generado, pero será necesario estudiar estas reglas de manera manual y discernir sobre su importancia o no en el objetivo buscado de obtención de tendencias. Tras su estudio, algunas reglas interesantes obtenidas sobre Donald Trump pueden ser las que vemos en la tabla \ref{reglastrump}.
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{ANTECEDENTE} & \textbf{CONSECUENTE} & \textbf{SOPORTE} & \textbf{CONFIANZA} & \textbf{LIFT} \\ \hline
+\textit{\{military,people,transgender\}} & \textit{=\textgreater \{donald-trump\}} & 3.553206e-04 & 0.7142857 & 68.79730 \\ \hline
+\textit{\{military,serve,transgender\}} & \textit{=\textgreater \{donald-trump\}} & 1.918731e-04 & 0.7941176 & 76.48641 \\ \hline
+\textit{\{bans,serving, transgender\}} & \textit{=\textgreater \{donald-trump\}} & 8.527694e-05 & 0.9230769 & 88.90728 \\ \hline
+\textit{\{ignored,rape\}} & \textit{=\textgreater \{donald-trump\}} & 9.948976e-05 & 1 & 96.31622 \\ \hline
+\textit{\{child,rape\}} & \textit{=\textgreater \{donald-trump\}} & 9.948976e-05 & 0.9333333 & 89.89514 \\ \hline
+\textit{\{caucus,lead\}} & \textit{=\textgreater \{donald-trump\}} & 8.527694e-05 & 0.8571429 & 82.55676 \\ \hline
+\end{tabular}%
+}
+\caption{Reglas interesantes sobre Donald Trump.}
+\label{reglastrump}
+\end{table}
+
+Fijándonos en la anterior tabla, las tres primeras reglas han sido seleccionadas para su análisis en grupo dado que hay bastantes más reglas que hablan de lo mismo. Podemos constatar una tendencia clara en cuanto a las políticas de Trump con las personas transgénero y su posibilidad de servir en el ejercito de los Estados Unidos. Concretamente la regla \textit{\{ bans,serving, transgender\} =\textgreater \{donald-trump\}}nos deja entrever que el actual presidente tenia muy claro que prohibiría el servicio de estas personas en el ejercito, algo que ya por 2016 se venía barajando y que fue confirmado en 2017.
+
+Otra tendencia interesante puede ser marcada por las dos siguientes reglas, \textit{\{ ignored,rape\} =\textgreater \{donald-trump\} } y \textit{\{ child,rape\} =\textgreater \{donald-trump\}}, donde por medio de la minería de datos hemos obtenido una tendencia en Twitter durante la primera mitad del año 2016, donde el por aquel entonces candidato a ocupar la Casa Blanca, se vio involucrado en ciertos escándalos relacionados con violaciones o la no condena de estas.  Por último, encontramos también una regla interesante en \textit{\{ caucus,lead\} =\textgreater \{donald-trump\}}que nos constata el hecho comprobado de que todas las encuestas consideraban a este líder en intención de voto entre las personas de raza caucásica. 
+
+Aunque su estudio manual es necesario puede llegar a ser tedioso. Por ello, resulta interesante disponer de medios de visualización que nos ayuden a hacernos una idea a grandes rasgos de las reglas generadas, más aún si el conjunto de las mismas es de gran tamaño. Para conseguir este objetivo está muy extendido el tipo de gráficos como el que podemos ver en la figura \ref{burbujas}, aunque tras su estudio y aplicación en nuestro problema, tal y como podemos ver este no es muy revelador. Por este motivo y dado que tratamos de representar y obtener tendencias en Twitter, en la figura \ref{cloudtrump} se ha obtenido una representación en forma de nube de palabras, que representa en función del tamaño las palabras más usadas en los antecedentes de las reglas que tienen como consecuente nuestro objetivo, en este caso \textbf{Donald Trump}. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=11cm]{./Capitulo8/imagenes/burbujas.png}
+\caption{Grafo de las reglas para Donald Trump.}
+\label{burbujas}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=11cm]{./Capitulo8/imagenes/cloudtrump.png}
+\caption{Nube de palabras de las reglas para Donald Trump.}
+\label{cloudtrump}
+\end{figure}
+
+Si atendemos por tanto a la representación de las reglas con nube de términos, hasta una persona sin conocimientos sobre la temática podría deducir de que se está hablando en Twitter y cuales son las tendencias en relación con el candidato. Por ejemplo encontramos las palabras \textit{transgender, rape, child } sobre las cuales anteriormente en nuestro proceso manual hemos podido obtener tendencias. También aparece \textit{Iowa} como relevante, una palabra que anteriormente en el proceso manual obviamos y que ahora gracias a este gráfico vemos que es interesante. Si volvemos a localizar manualmente las reglas con este ítem en el antecedente, veremos que este fue un estado decisivo y muy rivalizado durante las elecciones presidenciales, por lo que las encuestas y la opinión pública generaban continuamente información al respecto.  
+
+
+\subsubsection{Hillary Clinton}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm]{./Capitulo8/imagenes/dishillary.png}
+\caption{Distribución de reglas para Hillary Clinton.}
+\label{dishillary}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=11cm]{./Capitulo8/imagenes/cloudhillary.png}
+\caption{Nube de palabras de las reglas para Hillary Clinton.}
+\label{cloudhillary}
+\end{figure}
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{ANTECEDENTE} & \textbf{CONSECUENTE} & \textbf{SOPORTE} & \textbf{CONFIANZA} & \textbf{LIFT} \\ \hline
+\textit{\{better,vote\}} & \textit{=\textgreater \{hillary-clinton\}} & 3.908526e-04 & 0.9016393 & 246.8422 \\ \hline
+\textit{\{musician,squad\}} & \textit{=\textgreater \{hillary-clinton\}} & 3.837462e-04 & 1 & 273.7704 \\ \hline
+\textit{\{musician,support\}} & \textit{=\textgreater \{hillary-clinton\}} & 3.837462e-04 & 1 & 88.90728 \\ \hline
+\textit{\{bernie-sanders,vs\}} & \textit{=\textgreater \{hillary-clinton\}} & 3.837462e-04 & 1 & 273.7704 \\ \hline
+\textit{\{bernie-sanders,better\}} & \textit{=\textgreater \{hillary-clinton\}} & 3.837462e-04 & 0.9473684 & 259.3615 \\ \hline
+\textit{\{bernie-sanders,race\}} & \textit{=\textgreater \{hillary-clinton\}} & 2.202988e-04 & 0.9687500 & 265.2151 \\ \hline
+\textit{\{emails,republicans\}} & \textit{=\textgreater \{hillary-clinton\}} & 1.563411e-04 & 1 & 273.7704 \\ \hline
+\textit{\{attack,emails\}} & \textit{=\textgreater \{hillary-clinton\}} & 1.563411e-04 & 1 & 273.7704 \\ \hline
+\textit{\{attack,republicans\}} & \textit{=\textgreater \{hillary-clinton\}} & 1.563411e-04 & 0.8800000 & 240.9180 \\ \hline
+\end{tabular}%
+}
+\caption{Reglas interesantes sobre Hillary Clinton.}
+\label{reglashillary}
+\end{table}
 
 
 \subsection{Interpretación jerárquica basada en sentimientos}
