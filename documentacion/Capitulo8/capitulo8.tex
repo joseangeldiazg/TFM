@@ -53,7 +53,7 @@ En función a lo estudiado, es obvio ver que la memoria que ocupa es mucho menor 
 
 \section{Comparativa entre algoritmos}
 \label{comparativa}
-Antes de entrar a indagar en las reglas obtenidas y su interpretación, se presenta interesante la realización de una comparativa de rendimiento entre los dos algoritmos usados. Para la comparación se han usado tres valores de soporte (0.01, 0.001 y 0.001) y un valor de confianza estático de 0.7. La idea es comprar el comportamiento de los algoritmos y su capacidad para lidiar con un conjunto de reglas que aumenta en función disminuimos el valor del soporte. 
+Antes de entrar a indagar en las reglas obtenidas y su interpretación, se presenta interesante la realización de una comparativa de rendimiento entre los dos algoritmos usados. Para la comparación se han usado tres valores de soporte (0.01, 0.001 y 0.001) y un valor de confianza estático de 0.7. La idea es comprar el comportamiento de los algoritmos y su capacidad para lidiar con un conjunto de reglas que aumenta en función de como disminuimos el valor del soporte. 
 
 La elección de estos valores de soporte no es trivial ni aleatoria. Su justificación reside en la premisa de que los datos obtenidos representan una muestra aleatoria, por lo que si encontramos reglas con valores de soporte entre el 0.1\% y el 1\% en una `sección' de Twitter de 140000 tuits, y esto lo extrapolamos a la totalidad de Twitter, ese 1\% representaría una cantidad ingente de tuits, que podrían ser considerados como tendencia. 
 
@@ -96,11 +96,11 @@ Si nos fijamos en las reglas generadas, FP Growth, obtiene más que Apriori, aunq
 
 \section{Obtención de reglas}
 
-En esta sección vamos a estudiar el proceso de obtención de reglas, así como las interpretaciones de las mismas. Pese a que nuestro proceso de selección de instancias ha conseguido reducir bastante el dataset, como hemos visto anteriormente, este aún puede conllevar a problemas de tiempo u espacio, por tanto, antes de comenzar a obtener reglas de asociación se han obtenido itemsets maximales, y cerrados para poder recuperar las reglas de manera eficiente y sin tantos requisitos de memoria. Para ilustrar la reducción de espacio, en el gráfico \ref{cerrados} podemos ver una comparativa entre los conjuntos generados para cada tipo, sin olvidar que podremos generar las mismas reglas  tanto si usamos los cerrados o maximales, como si usamos los frecuentes, con el consiguiente ahorro si nos decantamos por los primeros. 
+En esta sección vamos a estudiar el proceso de obtención de reglas, así como las interpretaciones de las mismas. Pese a que nuestro proceso de selección de instancias ha conseguido reducir bastante el dataset, como hemos visto anteriormente, este aún puede conllevar a problemas de tiempo o espacio, por tanto, antes de comenzar a obtener reglas de asociación se han obtenido itemsets maximales, y cerrados para poder recuperar las reglas de manera eficiente y sin tantos requisitos de memoria. Para ilustrar la reducción de espacio, en el gráfico \ref{cerrados} podemos ver una comparativa entre los conjuntos generados para cada tipo, sin olvidar que podremos generar las mismas reglas  tanto si usamos los cerrados o maximales, como si usamos los frecuentes, con el consiguiente ahorro si nos decantamos por los primeros. 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=9cm]{./Capitulo8/imagenes/cerrados.png}
+\includegraphics[width=11cm]{./Capitulo8/imagenes/cerrados.png}
 \caption{Proporción de itemsets cerrados, maximales y frecuentes.}
 \label{cerrados}
 \end{figure}
@@ -136,7 +136,7 @@ Por tanto, filtraremos las reglas donde el consecuente es \textbf{donald-trump} 
 
 \subsubsection{Donald Trump}
 
-Como hemos mencionado anteriormente, para Donald Trump se ha generado un set de 156 reglas cuya distribución en función de soporte, confianza y número de ítems en la regla puede verse en el gráfico \ref{distrump}. Atendiendo a este gráfico, podemos ver como la práctica totalidad de las reglas se sitúan en la parte izquierda lo que nos indica que los valores de soporte son más bien bajos aunque aceptables en función de la cantidad de datos con los que está formada la muestra. Por otro lado la confianza se distribuye normalmente y  la práctica totalidad de las reglas están formadas por tres o cuatro ítems. 
+Como hemos mencionado anteriormente, para \textbf{Donald Trump} se ha generado un set de 156 reglas cuya distribución en función de soporte, confianza y número de ítems en la regla puede verse en el gráfico \ref{distrump}. Atendiendo a este gráfico, podemos ver como la práctica totalidad de las reglas se sitúan en la parte izquierda lo que nos indica que los valores de soporte son más bien bajos aunque aceptables en función de la cantidad de datos con los que está formada la muestra. Por otro lado la confianza se distribuye normalmente y  la práctica totalidad de las reglas están formadas por tres o cuatro ítems. 
 
 \begin{figure}[h]
 \centering
@@ -145,7 +145,7 @@ Como hemos mencionado anteriormente, para Donald Trump se ha generado un set de 
 \label{distrump}
 \end{figure}
 
-El gráfico anterior es útil para ver que tipo de reglas hemos generado, pero será necesario estudiar estas reglas de manera manual y discernir sobre su importancia o no en el objetivo buscado de obtención de tendencias. Tras su estudio, algunas reglas interesantes obtenidas sobre Donald Trump pueden ser las que vemos en la tabla \ref{reglastrump}.
+El gráfico anterior es útil para ver que tipo de reglas hemos generado, pero será necesario estudiar estas reglas de manera manual y discernir sobre su importancia o no en el objetivo buscado de obtención de tendencias. Tras su estudio, algunas reglas interesantes obtenidas sobre \textbf{Donald Trump} pueden ser las que vemos en la tabla \ref{reglastrump}.
 
 \begin{table}[]
 \centering
@@ -165,7 +165,7 @@ El gráfico anterior es útil para ver que tipo de reglas hemos generado, pero ser
 \label{reglastrump}
 \end{table}
 
-Fijándonos en la anterior tabla, las tres primeras reglas han sido seleccionadas para su análisis en grupo dado que hay bastantes más reglas que hablan de lo mismo. Podemos constatar una tendencia clara en cuanto a las políticas de Trump con las personas transgénero y su posibilidad de servir en el ejercito de los Estados Unidos. Concretamente la regla \textit{\{ bans,serving, transgender\} =\textgreater \{donald-trump\}}nos deja entrever que el actual presidente tenía muy claro que prohibiría el servicio de estas personas en el ejercito, algo que ya por 2016 se venía barajando y que fue confirmado en 2017.
+Fijándonos en la anterior tabla, las tres primeras reglas han sido seleccionadas para su análisis en grupo dado que hay bastantes más reglas que hablan de lo mismo. Podemos constatar una tendencia clara en cuanto a las políticas de Trump con las personas transgénero y su posibilidad de servir en el ejercito de los Estados Unidos. Concretamente la regla \textit{\{ bans,serving, transgender\} =\textgreater \{donald-trump\}} nos deja entrever que el actual presidente tenía muy claro que prohibiría el servicio de estas personas en el ejercito, algo que ya por 2016 se venía barajando y que fue confirmado en 2017.
 
 Otra tendencia interesante puede ser marcada por las dos siguientes reglas, \textit{\{ ignored,rape\} =\textgreater \{donald-trump\} } y \textit{\{ child,rape\} =\textgreater \{donald-trump\}}, donde por medio de la minería de datos hemos obtenido una tendencia en Twitter durante la primera mitad del año 2016, donde el por aquel entonces candidato a ocupar la Casa Blanca, se vio involucrado en ciertos escándalos relacionados con violaciones o la no condena de estas.  Por último, encontramos también una regla interesante en \textit{\{ caucus,lead\} =\textgreater \{donald-trump\}}que nos constata el hecho comprobado de que todas las encuestas consideraban a este líder en intención de voto entre las personas de raza caucásica. 
 

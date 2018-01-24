@@ -15,11 +15,11 @@ En este capítulo haremos un resumen de la planificación del proyecto versando es
 En esta sección se hará un repaso por los recursos utilizados, siendo estos como vimos en la introducción del capítulo, tres categorías bien diferenciadas, recursos de personal, hardware y software los cuales son a su vez los tres pilares clave de un proyecto de ingeniería informática, a pesar de que en este caso que nos compete esté más enfocado al ámbito de investigación que al de la diseño y desarrollo de un producto final, como sería el caso de un proyecto íntegro de ingeniería del software.
 
 \subsection{Personal}
-
+\label{personal}
 El personal del proyecto radica exclusivamente en el autor José Ángel Díaz García, encargado de todas las partes del mismo, bajo la supervisión de los tutores. 
 
 \subsection{Hardware}
-
+\label{hardware}
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}{cc} \toprule
@@ -57,7 +57,7 @@ El software utilizado es en su práctica totalidad software libre, siendo el rest
 
 
 \begin{itemize}
-\item \textbf{TeXShop}: procesador de textos basado en Latex usado para elaborar la documentación del presente proyecto. Web de TeXShop
+\item \textbf{TeXShop}: procesador de textos basado en Latex usado para elaborar la documentación del presente proyecto. 
 \item \textbf{Scrapy}: Librería de Python que ofrece un \textit{framework} para la creación de \textit{web crawlers}.
 \item \textbf{Twitter}: Red social de microblogging. 
 \item \textbf{MongoDB}: Base datos noSQL usada como almacén persistente de los datos.
@@ -92,6 +92,54 @@ La parte más importante de esta sección radica en la planificación temporal segu
 \item \textbf{Elaboración de la memoria}: La memoria ha constado de una elaboración continua, ya que continuamente han ido añadiendo y refinando capítulos en función de como se avanzaba en el proceso de desarrollo y experimentación. Los meses que ha comprendido su elaboración, han sido por tanto desde primeros de febrero de 2017 hasta enero de 2018. 
 
 \end{enumerate}
+
+
+\section{Costes}
+
+Tras el análisis de los recursos empleados y la planificación temporal seguida, es menester estimar los costes del proyecto en el supuesto caso de su implantación en una empresa o grupo de investigación. Esta estimación de costes está realizada en función de dos verticales, los gastos de personal y los gastos de ejecución.
+
+\subsubsection{Personal}
+
+Como hemos descrito en la sección \ref{personal} el personal radica en un solo investigador y la dedicación total atendiendo a la carga lectiva del proyecto final de máster, estaría en torno a los 1,5 meses a jornada completa. Teniendo en cuenta una estimación de unos 2000 euros brutos al mes tendríamos un total de 3000 euros en gastos de personal. 
+
+\subsubsection{Ejecución}
+
+En esta categoría encontramos los gastos de adquisición del material inventariable así como los gastos del material fungible. Como inventariable, tenemos los equipos descritos en la tabla \ref{hardware}, es decir, el equipo personal y el cluster de procesado cuyo coste en función del período de amortización (precio por uso dividido entre tiempo de amortización) puede verse en la tabla \ref{costeshardware}.
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{c c c c c} \toprule
+		Unidad & Precio & Periodo Amortización & Duración proyecto & Total \\ \midrule
+		Mac pro 2,6GHz & 1300 & 2 años & 1,5 meses & 81,25 \\
+		Intel Core i5 & & & \\
+		Cluster & 6000 & 6 & 1semana & 30\\ \bottomrule
+		\end{tabular}
+	\end{center}
+\caption{Detalle de costes inventariables.}
+\label{costeshardware}
+\end{table}
+
+Si atendemos a los costes fungibles, es decir, aquellos no inventariables como el material de oficina, podríamos estimarlos en unos 100 euros. 
+
+\subsubsection{Resumen de gastos}
+
+En la tabla \ref{resumen} podemos ver un total de los gastos del proyecto en función a lo descrito en esta sección. 
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{c c } \toprule
+		Gastos elegibles & Total  \\ \midrule
+		Personal & 3000  \\
+		Costes inventariables & 111,25  \\
+		Costes fungibles & 100 \\
+		\textbf{TOTAL} & 3211,25 \\ \bottomrule
+		\end{tabular}
+	\end{center}
+\caption{Resumen final de costes.}
+\label{resumen}
+\end{table}
+
+
 
 \pagebreak
 

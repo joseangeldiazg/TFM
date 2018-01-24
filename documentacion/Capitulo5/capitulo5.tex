@@ -7,7 +7,7 @@
 \chapter{Dataset}
 \label{dataset}
 
-En este capítulo se detalla el conjunto de datos empleado para la elaboración del sistema de minería de opiniones basado en reglas que veremos en capítulos siguientes. Como estos datos provienen de la red social Twitter, se lleva a cabo una pequeña introducción a la misma para continuar con una explicación del proceso llevado a cabo para la obtención del \textit{data set}.
+En este capítulo se detalla el conjunto de datos empleado para la elaboración del sistema de minería de opiniones basado en reglas que veremos en capítulos siguientes. Como estos datos provienen de la red social Twitter, se lleva a cabo una pequeña introducción a la misma para continuar con una explicación del proceso llevado a cabo para la obtención del \textit{dataset}.
 
 \section{Twitter}
 
@@ -19,7 +19,7 @@ Recientemente, la red social ha aumentado el número de palabras en cada tuit a 2
 
 \subsection{Funcionamiento}
 
-El funcionamiento de la red social en sí es muy sencillo, en esta podemos acotar un rol muy sencillo, el de \textbf{seguidor} que serán aquellas personas que quieren seguir nuestras publicaciones y de las cuales podremos ser seguidores o no, es decir, puede no es de obligada existencia el carácter bidireccional en una relación de `amistad' dentro de esta red social al igual que existe en otras redes sociales como por ejemplo Facebook. 
+El funcionamiento de la red social en sí trivial, en esta podemos acotar un rol muy sencillo, el de \textbf{seguidor} que serán aquellas personas que quieren seguir nuestras publicaciones y de las cuales podremos ser seguidores o no, es decir, puede no es de obligada existencia el carácter bidireccional en una relación de `amistad' dentro de esta red social al igual que existe en otras redes sociales como por ejemplo Facebook. 
 
 Este tipos de relaciones, son muy interesantes y han sido estudiados en la literatura como parte de la teoría de grafos y extendidos a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle entre las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows} ). Por otro lado, si que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
 
@@ -83,7 +83,7 @@ Como hemos visto en el punto \ref{api}, la obtención de los datos mediante la AP
 
 Tweepy \cite{tweepy} es una de las librerías de código abierto más extendidas entre la comunidad a la hora de conectar el lenguaje de programación Python con la API de Twitter. Esta librería ofrece distintos métodos y funciones útiles por ejemplo, para el proceso de conexión y autenticación de nuestras aplicaciones con la propia red social, así como también facilita la creación de métodos tanto para obtener datos en streaming (Streaming API) como por búsqueda (Search API).
 
-Si nos centramos en la relevancia de esta librería respecto a nuestro proyecto, podríamos categorizarla como la primera herramienta que barajamos ya que se había visto a lo largo de los estudios de máster, pero rápidamente fue desechada ya que es imposible abolir las restricciones de peticiones a las API de Twitter, lo que hacia muy difícil, sino imposible, obtener una gran cantidad de datos  en un tiempo aceptable.
+Si nos centramos en la relevancia de esta librería respecto a nuestro proyecto, podríamos categorizarla como la primera herramienta que barajamos ya que se había visto a lo largo de los estudios de máster, pero rápidamente fue desechada ya que es imposible abolir las restricciones de peticiones a las API de Twitter, lo que hacía muy difícil, sino imposible, obtener una gran cantidad de datos  en un tiempo aceptable.
 
 \subsection{Scrapy}
 
@@ -93,7 +93,7 @@ Utilizando por tanto, esta herramienta y códigos de ejemplo disponibles en las e
 
 \begin{itemize}
 	\item {Definición de parámetros, en nuestro caso fecha y lugar.}
-	\item {El crawler comenzaría a buscar en la web de twitter tuits acorde a nuestros parámetros.}
+	\item {El crawler comenzaría a buscar en la web de Twitter tuits acorde a nuestros parámetros.}
 	\item {Dado que el html que ofrece esta web es muy fácil de parsear, se construye un objeto con los principales datos del tuit.}
 	\item {Se almacena este objeto en la base de datos MongoDB con la que el programa ha conectado.}
 \end{itemize}

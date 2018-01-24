@@ -11,7 +11,7 @@ En este capítulo veremos las técnicas de tratamiento de datos utilizadas para la
 
 \section{Carga de datos}
 \label{carga}
-Una vez obtenidos y almacenados los datos en MongoDB, el siguiente paso lógico del problema es pasarlos a RStudio, donde por medio de nuestros scripts comenzaríamos con el tratamiento de los mismos. Es en este punto, donde topamos con el primer problema que nos lleva a un enfoque basado en Big Data del problema dado que ninguna de las herramientas nativas de R ni las conexiones directas de R con MongoDB de paquetes como \textit{rmongodb} pueden manejar el dataset completo para obtener 1.7M  de documentos almacenados en MongoDB y pasar su contenido a un tipo de dato \textit{data-frame} de R. 
+Una vez obtenidos y almacenados los datos en MongoDB, el siguiente paso lógico del problema es pasarlos a RStudio, donde por medio de nuestros scripts comenzaríamos con el tratamiento de los mismos. Es en este punto, donde topamos con el primer problema que nos lleva a un enfoque basado en Big Data dado que ninguna de las herramientas nativas de R ni las conexiones directas de R con MongoDB de paquetes como \textit{rmongodb} pueden manejar el dataset completo para obtener 1.7M  de documentos almacenados en MongoDB y pasar su contenido a un tipo de dato \textit{data-frame} de R. 
 
 La solución, la encontramos en el paquete \textbf{\textit{SparkR}}. Este paquete \cite{sparkr}, crea una sesión distribuida por medio de virtualización (figura \ref{sparkrdis}) en Spark que ofrece funciones de filtrado, agregación y selección entre otras muchas, de manera similar a como se podría hacer con los dataframes nativos de R, con la diferencia de que al ser desde un enfoque distribuido, hace uso de unos objetos denominados, \textit{SparkDataFrames}. Estos objetos, pueden manejar grandes colecciones de datos ya que los distribuyen en columnas, que pueden ser construidas como en nuestro caso con una base de datos noSQL externa, aunque hay otras técnicas viables.
 
@@ -34,7 +34,7 @@ El pre-procesado de datos es una de las tareas más importantes en un proyecto de
 \item Al final del proceso de pre-procesado de datos, obtendremos datos de calidad, o al menos, mejores que si no fueran pre-procesados. Por consiguiente, los modelos basados en minería de datos, funcionarán mejor y podrán ser en muchos casos más interpretables. 
 \end{enumerate}
 
-Los procesos de pre-procesado de datos abarcan métodos que van desde la integración de los datos, hasta la reducción de variables u observaciones, pasando por distintos métodos de limpieza como filtrados de ruido, eliminación de palabras vacías o imputación de valores perdidos entre otros. Dado que nuestro problema, podría enmarcarse en minería de textos, las técnicas usadas vienen marcadas distintas técnicas de tratamiento de textos y procesado del lenguaje natural que veremos a continuación.
+Los procesos de pre-procesado de datos abarcan métodos que van desde la integración de los datos, hasta la reducción de variables u observaciones, pasando por distintos métodos de limpieza como filtrados de ruido, eliminación de palabras vacías o imputación de valores perdidos entre otros. Dado que nuestro problema, podría enmarcarse en minería de textos, las técnicas usadas vienen marcadas por distintas técnicas de tratamiento de textos y procesado del lenguaje natural que veremos a continuación.
 
 \subsection{Integración}
 
@@ -54,7 +54,7 @@ El proceso de limpieza, ha sido sencillo ya que son pasos bastante estandarizado
 
 \begin{enumerate}
 	\item Eliminación de palabras vacías en inglés. A estas se le ha añadido la palabra \textbf{\textit{via}}, que podemos considerar vacía en el ámbito que nos incumbe. 
-	\item Eliminación de enlaces. Dado el alcance del problema, esta tarea ha conllevado la localización de las principales redes sociales que se usan para compartir enlaces en Twittter, tales como Facebook, Youtube, SmartURL, Vine, OwLy o BitLy entre otras varias. El motivo de esta localización has sido la elaboración de expresiones regulares que por medio de funciones se han usado para su eliminación. 
+	\item Eliminación de enlaces. Dado el alcance del problema, esta tarea ha conllevado la localización de las principales redes sociales que se usan para compartir enlaces en Twittter, tales como Facebook, Youtube, SmartURL, Vine, OwLy o BitLy entre otras varias. El motivo de esta localización ha sido la elaboración de expresiones regulares con las que por medio de funciones se han eliminado sus ocurrencias.
 	\item Eliminación de signos de puntuación y caracteres no alfanuméricos. 
 \end{enumerate}
 
