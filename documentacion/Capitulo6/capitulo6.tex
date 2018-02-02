@@ -96,12 +96,12 @@ Necesitamos por tanto reconocer las entidades presentes en un tuit y esto puede 
 \end{algorithm}
 
 
-Este proceso, es un proceso lento, pero fácilmente paralelizable con las herramientas para programación paralela que R ofrece. Concretamente, en este punto se investigó bastante las opciones más rápidas de ejecución y como optimizar el código en R al máximo para obtener buenos resultados. Las configuraciones y pruebas realizadas, cuyos tiempos de ejecución pueden verse la tabla \ref{tabla-tiempos}, fueron las siguientes.
+Este proceso, es un proceso lento, pero fácilmente paralelizable con las herramientas para programación paralela que R ofrece. Concretamente, en este punto se investigó bastante las opciones más rápidas de ejecución y cómo optimizar el código en R al máximo para obtener buenos resultados. Las configuraciones y pruebas realizadas, cuyos tiempos de ejecución pueden verse la tabla \ref{tabla-tiempos}, fueron las siguientes.
 
 \begin{itemize}
 \item Ejecución secuencial. 
 \item Ejecución en paralelo con 3 núcleos. 
-\item Utilización de la función lapply en lugar de bucles.
+\item Utilización de la función lapply \footnote{Es una función implementada en C que permite de manera muy eficiente la aplicación de una determinada función a listas y vectores} en lugar de bucles.
 \item Sustitución de los bloques \textit{if-else} por la función \textit{ifelse()} de R.
 \item Sustitución de los bloques \textit{if-else} por la función \textit{ifelse()} de R + Ejecución en paralelo con 3 núcleos. 
 \item Utilización de la función \textit{ifelse()} de R, junto con ejecución paralela en un cluster con 31 núcleos. 

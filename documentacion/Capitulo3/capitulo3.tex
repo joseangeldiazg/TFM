@@ -7,7 +7,7 @@
 \chapter{Marco de trabajo}
 \label{marco}
 
-Antes de comenzar a abordar el estado del arte del análisis de tendencias o \textit{minería de opiniones}, y más concretamente su aplicación en el ámbito de la web 2.0, es necesario introducir algunos conceptos teóricos que nos permitan comprender mejor los conceptos de los trabajos de los que discutiremos capítulo \ref{arte}. Sobre ello, hablaremos en este capítulo.
+Antes de comenzar a abordar el estado del arte del análisis de tendencias o \textit{minería de opiniones}, y más concretamente su aplicación en el ámbito de la web 2.0, es necesario introducir algunos conceptos teóricos que nos permitan comprender mejor los conceptos de los trabajos de los que discutiremos en el capítulo \ref{arte}. Sobre ello, hablaremos en este capítulo.
 
 \section{Minería de medios sociales digitales}
 
@@ -27,9 +27,9 @@ La \textbf{minería de medios sociales}, acorde a  P. Gundecha \cite{liu1}, compr
 
 \section{Minería de opiniones}
 \label{mineriaopiniones}
-La minería de opiniones, conocida en el ámbito internacional como \textit{opinion mining}, es una vertiente al alza dentro de la famosa minería de textos y tiene su raíz por tanto en las técnicas de procesamiento de lenguaje natural. Si analizamos la web o las publicaciones en redes sociales, encontraremos cientos de miles de \textit{reviews} o posts de personas acerca de un producto o marca, el potencial de analizar la finalidad de esta opinión, ver si es una crítica constructiva, si se promueve el producto o si simplemente lo crítica puede suponer una gran ventaja competitiva para las empresas y marcas, por ello, son más las que cada vez usan estas técnicas en sus procesos de vigilancia tecnológica u obtención del \textit{feedback} del consumidor. 
+La minería de opiniones, conocida en el ámbito internacional como \textit{opinion mining}, es una vertiente al alza dentro de la famosa minería de textos y tiene su raíz por tanto en las técnicas de procesamiento de lenguaje natural. Si analizamos la web o las publicaciones en redes sociales, encontraremos cientos de miles de \textit{reviews} o posts de personas acerca de un producto o marca, el potencial de analizar la finalidad de esta opinión, ver si es una critica constructiva, si se promueve el producto o si simplemente lo crítica puede suponer una gran ventaja competitiva para las empresas y marcas, por ello, son más las que cada vez usan estas técnicas en sus procesos de vigilancia tecnológica u obtención del \textit{feedback} del consumidor. 
 
-Como todas las especializaciones o vertientes dentro del área de la minería de textos, en \textit{opinion mining} tratamos por tanto de obtener información relevante y valor a partir de textos, como los que hemos mencionado anteriormente, blogs, tweets o diversas redes sociales, de ahí que sea estudiada dentro del proceso de \textit{social media mining} descrito anteriormente, ya que podríamos decir que una técnica complementa a la otra. Pero, ¿qué es una opinión? Acorde a la definición dada por Liu en \cite{liu}, una opinión es una quíntupla compuesta de los siguientes elementos:
+Como todas las especializaciones o vertientes dentro del área de la minería de textos, en \textit{opinion mining} tratamos por tanto de obtener información relevante y de valor a partir de textos, como los que hemos mencionado anteriormente, blogs, tweets o diversas redes sociales, de ahí que sea estudiada dentro del proceso de \textit{social media mining} descrito anteriormente, ya que podríamos decir que una técnica complementa a la otra. Pero, ¿qué es una opinión? Acorde a la definición dada por Liu en \cite{liu}, una opinión es una quíntupla compuesta de los siguientes elementos:
 
 
 \begin{enumerate}
@@ -44,9 +44,9 @@ Pese a que aún no hemos entrado en el estudio de las redes sociales ni de la \te
 
 La minería de opiniones, se centrará por tanto en obtener de textos que podrán provenir de diferentes fuentes, \textit{aspectos} de opinión, esto difiere  en cierta medida del proceso de \textit{análisis de sentimientos} \cite{diff} \cite{diff2} que se centra desde un enfoque mayormente supervisado en la clasificación de estas entidades textuales acorde a sentimientos u orientación. Analizando estos \textit{aspectos} y sus implicaciones sobre su \textit{entidad} relacionada, podremos obtener por tanto ventajas muy relevantes como por ejemplo saber qué opinan los consumidores de una marca en concreto, posicionar productos u obtener análisis de confianza entre otras muchas aplicaciones. 
 
-En el presente proyecto, obviaremos la rama supervisada, para centrarnos en el enfoque no supervisado dentro del campo de la \textit{minería de opiniones}, en el que no conocemos las clases o \textit{etiquetas} a priori, aunque si que si incluya una cierta polarización básica sobre las opiniones, ya que es información relevante en el conjunto del proceso. Las técnicas de aprendizaje no supervisado que estudiaremos, son el \textit{clustering} y las reglas de asociación, ambas las trataremos en el siguiente punto.
+En el presente proyecto, obviaremos la rama supervisada, para centrarnos en el enfoque no supervisado dentro del campo de la \textit{minería de opiniones}, en el que no conocemos las clases o \textit{etiquetas} a priori, aunque sí que se incluye una cierta polarización básica sobre las opiniones, ya que es información relevante en el conjunto del proceso. Las técnicas de aprendizaje no supervisado que estudiaremos, son el \textit{clustering} y las reglas de asociación, ambas las trataremos en el siguiente punto.
 
-\section{Técnicas}
+\section{Técnicas de aprendizaje no supervisado}
 \label{tecnicas}
 Pese a la gran relación que existe entre las técnicas mencionadas en \ref{contex}, estas difieren en factores tan dispares como su utilización, su aplicación o la información que aportan sobre un problema. El análisis de estos factores nos ayudará a elegir la técnica o el conjunto de técnicas adecuadas para cada problema concreto, es decir, podemos partir de enfoques diferentes que se apoyen y retroalimenten mutuamente. Cabe destacar y diferenciar las  técnicas más relevantes aplicadas a los problemas inherentes al estudio del análisis de tendencias, para así poder comprender mejor los siguientes capítulos y nuestro problema en cuestión. 
 
@@ -58,26 +58,26 @@ Las técnicas de clustering, se basan en la obtención de grupos o clases en funci
 \subsection{Reglas de asociación}
 \label{reglas}
 
-La reglas de asociación dentro del ámbito de la informática no son muy distintas, al menos en el concepto general, de la búsqueda de relaciones en cualquier ámbito. Las reglas de asociación se enmarcan dentro del aprendizaje automático o minería de datos y no es algo nuevo sino que llevan siendo usadas y estudiadas desde mucho tiempo atrás, datando una de las primeras referencias a estas, del año 1993 \cite{agrawal}. Su utilidad es la de obtener conocimiento relevante de grandes bases de datos y se representan según la forma \textbf{X->Y} donde \textbf{X}, es un conjunto de ítems que representa el antecedente e \textbf{Y} un ítem consecuente, por ende, podemos concluir que los ítems \textbf{consecuentes}  guardan una relación de co-ocurrencia con los ítems \textbf{antecedentes}. Esta relación puede ser obvia en algunos casos, pero en otros necesitará del uso de algoritmos de extracción de reglas de asociación que podrán desvelar relaciones no triviales y que puedan ser de mucho valor.  Podremos presentar por tanto a las reglas de asociación, como un método de extracción de relaciones aparentemente ocultas entre ítems o elementos dentro de bases de datos transaccionales, \textit{datawarehouses} u otros tipos de almacenes de datos de los que es interesante extraer información de ayuda en el proceso de toma de decisiones de las organizaciones. 
+La reglas de asociación dentro del ámbito de la informática no son muy distintas, al menos en el concepto general, de la búsqueda de relaciones en cualquier ámbito. Las reglas de asociación se enmarcan dentro del aprendizaje automático o minería de datos y no es algo nuevo sino que llevan siendo usadas y estudiadas desde mucho tiempo atrás, datando una de las primeras referencias a estas, del año 1993 \cite{agrawal}. Su utilidad es la de obtener conocimiento relevante de grandes bases de datos y se representan según la forma \textbf{X->Y} donde \textbf{X}, es un conjunto de ítems que representa el antecedente e \textbf{Y} un ítem o conjunto de ítems consecuente, por ende, podemos concluir que los ítems \textbf{consecuentes}  guardan una relación de co-ocurrencia con los ítems \textbf{antecedentes}. Esta relación puede ser obvia en algunos casos, pero en otros necesitará del uso de algoritmos de extracción de reglas de asociación que podrán desvelar relaciones no triviales y que puedan ser de mucho valor.  Podremos presentar por tanto a las reglas de asociación, como un método de extracción de relaciones aparentemente ocultas entre ítems o elementos dentro de bases de datos transaccionales, \textit{datawarehouses} u otros tipos de almacenes de datos de los que es interesante extraer información de ayuda en el proceso de toma de decisiones de las organizaciones. 
 
 \subsubsection{Medidas}
 
-Las forma clásica de media la bondad o ajuste de las reglas de asociación a un determinado problema, vendrá dada por las medidas del \textbf{soporte} y la \textbf{confianza}, que podremos definir de la siguiente manera:
+La forma clásica de medir la bondad o ajuste de las reglas de asociación a un determinado problema, vendrá dada por las medidas del \textbf{soporte} y la \textbf{confianza}, que podremos definir de la siguiente manera:
 
 \begin{itemize}
-	\item{Soporte}: Se representa como \textit{supp (X->Y)}, y representa la fracción de las transacciones que contiene tanto a X como a Y. 
-	\item{Confianza}: Se representa como \textit{conf (X->Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, junto en las que aparece el ítem X.
+	\item{Soporte}: Se representa como \textit{supp (X->Y)}, y representa la fracción de las transacciones que contiene tanto a X como a Y respecto al total de transacciones. 
+	\item{Confianza}: Se representa como \textit{conf (X->Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, de entre aquellas transacciones donde aparece el ítem X.
 \end{itemize} 
 
-Pese a que estas medidas son las más comunes y extendidas, hay innumerables propuestas de medias complementarias en la literatura, tales como el \textbf{lift, convicción, factor de certeza, diferencia absoluta de confianza} entre otras muchas. 
+Pese a que estas medidas son las más comunes y extendidas, hay innumerables propuestas de medidas complementarias en la literatura, tales como el \textbf{lift, convicción, factor de certeza, diferencia absoluta de confianza} entre otras muchas. 
 
 \subsubsection{Obtención de reglas}
 
-Si nos centramos en la manera de obtener las reglas, estas pueden abordarse desde dos perspectivas, solución por fuerza bruta (prohibitivo) o desde un enfoque basado en dos etapas. La primera de estas etapas es la generación de itemsets frecuentes, a partir de los cuales, en la segunda etapa se obtienen las reglas de asociación, que tendrán si todo ha ido correctamente un valor de confianza aceptable o elevado. La primera etapa de obtención de itemsets frecuentes puede conllevar problemas de memoria ya que en una base de datos con muchos ítems o transacciones el número de estos será muy elevado, es por ello que surgen aproximaciones en el proceso de representación de itemsets frecuentes que nos permitirán obtener estos en bases de datos de gran tamaño. Estas aproximaciones son:
+Si nos centramos en la manera de obtener las reglas, estas pueden abordarse desde dos perspectivas, solución por fuerza bruta (prohibitivo) o desde un enfoque basado en dos etapas. La primera de estas etapas es la generación de itemsets frecuentes, a partir de los cuales, en la segunda etapa se obtienen las reglas de asociación, que tendrán, si todo ha ido correctamente, un valor de confianza aceptable o elevado. La primera etapa de obtención de itemsets frecuentes puede conllevar problemas de memoria ya que en una base de datos con muchos ítems o transacciones el número de estos será muy elevado, es por ello que surgen aproximaciones en el proceso de representación de itemsets frecuentes que nos permitirán obtener estos en bases de datos de gran tamaño. Estas aproximaciones son:
 
 \begin{itemize}
 \item Itemsets maximales: Son aquellos itemsets frecuentes para los que ninguno de los superconjuntos inmediatos al itemset en cuestión, son frecuentes. A partir de estos podremos recuperar todos los itemsets frecuentes de manera sencilla sin tener que mantenerlos todos en memoria. 
-\item Itemsets cerrados: Son aquellos itemsets frecuentes para los que ninguno de los superconjuntos inmediatos al itemsets en cuestión, tienen un soporte igual. Con esta aproximación, tendremos soportes e itemsets frecuentes que podremos recuperar fácilmente, aunque al ser más numerosos que los maximales mantenerlos en memoria puede llegar a ser complicado.  
+\item Itemsets cerrados: Son aquellos itemsets frecuentes para los que ninguno de los superconjuntos inmediatos al itemset en cuestión, tienen un soporte igual. Con esta aproximación, tendremos soportes e itemsets frecuentes que podremos recuperar fácilmente, aunque al ser más numerosos que los maximales mantenerlos en memoria puede llegar a ser complicado.  
 \end{itemize}
 
 
@@ -98,7 +98,7 @@ Pese a que es un término que llevamos pocos años escuchando, su acuñamiento data
 En este punto, entraremos a hablar de las conocidas \textbf{V`s del Big Data}, adjetivos que en su conjunción lo definen como tal y que en sus orígenes, fueron 3, aunque pronto se fueron complementando y extendiendo, hasta nuestros días donde el BigData quedaría caracterizado por 5 V`s:
 
 \begin{enumerate}
-\item \textbf{Volumen}: La relación de esta palabra con el concepto Big Data es clara. Y es que el tamaño de los datos continua aumentando, hasta volúmenes de los mismos nunca antes vistos. 
+\item \textbf{Volumen}: La relación de esta palabra con el concepto Big Data es clara. Y es que el tamaño de los datos continúa aumentando, hasta volúmenes de los mismos nunca antes vistos. 
 \item \textbf{Variedad}: Los tipos de los datos son muy distintos y provienen de fuentes muy dispares. 
 \item \textbf{Velocidad}: Los datos son muy volubles y deben ser recogidos y analizados rápidamente, véase por ejemplo en el concepto de una aplicación de Big Data en bolsa, donde tan solo un segundo puede suponer perdidas o beneficios muy importantes. 
 \item \textbf{Variabilidad}: Los datos pueden cambiar de estructura o interpretación. 
@@ -112,10 +112,10 @@ En este punto, entraremos a hablar de las conocidas \textbf{V`s del Big Data}, a
  \begin{itemize}
  \item{Negocios y marketing}: Análisis de comportamientos en el comprador, detección de comunidades. 
  \item{TIC}: En este sector los beneficios son muy relevantes y evidentes, como por ejemplo reducir el tiempo de procesamiento de horas e incluso días a unos pocos segundos. 
- \item{Salud y ciencia}: En este área el BigData ha supuesto una autentica revolución. Disponer de nuevos algoritmos y formas de procesar datos más eficientes y potentes han supuesto la posibilidad de obtener el mapa genético de una persona en concreto a velocidades y costes antes nunca pensados, esto tiene grandes beneficios para la ciencia y la salud de esta persona que podrá incluso prevenir enfermedades futuras. 
+ \item{Salud y ciencia}: En este área el BigData ha supuesto una auténtica revolución. Disponer de nuevos algoritmos y formas de procesar datos más eficientes y potentes han supuesto la posibilidad de obtener el mapa genético de una persona en concreto a velocidades y costes antes nunca pensados, esto tiene grandes beneficios para la ciencia y la salud de esta persona que podrá incluso prevenir enfermedades futuras. 
  \end{itemize}
  
-Todas estas aplicaciones, tienen como último fin mejorar los procesos de negocio y en última medida la vida diaria de las personas de a pie, lo que hace que aún cuando el concepto del Big Data esté aun en sus albores de lo que podrá ser en un futuro sus beneficios pueden notarse desde ya en el día a día de la sociedad. 
+Todas estas aplicaciones, tienen como último fin mejorar los procesos de negocio y en última medida la vida diaria de las personas de a pie, lo que hace que aunque el concepto del Big Data esté aún en sus albores de lo que podrá ser en un futuro sus beneficios pueden notarse desde ya en el día a día de la sociedad. 
  
 \pagebreak
 \clearpage

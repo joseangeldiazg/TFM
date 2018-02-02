@@ -42,7 +42,7 @@ En nuestro problema, tendremos tantos documentos como tuits tenemos, es decir 14
 
 \subsection{Reducción del problema basada en EDA}
 
-El primer paso lógico para reducir el problema puede estar en acotar palabras raras o que poco valor tendrán en nuestro problema por ser poco comunes y por tanto nunca poder ser parte de una tendencia u opinión recurrente. Consideraremos palabras raras aquellas cuya longitud por ejemplo exceda de 18 caracteres. Para ver que palabras eran estas usamos un gráfico de nube términos, y el resultado puede verse en la figura \ref{raras}. 
+El primer paso lógico para reducir el problema puede estar en acotar palabras raras o que tendrán poco valor en nuestro problema por ser poco comunes y por tanto nunca podrán ser parte de una tendencia u opinión recurrente. Consideraremos palabras raras aquellas cuya longitud por ejemplo exceda de 18 caracteres. Para ver qué palabras eran estas usamos un gráfico de nube de términos, y el resultado puede verse en la figura \ref{raras}. 
 
 \begin{figure}[h]
 \centering
@@ -51,7 +51,7 @@ El primer paso lógico para reducir el problema puede estar en acotar palabras ra
 \label{raras}
 \end{figure}
 
-Parece que nuestro primer paso ha surtido efecto ya que hemos encontrado palabras y uniones de palabras provenientes de \textit{hashtags} que para nada son interesantes en nuestro problema, pero antes de borrarlas cabe la necesidad de estudiar como de frecuentes son estas palabras por lo que usaremos un histograma que contará el número de palabras en función de varios rangos de tamaños de las mismas. El resultado de este histograma podemos verlo en la figura \ref{freqraras}.
+Parece que nuestro primer paso ha surtido efecto ya que hemos encontrado palabras y uniones de palabras provenientes de \textit{hashtags} que para nada son interesantes en nuestro problema, pero antes de borrarlas cabe la necesidad de estudiar cómo de frecuentes son estas palabras por lo que usaremos un histograma que contará el número de palabras en función de varios rangos de tamaños de las mismas. El resultado de este histograma podemos verlo en la figura \ref{freqraras}.
 
 \begin{figure}[h]
 \centering
@@ -68,7 +68,7 @@ Una vez acotadas estas palabras, nuestro problema se ha reducido a una matriz de
 
 Al reducir el problema, podemos comenzar a realizar gráficos para obtener información relevante. Para ello, nos basaremos en dos de los gráficos más extendidos en minería de textos, las nubes de palabras y los gráficos de frecuencia o histogramas.
 
-La nube de palabras parece una buena representación para hacernos una idea de que se hablaba en Twitter durante aquellos meses por lo que comenzaremos con esta representación, acotando las palabras a las que aparecen por lo menos en 300 tuits. El resultado de este gráfico puede verse en la figura \ref{300}.
+La nube de palabras parece una buena representación para hacernos una idea de qué se hablaba en Twitter durante aquellos meses por lo que comenzaremos con esta representación, acotando las palabras a las que aparecen por lo menos en 300 tuits. El resultado de este gráfico puede verse en la figura \ref{300}.
 
 \begin{figure}[h]
 \centering
@@ -79,26 +79,26 @@ La nube de palabras parece una buena representación para hacernos una idea de qu
 
 En este gráfico comenzamos a ver patrones interesantes, como por ejemplo los nombres propios de \textbf{Trump, Clinton, Obama, Drake, Simmons o Hillary}, entre otros, por lo que parece que el proceso NER descrito en la sección \ref{seleccion} ha funcionado correctamente. Por otro lado, la premisa de los objetivos del proyecto de obtener tendencias y opiniones sobre personas desde un enfoque no dirigido, está comenzando a cumplirse. 
 
-Destacar la importancia en el proceso, de la aparición de estos nombres propios como frecuentes, pudiendo ya catalogarlos a los mismos de influencers, al menos, en este período de tiempo, que tras una investigacion corresponde con la campaña electoral en EEUU. Debido a este evento político y social, a partir de ahora cabrá esperar temas políticos y opiniones sobre los mismos en nuestro proceso de minería de datos. 
+Destacar la importancia en el proceso, de la aparición de estos nombres propios como frecuentes, pudiendo ya catalogarlos a los mismos de influencers, al menos, en este período de tiempo, que tras una investigación corresponde con la campaña electoral en EEUU. Debido a este evento político y social, a partir de ahora cabrá esperar temas políticos y opiniones sobre los mismos en nuestro proceso de minería de datos. 
 
-Para finalizar este punto, se realizó un histograma para ver cuales eran las palabras más frecuentes. El fin de este es obtener y entender posibles tendencias en Twitter en esta época, que como hemos averiguado corresponde a las elecciones presidenciales. El punto de corte para el gráfico lo situaremos en palabras con al menos 1700 ocurrencias, es decir, haremos un estudio de las tendencias más acentuadas en esta época. 
+Para finalizar este punto, se realizó un histograma para ver cuáles eran las palabras más frecuentes. El fin de este es obtener y entender posibles tendencias en Twitter en esta época, que como hemos averiguado corresponde a las elecciones presidenciales. El punto de corte para el gráfico lo situaremos en palabras con al menos 1700 ocurrencias, es decir, haremos un estudio de las tendencias más acentuadas en esta época. 
 
 
 \begin{figure}[h]
 \centering
-\includegraphics[height=12cm]{./Capitulo7/imagenes/1700.png}
+\includegraphics[height=10cm]{./Capitulo7/imagenes/1700.png}
 \caption{Palabras más frecuentes con al menos 1700 ocurrencias.}
 \label{1700}
 \end{figure}
 
 
-Si estudiamos en detalle el gráfico \ref{1700} vemos como la tendencia en Twitter era hablar de \textbf{Trump, Clinton u Obama}, por lo que podremos centrar nuestros esfuerzos en el área política donde seguro obtendremos resultados e información relevante. Cabe también destacar, la presencia de nombres propios como, \textbf{donald}, que casi con probabilidad representará el nombre de pila del actual presidente de EEUU. Este factor es clave, ya que si minamos reglas de asociación, estas tendrán más fuerza, funcionarán mejor y eliminarán ruido, si pudiéramos relacionar o fusionar términos como \textbf{donald}, en un solo nombre propio del tipo \textbf{donald-trump} o \textbf{hillary-clinton}. Para  realizar esto, nos basaremos en un estudio basado en \textit{bi-gramas}. 
+Si estudiamos en detalle el gráfico \ref{1700} vemos como la tendencia en Twitter era hablar de \textbf{Trump o Clinton}, por lo que podremos centrar nuestros esfuerzos en el área política donde seguro obtendremos resultados e información relevante. Cabe también destacar, la presencia de nombres propios como, \textbf{donald}, que casi con probabilidad representará el nombre de pila del actual presidente de EEUU. Este factor es clave, ya que si minamos reglas de asociación, estas tendrán más fuerza, funcionarán mejor y eliminarán ruido, si pudiéramos relacionar o fusionar términos como \textbf{donald}, en un solo nombre propio del tipo \textbf{donald-trump} o \textbf{hillary-clinton}. Para  realizar esto, nos basaremos en un estudio basado en \textit{bi-gramas}. 
 
 \subsection{N-gramas}
 
 Los n-gramas, son una técnica extendida en minería de textos y recuperación de información, que se basa en la probabilidad de co-ocurrencia. Es decir, dato un término a estudiar los \textbf{n} términos siguientes al mismo para descubrir patrones como en nuestro caso, nombres propios formados por dos palabras. Realizaremos un estudio sobre nuestros tuits basado en \textit{2-gramas}, donde trataremos de comprobar si la premisa de que habrá una gran representación  de nombres compuestos que podremos unir para obtener mejores resultados en la etapa posterior de minería de datos. 
 
-Para obtener  los bi-gramas, primero usamos un \textit{tokenizer} del paquete \textbf{RWeka} \cite{rweka}, tras lo cual, podremos usar normalmente la generación de gráficos de barras para ver cuales son las palabras que aparecen juntas con más frecuencia. 
+Para obtener  los bi-gramas, primero usamos un \textit{tokenizer} del paquete \textbf{RWeka} \cite{rweka}, tras lo cual, podremos usar normalmente la generación de gráficos de barras para ver cuáles son las palabras que aparecen juntas con más frecuencia. 
 
 \begin{figure}[h]
 \centering
@@ -113,7 +113,7 @@ Acorde al gráfico \ref{bigramas}, podemos corroborar lo esperado de que los bi-g
 
 Como vimos al comienzo de este capítulo, la motivación para realizar análisis de sentimientos es el tener la posibilidad de polarizar las reglas de asociación que obtendremos en la siguiente etapa en función de los términos que aparezcan en el antecedente o consecuente de las mismas. R ofrece una gran cantidad de paquetes para el análisis de sentimientos, en este trabajo se ha usado concretamente el paquete \textit{\textbf{syuzhet}}, que usa en su capa inferior el coreNLP de la Universidad de Standford \cite{nlp}.
 
-Este paquete, contiene diccionarios muy potentes para la identificación de sentimientos y permite obtener estos por distintas técnicas y algoritmos en función de lo que se pase como argumento a la función \textit{get\_sentiments()}. Otro factor muy interesante del paquete es la posibilidad de obtener gráficos de como evolucionan los sentimientos en un texto, por ejemplo, los personajes de un libro empiezan tristes y acaban felices o viceversa. Dado nuestro problema donde en ningún caso podríamos considerar un tuit, como la continuación del otro, o que exista relación alguna entre ellos, esta funcionalidad carece de uso, y tendremos que fijarnos solo en los conteos de sentimientos y las palabras asociadas a cada uno de ellos. 
+Este paquete, contiene diccionarios muy potentes para la identificación de sentimientos y permite obtener estos por distintas técnicas y algoritmos en función de lo que se pase como argumento a la función \textit{get\_sentiments()}. Otro factor muy interesante del paquete es la posibilidad de obtener gráficos de cómo evolucionan los sentimientos en un texto, por ejemplo, los personajes de un libro empiezan tristes y acaban felices o viceversa. Dado nuestro problema donde en ningún caso podríamos considerar un tuit, como la continuación del otro, o que exista relación alguna entre ellos, esta funcionalidad carece de uso, y tendremos que fijarnos solo en los conteos de sentimientos y las palabras asociadas a cada uno de ellos. 
 
 \subsection{Distribución de sentimientos en Twitter}
 
@@ -130,7 +130,7 @@ El histograma realizado puede verse en el gráfico \ref{histsent}, donde parece q
 
 \subsection{Palabras asociadas a los sentimientos}
 
-El punto anterior nos informa del número de sentimientos de cada tipo, muy útil para ver la polaridad o el `estado de ánimo' el pueblo americano durante aquellas fechas, pero de cara a la obtención de que palabras representan que sentimientos, usaremos una nube de palabras, similar a las vistas anteriormente, pero categorizadas por colores en función de los sentimientos. El resultado de este gráfico podemos verlo en la figura \ref{cloudsent}.
+El punto anterior nos informa del número de sentimientos de cada tipo, muy útil para ver la polaridad o el `estado de ánimo' del pueblo americano durante aquellas fechas, pero de cara a la obtención de qué palabras representan qué sentimientos, usaremos una nube de palabras, similar a las vistas anteriormente, pero categorizadas por colores en función de los sentimientos. El resultado de este gráfico podemos verlo en la figura \ref{cloudsent}.
 
 \begin{figure}[h]
 \centering
@@ -139,11 +139,11 @@ El punto anterior nos informa del número de sentimientos de cada tipo, muy útil 
 \label{cloudsent}
 \end{figure}
 
-Si entramos en el análisis del mismo, queda bastante más claro los datos con los que estamos trabajando y como se han polarizado los sentimientos. Vemos que trump, suscita sorpresa y que es la palabra más usada dentro de esta categoría. El sentimiento anticipación parece focalizarse en tiempos, y momentos temporales. Además hay cosas interesantes como relacionar \textbf{enfado} con los políticos, los asesinatos o la piratería entre otros casos. 
+Si entramos en el análisis del mismo, queda bastante más claro los datos con los que estamos trabajando y cómo se han polarizado los sentimientos. Vemos que trump, suscita sorpresa y que es la palabra más usada dentro de esta categoría. El sentimiento anticipación parece focalizarse en tiempos, y momentos temporales. Además hay cosas interesantes como relacionar \textbf{enfado} con los políticos, los asesinatos o la piratería entre otros casos. 
 
-Un sentimiento muy interesante es el miedo, donde vemos un claro ejemplo de la sociedad americana. Vemos que la policía o el ejercito suscitan miedo, pero también aparece la palabra \textbf{transgenero}, bien sabido es la homofobia del país que tenemos entre manos, por lo que parece que nuestro proceso ha funcionado bastante bien. 
+Un sentimiento muy interesante es el miedo, donde vemos un claro ejemplo de la sociedad americana. Vemos que la policía o el ejercito suscitan miedo, pero también aparece la palabra \textbf{transgénero}, bien sabido es la homofobia del país que tenemos entre manos, por lo que parece que nuestro proceso ha funcionado bastante bien. 
 
-Si paráramos en este punto, en base al conocimiento adquirido, podríamos obtener los temas tratados en Twitter durante aquel período de tiempo, así como categorizar sin ninguna duda cuales eran las personas más influyentes e incluso que políticas o sentimientos se podrían asociar con ellos. Queda constatada la potencia del análisis exploratorio de datos y la importancia de esta etapa en un proyecto de análisis de datos, pero, también cabe preguntarse si aún hay conocimiento de valor implícito en estos datos. El tratar de resolver esta pregunta será lo que abordaremos en el siguiente capítulo, donde desarrollaremos la última etapa de nuestro modelo, la etapa de \textbf{minería de datos}. 
+Si paráramos en este punto, en base al conocimiento adquirido, podríamos obtener los temas tratados en Twitter durante aquel período de tiempo, así como categorizar sin ninguna duda cuáles eran las personas más influyentes e incluso qué políticas o sentimientos se podrían asociar con ellos. Queda constatada la potencia del análisis exploratorio de datos y la importancia de esta etapa en un proyecto de análisis de datos, pero, también cabe preguntarse si aún hay conocimiento de valor implícito en estos datos. El tratar de resolver esta pregunta será lo que abordaremos en el siguiente capítulo, donde desarrollaremos la última etapa de nuestro modelo, la etapa de \textbf{minería de datos}. 
 
 \pagebreak
 \clearpage

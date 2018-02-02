@@ -9,7 +9,7 @@
 
 En este capítulo nos centramos en la última etapa del modelo que vimos en el gráfico \ref{flujo}, donde por medio de técnicas de minería de datos basadas en el uso de las reglas de asociación trataremos de obtener información implícita en los datos y que sirva bien de apoyo o bien para corroborar, las ideas o premisas que hemos obtenido de nuestro proceso de análisis exploratorio de datos. 
 
-Para la obtención de reglas se usarán dos algoritmos, el \textbf{Apriori} y el \textbf{FP-Growth}, con el fin de poder contrastar información y realizar una comparativa entre los resultados ofrecidos por ambos. Se estudiarán por tanto al inicio de capítulo los detalles de cada uno de los algoritmos.  Al finalizar el capítulo se verán distintas técnicas de visualización de las reglas obtenidas en el proceso experimental, así como la interpretación de las mismas. 
+Para la obtención de reglas se usarán dos algoritmos, el \textbf{Apriori} (proveniente del paquete arules de R) y el \textbf{FP-Growth} (proveniente del paquete Rspark) con el fin de poder contrastar información y realizar una comparativa entre los resultados ofrecidos por ambos. Se estudiarán por tanto al inicio del capítulo los detalles de cada uno de los algoritmos.  Al finalizar el capítulo se verán distintas técnicas de visualización de las reglas obtenidas en el proceso experimental, así como la interpretación de las mismas. 
 
 \section{Algoritmos usados}
 
@@ -37,7 +37,7 @@ El algoritmo \textbf{FP-Growth} \cite{fpg} fue propuesto en el año 2000, como un
 \textbf{FP-Growth}, crea un modelo comprimido de la base datos original utilizando una estructura de datos que denomina como \textbf{\textit{FP-tree}} que está formada por dos elementos esenciales:
 
 \begin{itemize}
-\item Grafo de transacciones: Gracias a este grafo la base de datos completa puede abreviarse. En cada nodo, se describe un itemsets y su soporte que se calcula siguiendo el camino que va desde la raiz hasta el nodo en cuestión.
+\item Grafo de transacciones: Gracias a este grafo la base de datos completa puede abreviarse. En cada nodo, se describe un itemset y su soporte que se calcula siguiendo el camino que va desde la raíz hasta el nodo en cuestión.
 \item Tabla cabecera: Es una tabla de listas de ítems. Es decir, para cada ítem, se crea una lista que enlaza nodos del grafo donde aparece. 
 \end{itemize}
 
@@ -49,7 +49,7 @@ Una vez se construye el árbol, utilizando un enfoque recursivo basado en divide 
 \item Se extraen los itemsets que superen el mínimo soporte de este último \textbf{\textit{FP-tree}} creado. 
 \end{enumerate}
 
-En función a lo estudiado, es obvio ver que la memoria que ocupa es mucho menor que la generada por Apriori, así como al generar itemsets por medio del principio divide y vencerás, \textbf{FP-Growth} se presta a ser usado en entornos distribuidos como por ejemplo el entorno de Big Data, Apache Spark, aumentando sus prestaciones de manera notable. 
+En función a lo estudiado, es obvio ver que la memoria que ocupa es mucho menor que la generada por Apriori, así como al generar itemsets por medio del principio divide y vencerás, \textbf{FP-Growth} se presta a ser usado en entornos distribuidos como por ejemplo el entorno de Big Data, Apache Spark, aumentando sus prestaciones de manera notable. Explotando este beneficio hemos hecho uso del algoritmo FP-Growth presente en el paquete RSpark, el cual  viene optimizado para una ejecución distribuida en entornos de Big Data. 
 
 \section{Comparativa entre algoritmos}
 \label{comparativa}
@@ -105,7 +105,7 @@ En esta sección vamos a estudiar el proceso de obtención de reglas, así como las
 \label{cerrados}
 \end{figure}
 
-Una vez en este punto usaremos el algoritmo Apriori, ya que ofrece dispone de más funcionalidad implementada en R que el FP-Growth, para obtener e interpretar las mejores reglas. Por los motivos explicados en la sección \ref{comparativa}, usaremos un mínimo soporte de 0.0001 y una confianza de al menos 0.7 para estudiar las reglas, que una vez obtenidas ordenaremos por orden descendente de soporte y confianza para poder estudiar las que el algoritmo considera como mejores. 
+Una vez en este punto usaremos el algoritmo Apriori, ya que dispone de más funcionalidad implementada en R que el FP-Growth, para obtener e interpretar las mejores reglas. Por los motivos explicados en la sección \ref{comparativa}, usaremos un mínimo soporte de 0.0001 y una confianza de al menos 0.7 para estudiar las reglas, que una vez obtenidas ordenaremos por orden descendente de soporte y confianza para poder estudiar las que el algoritmo considera como mejores. 
 
 En la tabla \ref{reglasmalas} podemos ver algunas de las mejores reglas de asociación obtenidas según los parámetros de soporte y confianza. Estas reglas poco dicen y carecen de interés ninguno para la detección de tendencias sobre personas sino que nos caracterizan las tendencias de aplicaciones y usos de Twitter, como dar like a videos de \textbf{Youtube}, además de desvelarnos algunas páginas web o aplicaciones muy usadas como \textbf{Runtastic}, una aplicación para practicar deporte o \textbf{Transponder Snails} un juego social.
 
@@ -130,13 +130,13 @@ Acorde a los resultados, podríamos definir ciertas tendencias en cuanto a la soc
 
 \subsection{Filtrado de reglas}
 
-Para la obtención de mejores resultados, filtraremos las reglas por el consecuente o antecedente en función de nombres propios que hemos obtenido de nuestro proceso de análisis exploratorio de datos. Dado que  el período de tiempo en el que nos centramos coincide con la campaña electoral de EEUU, nos hemos decantado por obtener las reglas generadas con consecuente igual a \textbf{donald-trump} o \textbf{hillary-clinton}. Sería imposible realizar un estudio acorde para un proyecto de estas características de todas las reglas generadas para nombres propios en Twitter en este período, por ello se han cogido estas dos a modo de ejemplo, pero es necesario señalar que el mismo estudio se podría aplicar sobre otros nombres, que no tendrían ni porque pertenecer al mundo de la política. 
+Para la obtención de mejores resultados, filtraremos las reglas por el consecuente o antecedente en función de nombres propios que hemos obtenido de nuestro proceso de análisis exploratorio de datos. Dado que  el período de tiempo en el que nos centramos coincide con la campaña electoral de EEUU, nos hemos decantado por obtener las reglas generadas con consecuente igual a \textbf{donald-trump} o \textbf{hillary-clinton}. Sería imposible realizar un estudio acorde para un proyecto de estas características de todas las reglas generadas para nombres propios en Twitter en este período, por ello se han cogido estas dos a modo de ejemplo, pero es necesario señalar que el mismo estudio se podría aplicar sobre otros nombres, que no tendrían ni porqué pertenecer al mundo de la política. 
 
-Por tanto, filtraremos las reglas donde el consecuente es \textbf{donald-trump} o \textbf{hillary-clinton} y eliminaremos las reglas redundantes. Al finalizar este proceso, tendremos set de 156 reglas para Donald Trump y un set de 93 reglas para Hillary Clinton. Dado el número de estas, en las siguientes sub-secciones estudiaremos, visualizaremos e interpretaremos algunas de las más interesantes  que el proceso ha obtenido. 
+Por tanto, filtraremos las reglas donde el consecuente es \textbf{donald-trump} o \textbf{hillary-clinton} y eliminaremos las reglas redundantes. Al finalizar este proceso, tendremos un conjunto de 156 reglas para Donald Trump y un conjunto de 93 reglas para Hillary Clinton. Dado el número de estas, en las siguientes sub-secciones estudiaremos, visualizaremos e interpretaremos algunas de las más interesantes  que el proceso ha obtenido. 
 
 \subsubsection{Donald Trump}
 
-Como hemos mencionado anteriormente, para \textbf{Donald Trump} se ha generado un set de 156 reglas cuya distribución en función de soporte, confianza y número de ítems en la regla puede verse en el gráfico \ref{distrump}. Atendiendo a este gráfico, podemos ver como la práctica totalidad de las reglas se sitúan en la parte izquierda lo que nos indica que los valores de soporte son más bien bajos aunque aceptables en función de la cantidad de datos con los que está formada la muestra. Por otro lado la confianza se distribuye normalmente y  la práctica totalidad de las reglas están formadas por tres o cuatro ítems. 
+Como hemos mencionado anteriormente, para \textbf{Donald Trump} se ha generado un conjunto de 156 reglas cuya distribución en función de soporte, confianza y número de ítems en la regla puede verse en el gráfico \ref{distrump}. Atendiendo a este gráfico, podemos ver cómo la práctica totalidad de las reglas se sitúan en la parte izquierda lo que nos indica que los valores de soporte son más bien bajos aunque aceptables en función de la cantidad de datos con los que está formada la muestra. Por otro lado la confianza se distribuye normalmente y  la práctica totalidad de las reglas están formadas por tres o cuatro ítems. 
 
 \begin{figure}[h]
 \centering
@@ -145,7 +145,7 @@ Como hemos mencionado anteriormente, para \textbf{Donald Trump} se ha generado u
 \label{distrump}
 \end{figure}
 
-El gráfico anterior es útil para ver que tipo de reglas hemos generado, pero será necesario estudiar estas reglas de manera manual y discernir sobre su importancia o no en el objetivo buscado de obtención de tendencias. Tras su estudio, algunas reglas interesantes obtenidas sobre \textbf{Donald Trump} pueden ser las que vemos en la tabla \ref{reglastrump}.
+El gráfico anterior es útil para ver qué tipo de reglas hemos generado, pero será necesario estudiar estas reglas de manera manual y discernir sobre su importancia o no en el objetivo buscado de obtención de tendencias. Tras su estudio, algunas reglas interesantes obtenidas sobre \textbf{Donald Trump} pueden ser las que vemos en la tabla \ref{reglastrump}.
 
 \begin{table}[]
 \centering
@@ -165,7 +165,7 @@ El gráfico anterior es útil para ver que tipo de reglas hemos generado, pero ser
 \label{reglastrump}
 \end{table}
 
-Fijándonos en la anterior tabla, las tres primeras reglas han sido seleccionadas para su análisis en grupo dado que hay bastantes más reglas que hablan de lo mismo. Podemos constatar una tendencia clara en cuanto a las políticas de Trump con las personas transgénero y su posibilidad de servir en el ejercito de los Estados Unidos. Concretamente la regla \textit{\{ bans,serving, transgender\} =\textgreater \{donald-trump\}} nos deja entrever que el actual presidente tenía muy claro que prohibiría el servicio de estas personas en el ejercito, algo que ya por 2016 se venía barajando y que fue confirmado en 2017.
+Fijándonos en la anterior tabla, las tres primeras reglas han sido seleccionadas para su análisis en grupo dado que hay bastantes más reglas que hablan de lo mismo. Podemos constatar una tendencia clara en cuanto a las políticas de Trump con las personas transgénero y su posibilidad de servir en el ejército de los Estados Unidos. Concretamente la regla \textit{\{ bans,serving, transgender\} =\textgreater \{donald-trump\}} nos deja entrever que el actual presidente tenía muy claro que prohibiría el servicio de estas personas en el ejército, algo que ya por 2016 se venía barajando y que fue confirmado en 2017.
 
 Otra tendencia interesante puede ser marcada por las dos siguientes reglas, \textit{\{ ignored,rape\} =\textgreater \{donald-trump\} } y \textit{\{ child,rape\} =\textgreater \{donald-trump\}}, donde por medio de la minería de datos hemos obtenido una tendencia en Twitter durante la primera mitad del año 2016, donde el por aquel entonces candidato a ocupar la Casa Blanca, se vio involucrado en ciertos escándalos relacionados con violaciones o la no condena de estas.  Por último, encontramos también una regla interesante en \textit{\{ caucus,lead\} =\textgreater \{donald-trump\}}que nos constata el hecho comprobado de que todas las encuestas consideraban a este líder en intención de voto entre las personas de raza caucásica. 
 
@@ -185,7 +185,7 @@ Aunque su estudio manual es necesario puede llegar a ser tedioso. Por ello, resu
 \label{cloudtrump}
 \end{figure}
 
-Si atendemos por tanto a la representación de las reglas con nube de términos, hasta una persona sin conocimientos sobre la temática podría deducir de que se está hablando en Twitter y cuales son las tendencias en relación con el candidato. Por ejemplo encontramos las palabras \textit{transgender, rape, child } sobre las cuales anteriormente en nuestro proceso manual hemos podido obtener tendencias. También aparece \textit{Iowa} como relevante, una palabra que anteriormente en el proceso manual obviamos y que ahora gracias a este gráfico vemos que es interesante. Si volvemos a localizar manualmente las reglas con este ítem en el antecedente, veremos que este fue un estado decisivo y muy rivalizado durante las elecciones presidenciales, por lo que las encuestas y la opinión pública generaban continuamente información al respecto.  
+Si atendemos por tanto a la representación de las reglas con nube de términos, hasta una persona sin conocimientos sobre la temática podría deducir de qué se está hablando en Twitter y cuáles son las tendencias en relación con el candidato. Por ejemplo encontramos las palabras \textit{transgender, rape, child } sobre las cuales anteriormente en nuestro proceso manual hemos podido obtener tendencias. También aparece \textit{Iowa} como relevante, una palabra que anteriormente en el proceso manual obviamos y que ahora gracias a este gráfico vemos que es interesante. Si volvemos a localizar manualmente las reglas con este ítem en el antecedente, veremos que este fue un estado decisivo y muy rivalizado durante las elecciones presidenciales, por lo que las encuestas y la opinión pública generaban continuamente información al respecto.  
 
 
 \subsubsection{Hillary Clinton}
@@ -223,15 +223,15 @@ Una vez definido el conjunto de reglas generado, estudiaremos manualmente el con
 \label{reglashillary}
 \end{table}
 
-Si realizamos un enfoque de interpretación por grupos, podríamos definir claramente tres tendencias u grupos de opiniones en los tuits relacionados con \textbf{Hillary Clinton} :
+Si realizamos un enfoque de interpretación por grupos, podríamos definir claramente tres tendencias y grupos de opiniones en los tuits relacionados con \textbf{Hillary Clinton} :
 
 \begin{enumerate}
 \item El compromiso del mundo del espectáculo con su candidatura: Las tres primeras reglas de la tabla, \textit{\{ better,vote\} =\textgreater \{hillary-clinton\}} , \textit{\{ musician,squad\} =\textgreater \{hillary-clinton\}} y \textit{\{ musician,support\} =\textgreater \{hillary-clinton\}}, hacen referencia al apoyo recibido por la candidata por parte de grandes estrellas del mundo del espectáculo que no tardaron en salir a defender su candidatura a la presidencia en grandes eventos públicos.  
-\item La carrera con su competidor demócrata Bernie Sanders: Esta tendencia era clara, y es que antes de comenzar a analizar las reglas sabríamos que estas aparecerían ya que nuestro proceso de EDA desvelo a Bernie Sanders como uno de los nombres más usados en Twitter en aquel período de tiempo. Las reglas \textit{\{ bernie-sanders,vs\} =\textgreater \{hillary-clinton\}} , \textit{\{ bernie-sanders,better\} =\textgreater \{hillary-clinton\}} y \textit{\{ bernie-sanders,race\} =\textgreater \{hillary-clinton\}}, constatan por tanto la tendencia en Twitter a discutir sobre quien de los dos merecía más el puesto de candidato  y sus políticas asociadas. 
+\item La carrera con su competidor demócrata Bernie Sanders: Esta tendencia era clara, y es que antes de comenzar a analizar las reglas sabríamos que estas aparecerían ya que nuestro proceso de EDA desveló a Bernie Sanders como uno de los nombres más usados en Twitter en aquel período de tiempo. Las reglas \textit{\{ bernie-sanders,vs\} =\textgreater \{hillary-clinton\}} , \textit{\{ bernie-sanders,better\} =\textgreater \{hillary-clinton\}} y \textit{\{ bernie-sanders,race\} =\textgreater \{hillary-clinton\}}, constatan por tanto la tendencia en Twitter a discutir sobre quién de los dos merecía más el puesto de candidato  y sus políticas asociadas. 
 \item El escándalo de los mails: Las tres últimas reglas, \textit{\{ emails,republicans\} =\textgreater \{ hillary-clinton \}} , \textit{\{ attack,republicans\} =\textgreater \{hillary-clinton\}} y \textit{\{attack,emails\} =\textgreater \{hillary-clinton\}}, hacen referencia a los mails filtrados de Hillary Clinton y al uso como ataque que los republicanos hicieron de los mismos. 
 \end{enumerate}
 
-Por último, corroboraremos nuestros resultados con la nube de palabras, donde podremos ahondar de manera sencilla en otras tendencias que \textit{apriori} podamos no haber tenido en cuenta. El gráfico elaborado puede verse en la figura \ref{cloudhillary} y en este caso constatamos la totalidad de las conclusiones obtenidas anteriormente, donde destacamos la importancia de la relación entre las opiniones de Bernie Sanders y la propia Hillary Clinton. Por otro lado, volvemos a ver Iowa, algo que ya cabría esperar desde el momento en que estudiamos la nube de términos de las reglas de \textbf{Trump}, ya que al ser un estado disputado entre ambos candidatos, las reglas relacioandas serán bidireccionales.  
+Por último, corroboraremos nuestros resultados con la nube de palabras, donde podremos ahondar de manera sencilla en otras tendencias que \textit{a priori} podamos no haber tenido en cuenta. El gráfico elaborado puede verse en la figura \ref{cloudhillary} y en este caso constatamos la totalidad de las conclusiones obtenidas anteriormente, donde destacamos la importancia de la relación entre las opiniones de Bernie Sanders y la propia Hillary Clinton. Por otro lado, volvemos a ver Iowa, algo que ya cabría esperar desde el momento en que estudiamos la nube de términos de las reglas de \textbf{Trump}, ya que al ser un estado disputado entre ambos candidatos, las reglas relacionadas serán bidireccionales.  
 
 \begin{figure}[h]
 \centering
@@ -242,7 +242,7 @@ Por último, corroboraremos nuestros resultados con la nube de palabras, donde po
 
 \subsection{Interpretación jerárquica basada en sentimientos}
 
-Las reglas de asociación pueden estudiarse e interpretarse desde un punto de vista jerárquico, es decir, en el ejemplo de cesta de la compra, la regla \textit{\{Manzanas, platanos\} => \{Yogurt\}} podría sustituirse por \textit{\{Fruta\} => \{Yogurt\}}. Esto nos permite un grado mayor de abstracción sobre los datos interesante de cara a obtener nueva información relevante. Dado que gracias a nuestro análisis de sentimientos tenemos polarizadas cada una de las palabras presentes en el dominio de nuestro problema vamos jerarquizar estas reglas en función de los sentimientos que representan a cada palabra. Para ello, filtraremos los tuits que hacen referencia a los personajes que venimos estudiando en esta sección y cambiaremos las palabras de estos tuits por el sentimiento mayoritario asociado a cada una de ellas. Posteriormente, se vuelve a obtener las reglas de asociación sobre este conjunto de datos. Los resultados para \textbf{Donald Trump} pueden verse en la tabla \ref{jertrump} mientras que los resultados obtenidos para \textbf{Hillary Clinton} podemos verlos en la tabla \ref{jerhillary}.
+Las reglas de asociación pueden estudiarse e interpretarse desde un punto de vista jerárquico, es decir, en el ejemplo de cesta de la compra, la regla \textit{\{Manzanas, platanos\} => \{Yogurt\}} podría sustituirse por \textit{\{Fruta\} => \{Yogurt\}}. Esto nos permite un grado mayor de abstracción sobre los datos interesante de cara a obtener nueva información relevante. Dado que gracias a nuestro análisis de sentimientos tenemos polarizadas cada una de las palabras presentes en el dominio de nuestro problema vamos a jerarquizar estas reglas en función de los sentimientos que representan a cada palabra. Para ello, filtraremos los tuits que hacen referencia a los personajes que venimos estudiando en esta sección y cambiaremos las palabras de estos tuits por el sentimiento mayoritario asociado a cada una de ellas. Posteriormente, se vuelve a obtener las reglas de asociación sobre este conjunto de datos. Los resultados para \textbf{Donald Trump} pueden verse en la tabla \ref{jertrump} mientras que los resultados obtenidos para \textbf{Hillary Clinton} podemos verlos en la tabla \ref{jerhillary}.
 
 \begin{table}[]
 \centering
@@ -286,7 +286,7 @@ Las reglas de asociación pueden estudiarse e interpretarse desde un punto de vis
 \end{table}
 
 Lo primero que resulta interesante de las reglas obtenidas, es que sin buscarlo hemos elaborado un ranking de los sentimientos que identifican a cada una de las personas estudiadas. Lo primero que sale a la vista y que podríamos concluir es que en Twitter se han emitido más tuits de apoyo y respaldo contra ambos candidatos que de otro tipo de sentimiento, esto podemos verlo ya que el sentimiento de certeza está presente en casi el 95\% de los tuits que hablan de ellos. 
-Una interpretación muy interesante es la que podemos hacer del sentimiento \textbf{anger}, donde vemos como el 50\% de los tuits que hablan de Hillary Clinton, tienen a su vez relacionados este sentimiento, por contra, Trump, tiene un 20\% menos de este sentimiento, por lo que parece que la sociedad americana a pesar de lo que parecía estaba más en contra o enfadados con  Hillary Clinton que con Trump, algo que posteriormente se vio confirmado con la victoria de la candidatura del candidato republicano. También cabe destacar el sentimiento de sorpresa en Donald Trump, ya que es mundialmente conocido sus arrebatos en redes sociales y políticas por lo que era de esperar que este sentimiento tuviera gran relevancia en los tuits que hablan del actual presidente de los Estados Unidos de América. 
+Una interpretación muy interesante es la que podemos hacer del sentimiento \textbf{anger}, donde vemos cómo el 50\% de los tuits que hablan de Hillary Clinton, tienen a su vez relacionados este sentimiento, por contra, Trump, tiene un 20\% menos de este sentimiento, por lo que parece que la sociedad americana a pesar de lo que parecía estaba más en contra o enfadados con  Hillary Clinton que con Trump, algo que posteriormente se vio confirmado con la victoria de la candidatura del candidato republicano. También cabe destacar el sentimiento de sorpresa en Donald Trump, ya que es mundialmente conocido por sus arrebatos en redes sociales y políticas por lo que era de esperar que este sentimiento tuviera gran relevancia en los tuits que hablan del actual presidente de los Estados Unidos de América. 
 
 \pagebreak
 \clearpage

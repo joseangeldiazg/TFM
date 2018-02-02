@@ -21,7 +21,7 @@ Recientemente, la red social ha aumentado el número de palabras en cada tuit a 2
 
 El funcionamiento de la red social en sí trivial, en esta podemos acotar un rol muy sencillo, el de \textbf{seguidor} que serán aquellas personas que quieren seguir nuestras publicaciones y de las cuales podremos ser seguidores o no, es decir, puede no es de obligada existencia el carácter bidireccional en una relación de `amistad' dentro de esta red social al igual que existe en otras redes sociales como por ejemplo Facebook. 
 
-Este tipos de relaciones, son muy interesantes y han sido estudiados en la literatura como parte de la teoría de grafos y extendidos a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle entre las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows} ). Por otro lado, si que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
+Este tipos de relaciones, son muy interesantes y han sido estudiadas en la literatura como parte de la teoría de grafos y ha sido extendido a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle en las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows} ). Por otro lado, sí que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
 
 \subsection{Anatomía de un tuit}
 \label{anatomia}
@@ -58,15 +58,15 @@ Es por tanto evidente, la relación entre un tuit y una opinión, poniendo al desc
 
 \subsection{Twitter API}
 \label{api}
-Twitter abrió sus datos al mundo al hacer disponible una serie de APIs mediante las cuales se permite a terceros tanto la obtención de estos datos para su estudio como la implementación de software que trabaje sobre estos datos. Estas APIs necesitan del protocolo de seguridad y autenticación OAuth, además ofrecen ciertas limitaciones a la hora de obtener los datos por lo que solo se permiten entre 150 y 300 solicitudes por hora y además hay una ventana temporal cerrará el flujo de información cada 15 minutos. Las APIs disponibles son:
+Twitter abrió sus datos al mundo al hacer disponible una serie de APIs mediante las cuales se permite a terceros tanto la obtención de estos datos para su estudio como la implementación de software que trabaje sobre estos datos. Estas APIs necesitan del protocolo de seguridad y autenticación OAuth, además ofrecen ciertas limitaciones a la hora de obtener los datos por lo que solo se permiten entre 150 y 300 solicitudes por hora y además hay una ventana temporal que cerrará el flujo de información cada 15 minutos. Las APIs disponibles son:
 
 \begin{itemize}
-\item \textbf{Search API}: Obtiene los tuits de hasta 7 días, es similar a lo que nos ofrecería la búsqueda básica de Twitter en la interfaz web al buscar por un termino. 
+\item \textbf{Search API}: Obtiene los tuits de hasta 7 días, es similar a lo que nos ofrecería la búsqueda básica de Twitter en la interfaz web al buscar por un término. 
 \item \textbf{Streaming API}: Obtiene información en tiempo real. 
 \item \textbf{REST API}: Obtiene los datos mediante HTTP, el formato puede venir en XML, HTML, o JSON, la limitación aquí viene definida por el número de resultados devueltos por página que no puede ser superior a 3200 tweets. 
 \end{itemize}
 
-Como podemos observar, estas limitaciones pueden suponer un gran problema a la hora de obtener una gran cantidad de datos para que nuestro trabajo tenga un cierto rigor y peso, por ello, en los puntos siguiente ahondaremos en el proceso seguido y tecnologías usadas para la obtención y almacenamiento de un gran volumen de datos a pesar de estas restricciones. 
+Como podemos observar, estas limitaciones pueden suponer un gran problema a la hora de obtener una gran cantidad de datos para que nuestro trabajo tenga un cierto rigor y peso, por ello, en los puntos siguientes ahondaremos en el proceso seguido y tecnologías usadas para la obtención y almacenamiento de un gran volumen de datos a pesar de estas restricciones. 
 
 \section{Persistencia de los datos}
 
@@ -74,7 +74,7 @@ Tras analizar los requisitos de los datos a almacenar y las operaciones que real
 
 Dado que en nuestro problema no necesitamos una gran consistencia, sino una versatilidad y facilidad a la hora de trabajar con grandes volúmenes de datos, así como una gran facilidad para conectarse a las herramientas que veremos en el punto anterior, nos hemos decantado por este sistema de base de datos. 
 
-\section{Obtención de datos}
+\section{Obtención de los datos}
 \label{obtenciondatos}
 
 Como hemos visto en el punto \ref{api}, la obtención de los datos mediante la API de Twitter tiene serias restricciones a la hora de permitir peticiones de datos a la misma. Es por esto, que para la obtención de los datos, se usaron y probaron distintas herramientas y librerías disponibles de manera que esta tarea fuera lo más sencilla y eficiente posible. 
