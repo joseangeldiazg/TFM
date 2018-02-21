@@ -4,18 +4,54 @@
 % Texto del capitulo 8
 %---------------------------------------------------
 
-\chapter{Minería de datos: Reglas de asociación}
+\chapter{Minería de datos}
 \label{minería}
 
-En este capítulo nos centramos en la última etapa del modelo que vimos en el gráfico \ref{flujo}, donde por medio de técnicas de minería de datos basadas en el uso de las reglas de asociación trataremos de obtener información implícita en los datos y que sirva bien de apoyo o bien para corroborar, las ideas o premisas que hemos obtenido de nuestro proceso de análisis exploratorio de datos. 
+En este capítulo nos centramos en la última etapa del modelo que vimos en el gráfico \ref{flujo}, donde por medio de técnicas de minería de datos basadas en el uso de las reglas de asociación y análisis de sentimientos trataremos de obtener información implícita en los datos y que sirva bien de apoyo o bien para corroborar, las ideas o premisas que hemos obtenido de procesos anteriores. 
 
-Para la obtención de reglas se usarán dos algoritmos, el \textbf{Apriori} (proveniente del paquete arules de R) y el \textbf{FP-Growth} (proveniente del paquete Rspark) con el fin de poder contrastar información y realizar una comparativa entre los resultados ofrecidos por ambos. Se estudiarán por tanto al inicio del capítulo los detalles de cada uno de los algoritmos.  Al finalizar el capítulo se verán distintas técnicas de visualización de las reglas obtenidas en el proceso experimental, así como la interpretación de las mismas. 
+\section{Análisis de sentimientos}
 
-\section{Algoritmos usados}
+Como vimos al comienzo de este capítulo, la motivación para realizar análisis de sentimientos es el tener la posibilidad de polarizar las reglas de asociación que obtendremos en la siguiente etapa en función de los términos que aparezcan en el antecedente o consecuente de las mismas. R ofrece una gran cantidad de paquetes para el análisis de sentimientos, en este trabajo se ha usado concretamente el paquete \textit{\textbf{syuzhet}}, que usa en su capa inferior el coreNLP de la Universidad de Standford \cite{nlp}.
+
+Este paquete, contiene diccionarios muy potentes para la identificación de sentimientos y permite obtener estos por distintas técnicas y algoritmos en función de lo que se pase como argumento a la función \textit{get\_sentiments()}. Otro factor muy interesante del paquete es la posibilidad de obtener gráficos de cómo evolucionan los sentimientos en un texto, por ejemplo, los personajes de un libro empiezan tristes y acaban felices o viceversa. Dado nuestro problema donde en ningún caso podríamos considerar un tuit, como la continuación del otro, o que exista relación alguna entre ellos, esta funcionalidad carece de uso, y tendremos que fijarnos solo en los conteos de sentimientos y las palabras asociadas a cada uno de ellos. 
+
+\subsection{Distribución de sentimientos en Twitter}
+
+Al igual que hicimos para obtener las frecuencias de las palabras más usadas, obtendremos las frecuencias de los sentimientos para hacernos una idea del sentimiento de los americanos en Twitter en la primera mitad del año 2016. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=12cm]{./Capitulo8/imagenes/histsent.png}
+\caption{Histograma de los sentimientos.}
+\label{histsent}
+\end{figure}
+
+El histograma realizado puede verse en el gráfico \ref{histsent}, donde parece que  un número muy elevado de tuits hablan de \textbf{veracidad o afirmaciones}. Esto es normal ya que en Twitter mucha gente afirma hechos o noticias por lo que era de esperar que este sentimiento fuera el mayoritario. Por otro lado,  vemos que la \textbf{diversión} o el agrado tiene también una gran representación. Del mismo modo ocurre con la \textbf{anticipación}, este último debe ser analizado para ver que términos se asocian con anticipación, ya que es ambiguo. El resto de los sentimientos están más o menos equilibrados y frente a lo que cabría esperar de encontrarnos una sociedad enfadada o molesta parece que estos sentimientos están por detrás de otros más amables. 
+
+\subsection{Palabras asociadas a los sentimientos}
+
+El punto anterior nos informa del número de sentimientos de cada tipo, muy útil para ver la polaridad o el `estado de ánimo' del pueblo americano durante aquellas fechas, pero de cara a la obtención de qué palabras representan qué sentimientos, usaremos una nube de palabras, similar a las vistas anteriormente, pero categorizadas por colores en función de los sentimientos. El resultado de este gráfico podemos verlo en la figura \ref{cloudsent}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{./Capitulo8/imagenes/cloudsent.png}
+\caption{Palabras asociadas a los sentimientos.}
+\label{cloudsent}
+\end{figure}
+
+Si entramos en el análisis del mismo, queda bastante más claro los datos con los que estamos trabajando y cómo se han polarizado los sentimientos. Vemos que trump, suscita sorpresa y que es la palabra más usada dentro de esta categoría. El sentimiento anticipación parece focalizarse en tiempos, y momentos temporales. Además hay cosas interesantes como relacionar \textbf{enfado} con los políticos, los asesinatos o la piratería entre otros casos. 
+
+Un sentimiento muy interesante es el miedo, donde vemos un claro ejemplo de la sociedad americana. Vemos que la policía o el ejercito suscitan miedo, pero también aparece la palabra \textbf{transgénero}, bien sabido es la homofobia del país que tenemos entre manos, por lo que parece que nuestro proceso ha funcionado bastante bien. 
+
+\section{Reglas de asociación}
+
+Para la obtención de reglas se usarán dos algoritmos, el \textbf{Apriori} (proveniente del paquete arules de R) y el \textbf{FP-Growth} (proveniente del paquete Rspark) con el fin de poder contrastar información y realizar una comparativa entre los resultados ofrecidos por ambos. Se estudiarán por tanto al inicio del capítulo los detalles de cada uno de los algoritmos.  Al finalizar esta sección se verán distintas técnicas de visualización de las reglas obtenidas en el proceso experimental, así como la interpretación de las mismas. 
+
+\subsection{Algoritmos usados}
 
 En esta sección veremos una introducción teórica  a los algoritmos empleados en el proceso experimental. Dado que el objetivo del trabajo no está ligado al rendimiento o mejora de los mismos sino a los resultados sobre el dominio del problema, no entraremos en detalle en los mismos sino que se mencionará la idea subyacente de su funcionamiento para facilitar la comprensión de los puntos siguientes.
 
-\subsection{Apriori}
+\subsubsection{Apriori}
 
 El algoritmo \textbf{Apriori}, fue propuesto por Agrawal y Srikant en 1994 \cite{apriori} y desde entonces sigue siendo el algoritmo más extendido para la obtención de itemsets frecuentes, con los que construiremos en una segunda etapa las reglas de asociación. Se basa en el principio de que si un itemset es frecuente, entonces todos sus subconjuntos también lo son por lo que al encontrar uno de estos, podremos podar el árbol de búsqueda evitando hacer comprobaciones y aumentando la eficiencia. Para obtener los itemsets frecuentes, el algoritmo en base a un valor mínimo de soporte fijado por el experto en la materia, generará todas las posibles combinaciones de itemsets y comprobará si son o no frecuentes. En cada iteración, se generan todos los posibles itemsets distintos que se pueden formar combinando los de la anterior, por lo que los itemsets irán creciendo de tamaño.
 
@@ -30,7 +66,7 @@ Apriori tiene bastantes factores o limitaciones relacionados con la eficiencia d
 
 Estas limitaciones, nos han llevado a el estudio de otro método menos sensible a los requisitos temporales o de espacio, de cara a las posibles ampliaciones del problema a mayores cantidades de datos aún. Este método es el algoritmo FP-Growth y lo estudiaremos en el siguiente punto.
 
-\subsection{FP-Growth}
+\subsubsection{FP-Growth}
 
 El algoritmo \textbf{FP-Growth} \cite{fpg} fue propuesto en el año 2000, como una solución a los problemas de memoria generados por los métodos típicos como el Apriori, visto anteriormente. Es un algoritmo muy eficiente y ampliamente extendido en problemas y soluciones que podrían ser enmarcados bajo el nombre de Big Data. 
 
@@ -51,7 +87,7 @@ Una vez se construye el árbol, utilizando un enfoque recursivo basado en divide 
 
 En función a lo estudiado, es obvio ver que la memoria que ocupa es mucho menor que la generada por Apriori, así como al generar itemsets por medio del principio divide y vencerás, \textbf{FP-Growth} se presta a ser usado en entornos distribuidos como por ejemplo el entorno de Big Data, Apache Spark, aumentando sus prestaciones de manera notable. Explotando este beneficio hemos hecho uso del algoritmo FP-Growth presente en el paquete RSpark, el cual  viene optimizado para una ejecución distribuida en entornos de Big Data. 
 
-\section{Comparativa entre algoritmos}
+\subsection{Comparativa entre algoritmos}
 \label{comparativa}
 Antes de entrar a indagar en las reglas obtenidas y su interpretación, se presenta interesante la realización de una comparativa de rendimiento entre los dos algoritmos usados. Para la comparación se han usado tres valores de soporte (0.01, 0.001 y 0.001) y un valor de confianza estático de 0.7. La idea es comprar el comportamiento de los algoritmos y su capacidad para lidiar con un conjunto de reglas que aumenta en función de como disminuimos el valor del soporte. 
 
@@ -94,7 +130,7 @@ Si estudiamos los resultados, vemos como la progresión de tiempo es mucho menor 
 
 Si nos fijamos en las reglas generadas, FP Growth, obtiene más que Apriori, aunque la progresión es muy similar. En cuanto al uso de memoria, cabe esperar un comportamiento anómalo de R a la hora de obtener los datos de Spark, ya que el tamaño del objeto para almacenar las últimas reglas es de 3,5GB, por lo que podríamos concluir que R no está haciendo una buena gestión de este tipo de datos y consume más memoria de la que debería. De igual modo, queda constatada la potencia del algoritmo FP-Growth para obtener reglas de asociación en grandes bases de datos. 
 
-\section{Obtención de reglas}
+\subsection{Obtención de reglas}
 
 En esta sección vamos a estudiar el proceso de obtención de reglas, así como las interpretaciones de las mismas. Pese a que nuestro proceso de selección de instancias ha conseguido reducir bastante el dataset, como hemos visto anteriormente, este aún puede conllevar a problemas de tiempo o espacio, por tanto, antes de comenzar a obtener reglas de asociación se han obtenido itemsets maximales, y cerrados para poder recuperar las reglas de manera eficiente y sin tantos requisitos de memoria. Para ilustrar la reducción de espacio, en el gráfico \ref{cerrados} podemos ver una comparativa entre los conjuntos generados para cada tipo, sin olvidar que podremos generar las mismas reglas  tanto si usamos los cerrados o maximales, como si usamos los frecuentes, con el consiguiente ahorro si nos decantamos por los primeros. 
 

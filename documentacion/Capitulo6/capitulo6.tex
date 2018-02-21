@@ -9,21 +9,6 @@
 
 En este capítulo veremos las técnicas de tratamiento de datos utilizadas para la limpieza y refinamiento de un dataset que pueda ser usado para procesos posteriores como la visualización, el análisis de sentimientos y la obtención de reglas de asociación. Dado el volumen de los datos, y la naturaleza de los mismos, donde prácticamente cada uno de los 1.7M de tuits contiene algún elemento que hace que sea totalmente distinto de los demás, esta etapa fue una de las que más tiempo requirió. En la primera parte del capítulo veremos por tanto el proceso y técnicas usados para obtener e integrar los datos en el sistema RStudio mientras que en la parte final del mismo estudiaremos las distintas técnicas de pre-procesado de datos usadas para  obtener un conjunto de datos de calidad de cara a los procesos posteriores. 
 
-\section{Carga de datos}
-\label{carga}
-Una vez obtenidos y almacenados los datos en MongoDB, el siguiente paso lógico del problema es pasarlos a RStudio, donde por medio de nuestros scripts comenzaríamos con el tratamiento de los mismos. Es en este punto, donde topamos con el primer problema que nos lleva a un enfoque basado en Big Data dado que ninguna de las herramientas nativas de R ni las conexiones directas de R con MongoDB de paquetes como \textit{rmongodb} pueden manejar el dataset completo para obtener 1.7M  de documentos almacenados en MongoDB y pasar su contenido a un tipo de dato \textit{data-frame} de R. 
-
-La solución, la encontramos en el paquete \textbf{\textit{SparkR}}. Este paquete \cite{sparkr}, crea una sesión distribuida por medio de virtualización (figura \ref{sparkrdis}) en Spark que ofrece funciones de filtrado, agregación y selección entre otras muchas, de manera similar a como se podría hacer con los dataframes nativos de R, con la diferencia de que al ser desde un enfoque distribuido, hace uso de unos objetos denominados, \textit{SparkDataFrames}. Estos objetos, pueden manejar grandes colecciones de datos ya que los distribuyen en columnas, que pueden ser construidas como en nuestro caso con una base de datos noSQL externa, aunque hay otras técnicas viables.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=7cm]{./Capitulo6/imagenes/arq.png}
-\caption{Arquitectura de Spark R.}
-\label{sparkrdis}
-\end{figure}
-
-Una vez obtenidos los datos, en nuestra sesión de Spark en RStudio, debemos pasarlos a la sesión básica de R. Esto es así debido a que  Rstudio es el anfitrión de Spark, pero las sesiones difieren, por lo que debemos operar entre ambas por medio de funciones básicas de Big Data como \textit{collect} para el caso que nos compete de fusionar nuestro SparkDataFrame a un DataFrame de R. 
-
 \section{Pre-procesado}
 
 El pre-procesado de datos es una de las tareas más importantes en un proyecto de minería de datos. Podríamos definirlo como aquellas técnicas enmarcadas en ciencia de datos cuya finalidad es la de obtener datos de mayor calidad, más comprensibles, de menor dimensión y que puedan ser tratados apropiadamente por aquellas técnicas de minería de datos o \textit{machine learning} que habría que aplicar después.  La importancia de este proceso viene dada por motivos tales como:
