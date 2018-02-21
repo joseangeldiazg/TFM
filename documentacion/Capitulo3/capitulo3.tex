@@ -62,12 +62,27 @@ La reglas de asociación dentro del ámbito de la informática no son muy distintas
 
 \subsubsection{Medidas}
 
-La forma clásica de medir la bondad o ajuste de las reglas de asociación a un determinado problema, vendrá dada por las medidas del \textbf{soporte} y la \textbf{confianza}, que podremos definir de la siguiente manera:
+La forma clásica de medir la bondad o ajuste de las reglas de asociación a un determinado problema, vendrá dada por las medidas del \textbf{soporte}, la \textbf{confianza} y el \textbf{lift}, que podremos definir de la siguiente manera:
 
 \begin{itemize}
-	\item{Soporte}: Se representa como \textit{supp (X->Y)}, y representa la fracción de las transacciones que contiene tanto a X como a Y respecto al total de transacciones. 
-	\item{Confianza}: Se representa como \textit{conf (X->Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, de entre aquellas transacciones donde aparece el ítem X.
-\end{itemize} 
+
+	\item Soporte: Se representa como \textit{supp (X$\rightarrow$Y)}, y representa la fracción de las transacciones que contiene tanto a X como a Y respecto al total de transacciones. Quedaría definido por la siguiente ecuación:
+	
+	\begin{equation}
+	supp(X \rightarrow Y) = \frac{supp(X \cup Y)}{total transacciones}
+	\end{equation}
+
+	\item Confianza: Se representa como \textit{conf (X$\rightarrow$Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, de entre aquellas transacciones donde aparece el ítem X. Su ecuación sería:
+	
+	\begin{equation}
+	conf(X \rightarrow Y) = \frac{supp(X \rightarrow Y)}{supp(X)}
+	\end{equation}
+	
+	\item Lift: El \textit{lift}, es una medida útil para evaluar la independencia entre los ítems de una determinada regla  de asociación. En una regla del tipo \textit{conf (X$\rightarrow$Y)}, esta medida representa el grado en que X tiende a ser frecuente cuando A está presente en la regla, o viceversa. El lift, quedará definido matemáticamente de la siguiente manera:
+	\begin{equation}
+	lift(X \rightarrow Y) = \frac{conf(X \rightarrow Y)}{supp(Y)}
+	\end{equation}
+\end{itemize}
 
 Pese a que estas medidas son las más comunes y extendidas, hay innumerables propuestas de medidas complementarias en la literatura, tales como el \textbf{lift, convicción, factor de certeza, diferencia absoluta de confianza} entre otras muchas. 
 
@@ -117,6 +132,65 @@ En este punto, entraremos a hablar de las conocidas \textbf{V`s del Big Data}, a
  
 Todas estas aplicaciones, tienen como último fin mejorar los procesos de negocio y en última medida la vida diaria de las personas de a pie, lo que hace que aunque el concepto del Big Data esté aún en sus albores de lo que podrá ser en un futuro sus beneficios pueden notarse desde ya en el día a día de la sociedad. 
  
+ 
+ \section{Twitter}
+
+Twitter nace en Estados Unidos en el año 2006, partiendo de la idea de los antiguos mensajes de texto (SMS) limitó el número de caracteres en cada tuit a 140 favoreciendo que el intercambio de información fuera rápido, conciso y fluido, dando comienzo a una nueva vertiente en la web 2.0 que posteriormente se conocería como \textit{microblogging}.
+
+El crecimiento de la red social en los últimos años ha sido exponencial, hecho que no la ha alejado de tener serios problemas de rentabilidad, pero que confirman su éxito y aceptación por parte del gran público. A principios de 2010 el número de usuarios activos al mes de la misma se fijaba en torno a los 30 millones, número claramente superado en la actualidad donde se estima en torno a los 313 millones de usuarios activos mensuales (Dreamgrow Marketing, 2017).
+
+Recientemente, la red social ha aumentado el número de palabras en cada tuit a 280, lo que en conjunción con nuevas medidas como la facilidad para incluir videos o demás contenido multimedia y lo vistoso de estas publicaciones con un diseño intachable, constatan la salud de la red social. 
+
+\subsection{Funcionamiento}
+
+El funcionamiento de la red social en sí trivial, en esta podemos acotar un rol muy sencillo, el de \textbf{seguidor} que serán aquellas personas que quieren seguir nuestras publicaciones y de las cuales podremos ser seguidores o no, es decir, puede no es de obligada existencia el carácter bidireccional en una relación de `amistad' dentro de esta red social al igual que existe en otras redes sociales como por ejemplo Facebook. 
+
+Este tipos de relaciones, son muy interesantes y han sido estudiadas en la literatura como parte de la teoría de grafos y ha sido extendido a la minería de redes sociales, para la detección de comunidades o de personas influyentes dentro de la red social \cite{grafos}. Dado que nuestro trabajo versa sobre la minería de opiniones, no es menester entrar en más detalle en las relaciones entre usuarios dentro de twitter (\textit{retweets}, \textit{follows} ). Por otro lado, sí que es necesario dado nuestro problema, diseccionar las partes que componen un tuit para ver su estrecha relación con los trabajo de minería de opiniones y la importancia de estos datos en este ámbito de la minería de datos. 
+
+\subsection{Anatomía de un tuit}
+\label{anatomia}
+
+En la figura \ref{tuit}, podemos ver el ejemplo de un tuit real. Este puede tener variantes como enlaces o imágenes, pero esencialmente es texto y algunos \textit{hashtags} o etiquetas que sirven para acotar u opinar sobre temas en concreto.  
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=15cm]{./Capitulo3/imagenes/tuit.png}
+\caption{Ejemplo de un tuit.}
+\label{tuit}
+\end{figure}
+
+Atendiendo al ejemplo anterior (figura \ref{tuit}), estaríamos hablando sobre \textit{data science}, R, Pythton y el portal Data Camp. Cabe destacar, que aunque en este caso todos van precedidos del carácter \# esto no tendría porque ser así, y alguna de estas palabras podría aparecer sin éste. 
+
+Tracemos ahora por tanto un pequeño paralelismo entre el tuit del ejemplo anterior y la definición dada por Liu de qué es una opinión que hemos podido ver en en la sección \ref{mineriaopiniones}. 
+
+\begin{enumerate}
+\item \textbf{Entidad}: En el caso de un tuit, la entidad sería sobre lo que se opina. En el caso del ejemplo anterior, sería \#DataCamp. 
+\item \textbf{Emisor}: El paralelismo es obvio, el emisor es en el caso de un tuit la persona que lo tuitea en este caso, el usuario \@joseangeldiazg. 
+\item \textbf{Aspecto}: Recoge lo que se valora, y aunque puede parecer abstracto del anterior tuit podemos deducir que se valora la capacidad de un portal en internet para formar a las personas sobre conceptos tales como \textit{data science}, R o Python. 
+\item \textbf{Orientación}: En el caso que nos ocupa, es positiva. 
+\item \textbf{Momento temporal}: Este elemento de la quintupla definida por Liu, al igual que el emisor siempre está presente dentro de un tuit y en este caso corresponde con el 26 de julio de 2017. 
+\end{enumerate}
+
+Es por tanto evidente, la relación entre un tuit y una opinión, poniendo al descubierto la importancia de este tipo de datos en el proceso y estudio de la minería de opiniones. Por otro lado, también es menester remarcar que no todos los tuits podrían enmarcarse dentro de la definición de opinión, como por ejemplo el que podemos ver en al figura \ref{tuit2} que simplemente es informativo. 
+
+\begin{figure}
+\includegraphics[width=10cm]{./Capitulo3/imagenes/tuit2.png}
+\centering
+\caption{Ejemplo de un tuit que no sería enmarcado como opinión.}
+\label{tuit2}
+\end{figure}
+
+\subsection{Twitter API}
+\label{api}
+Twitter abrió sus datos al mundo al hacer disponible una serie de APIs mediante las cuales se permite a terceros tanto la obtención de estos datos para su estudio como la implementación de software que trabaje sobre estos datos. Estas APIs necesitan del protocolo de seguridad y autenticación OAuth, además ofrecen ciertas limitaciones a la hora de obtener los datos por lo que solo se permiten entre 150 y 300 solicitudes por hora y además hay una ventana temporal que cerrará el flujo de información cada 15 minutos. Las APIs disponibles son:
+
+\begin{itemize}
+\item \textbf{Search API}: Obtiene los tuits de hasta 7 días, es similar a lo que nos ofrecería la búsqueda básica de Twitter en la interfaz web al buscar por un término. 
+\item \textbf{Streaming API}: Obtiene información en tiempo real. 
+\item \textbf{REST API}: Obtiene los datos mediante HTTP, el formato puede venir en XML, HTML, o JSON, la limitación aquí viene definida por el número de resultados devueltos por página que no puede ser superior a 3200 tweets. 
+\end{itemize}
+
+Como podemos observar, estas limitaciones pueden suponer un gran problema a la hora de obtener una gran cantidad de datos para que nuestro trabajo tenga un cierto rigor y peso, por ello, en los puntos siguientes ahondaremos en el proceso seguido y tecnologías usadas para la obtención y almacenamiento de un gran volumen de datos a pesar de estas restricciones. 
 \pagebreak
 \clearpage
 %---------------------------------------------------
