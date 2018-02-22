@@ -179,7 +179,7 @@ Necesitamos por tanto reconocer las entidades presentes en un tuit y esto puede 
 \end{algorithm}
 
 
-Este proceso, es un proceso lento, pero fácilmente paralelizable con las herramientas para programación paralela que R ofrece. Concretamente, en este punto se investigó bastante las opciones más rápidas de ejecución y cómo optimizar el código en R al máximo para obtener buenos resultados. Las configuraciones y pruebas realizadas, cuyos tiempos de ejecución pueden verse la tabla \ref{tabla-tiempos}, fueron las siguientes.
+Este proceso, es muy lento y se llevo a cabo en el cluster de computación visto en la tabla \ref{cluster}. Pese a la complejidad del proceso, sus características técnicas hacen que sea fácilmente paralelizable con las herramientas para programación paralela que R ofrece, por lo que se favorece y reduce bastante su tiempo de ejecución. En este punto se investigaron las opciones más rápidas de ejecución así como las mejores opciones para optimizar el código en R al máximo. Las configuraciones y pruebas realizadas, cuyos tiempos de ejecución pueden verse la tabla \ref{tabla-tiempos}, fueron las siguientes:
 
 \begin{itemize}
 \item Ejecución secuencial. 
@@ -243,8 +243,6 @@ En nuestro problema, tendremos tantos documentos como tuits tenemos, es decir 14
 
 \subsection{Filtrado basado en visualización}
 
-El primer paso lógico para reducir el problema puede estar en acotar palabras raras o que tendrán poco valor en nuestro problema por ser poco comunes y por tanto nunca podrán ser parte de una tendencia u opinión recurrente. Consideraremos palabras raras aquellas cuya longitud por ejemplo exceda de 18 caracteres. Para ver qué palabras eran estas usamos un gráfico de nube de términos, y el resultado puede verse en la figura \ref{raras}. 
-
 \begin{figure}[h]
 \centering
 \includegraphics[width=9cm]{./Capitulo5/imagenes/raras.png}
@@ -252,16 +250,26 @@ El primer paso lógico para reducir el problema puede estar en acotar palabras ra
 \label{raras}
 \end{figure}
 
+El primer paso lógico para reducir el problema puede estar en acotar palabras raras o que tendrán poco valor en nuestro problema por ser poco comunes y por tanto nunca podrán ser parte de una tendencia u opinión recurrente. Consideraremos palabras raras aquellas cuya longitud por ejemplo exceda de 18 caracteres. Para ver qué palabras eran estas usamos un gráfico de nube de términos, y el resultado puede verse en la figura \ref{raras}. 
+
 Parece que nuestro primer paso ha surtido efecto ya que hemos encontrado palabras y uniones de palabras provenientes de \textit{hashtags} que para nada son interesantes en nuestro problema, pero antes de borrarlas cabe la necesidad de estudiar cómo de frecuentes son estas palabras por lo que usaremos un histograma que contará el número de palabras en función de varios rangos de tamaños de las mismas. El resultado de este histograma podemos verlo en la figura \ref{freqraras}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=12cm]{./Capitulo5/imagenes/freqraras.png}
 \caption{Frecuencia de palabras en función del tamaño.}
 \label{freqraras}
 \end{figure}
 
-Acorde a este último gráfico, vemos como la variabilidad de nuestro problema se centra notablemente en palabras de tamaño [1-10] , lo que podríamos considerar palabras normales, por lo que acotaremos nuestro problema eliminando aquellas palabras un poco por encima de este margen, es decir, nos quedaremos con aquellas en el rango de tamaño [1-13] eliminando las de tamaño 14 y superiores donde encontramos entre otras las que vimos en el gráfico \ref{raras}.
+Acorde a este último gráfico, vemos como la variabilidad de nuestro problema se centra notablemente en palabras de tamaño [1-10] , lo que podríamos considerar palabras normales, por lo que acotaremos nuestro problema eliminando aquellas palabras un poco por encima de este margen, es decir, nos quedaremos con aquellas en el rango de tamaño [1-13] eliminando las de tamaño 14 y superiores donde encontramos entre otras las que vimos en el gráfico \ref{raras}. Antes de realizar esta eliminación, es menester comprobar que lo que estamos eliminando beneficiará el modelo real y no producirá perdida de contenido por lo que se creará una nueva matriz de frecuencias con las palabras raras. Tras su creación, tendremos 25359 palabras que se quedan fuera del problema , los beneficios de eliminarlas son obvios, pues además a ser palabras largas ocuparan un gran espacio en memoria que dificultará los procesos anteriores. Por otro lado, estas palabras aumentan en un 25\% el dominio del problema con el consiguiente aumento de tiempos. Para demostrar que las palabras eliminadas no aportarían información extra al problema, se han realizado gráficos para comprobar cuales son, pero dada la longitud de estas ningún gráfico puede manejarlas bien, por lo que para favorecer esta interpretación en la figura \ref{salida} puede verse la salida de R, para algunas de estas palabras con su frecuencia.  
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{./Capitulo5/imagenes/salida.png}
+\caption{Algunas palabras fuera del dominio.}
+\label{salida}
+\end{figure}
+
 
 Una vez acotadas estas palabras, nuestro problema se ha reducido a una matriz de 109790x140718, aún imposible de mantener en memoria, pero tal y como hemos mencionado antes, al estar en un problema donde el resultado final es buscar tendencias de opinión, un paso obvio sería cortar este dataset en función de la frecuencia de las palabras ya que una palabra que aparece en Twitter solo 5 o 6 veces nunca podrá ser considerada parte de una tendencia por lo que nuestra \textbf{\textit{term document matrix} } final estará solo compuesta por aquellas palabras que aparezcan más de 20 veces en el conjunto de tuits, reduciendo el dominio del problema a una matriz de 7323x140718, fácilmente manejable en memoria y donde por medio de suma y conteos en sus columnas y filas nos permitirán la representación de gráficos para una mejor comprensión del problema. 
 
@@ -303,7 +311,7 @@ Para obtener  los bi-gramas, primero usamos un \textit{tokenizer} del paquete \t
 
 \begin{figure}[h]
 \centering
-\includegraphics[height=12.5cm]{./Capitulo5/imagenes/bigramas.png}
+\includegraphics[height=12cm]{./Capitulo5/imagenes/bigramas.png}
 \caption{2-gramas más frecuentes.}
 \label{bigramas}
 \end{figure}
