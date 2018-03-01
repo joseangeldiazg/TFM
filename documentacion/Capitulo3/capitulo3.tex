@@ -48,7 +48,7 @@ En el presente proyecto, obviaremos la rama supervisada, para centrarnos en el e
 
 \section{Técnicas de aprendizaje no supervisado}
 \label{tecnicas}
-Pese a la gran relación que existe entre las técnicas mencionadas en \ref{contex}, estas difieren en factores tan dispares como su utilización, su aplicación o la información que aportan sobre un problema. El análisis de estos factores nos ayudará a elegir la técnica o el conjunto de técnicas adecuadas para cada problema concreto, es decir, podemos partir de enfoques diferentes que se apoyen y retroalimenten mutuamente. Cabe destacar y diferenciar las  técnicas más relevantes aplicadas a los problemas inherentes al estudio del análisis de tendencias, para así poder comprender mejor los siguientes capítulos y nuestro problema en cuestión. 
+Pese a la gran relación que existe entre las técnicas mencionadas anteriormente, estas difieren en factores tan dispares como su utilización, su aplicación o la información que aportan sobre un problema. El análisis de estos factores nos ayudará a elegir la técnica o el conjunto de técnicas adecuadas para cada problema concreto, es decir, podemos partir de enfoques diferentes que se apoyen y retroalimenten mutuamente. Cabe destacar y diferenciar las  técnicas más relevantes aplicadas a los problemas inherentes al estudio del análisis de tendencias, para así poder comprender mejor los siguientes capítulos y nuestro problema en cuestión. 
 
 \subsection{Clustering}
 \label{cluster}
@@ -66,10 +66,11 @@ La forma clásica de medir la bondad o ajuste de las reglas de asociación a un de
 
 \begin{itemize}
 
-	\item Soporte: Se representa como \textit{supp (X$\rightarrow$Y)}, y representa la fracción de las transacciones que contiene tanto a X como a Y respecto al total de transacciones. Quedaría definido por la siguiente ecuación:
+	\item Soporte: El soporte de un ítem se representa como \textit{supp (X)}, y representa la fracción de las transacciones que contienen al ítem X entre el total de transacciones de la base de datos (D). El \textit{supp(X $\rightarrow$ Y)} sería por consiguiente el total de transacciones que contiene tanto al ítem X como al ítem Y, y quedaría definido con la siguiente ecuación: 
 	
 	\begin{equation}
-	supp(X \rightarrow Y) = \frac{supp(X \cup Y)}{total transacciones}
+	supp(X \rightarrow Y) = {supp(X \cup Y)}
+	\label{eq1}
 	\end{equation}
 
 	\item Confianza: Se representa como \textit{conf (X$\rightarrow$Y)}, y representa la fracción de transacciones en las que aparece el ítem Y, de entre aquellas transacciones donde aparece el ítem X. Su ecuación sería:
@@ -78,7 +79,7 @@ La forma clásica de medir la bondad o ajuste de las reglas de asociación a un de
 	conf(X \rightarrow Y) = \frac{supp(X \rightarrow Y)}{supp(X)}
 	\end{equation}
 	
-	\item Lift: El \textit{lift}, es una medida útil para evaluar la independencia entre los ítems de una determinada regla  de asociación. En una regla del tipo \textit{conf (X$\rightarrow$Y)}, esta medida representa el grado en que X tiende a ser frecuente cuando A está presente en la regla, o viceversa. El lift, quedará definido matemáticamente de la siguiente manera:
+	\item Lift: El \textit{lift}, es una medida útil para evaluar la independencia entre los ítems de una determinada regla  de asociación. En una regla del tipo \textit{lift (X$\rightarrow$Y)}, esta medida representa el grado en que X tiende a ser frecuente cuando A está presente en la regla, o viceversa. El lift, quedará definido matemáticamente de la siguiente manera:
 	\begin{equation}
 	lift(X \rightarrow Y) = \frac{conf(X \rightarrow Y)}{supp(Y)}
 	\end{equation}

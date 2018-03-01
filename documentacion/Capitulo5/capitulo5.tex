@@ -4,25 +4,25 @@
 % Texto del capitulo 5
 %---------------------------------------------------
 
-\chapter{Arquitectura del modelo}
+\chapter{Arquitectura del sistema}
 \label{dataset}
 
-En este capítulo se presenta la arquitectura del modelo diseñado, así como se detallan las tareas y funciones llevada a cabo por cada uno de los `módulos' que integran el modelo. Comenzaremos el capítulo indagando de manera gráfica en como se componen los módulos, la retroalimentación de los mismos y las tecnologías que usaremos en cada uno de ellos y finalizaremos detallando las tareas llevadas a cabo en cada uno de los módulos. 
+En este capítulo se presenta la arquitectura del sistema diseñado, así como se detallan las tareas y funciones llevada a cabo por cada uno de los `módulos' que integran el sistema. Comenzaremos el capítulo indagando de manera gráfica en como se componen los módulos, la retroalimentación de los mismos y las tecnologías que usaremos en cada uno de ellos y finalizaremos detallando las tareas llevadas a cabo en cada uno de los módulos. 
 
-En el gráfico \ref{arquitectura} se pueden ver un resumen de los `módulos'  que forman el sistema, que a grandes rasgos son las piezas fundamentales de cualquier proyecto de minería de datos. 
-
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=13cm]{./Capitulo5/imagenes/arquitectura.png}
+\includegraphics[width=11cm]{./Capitulo5/imagenes/arquitectura.png}
 \caption{Arquitectura del modelo y módulos que lo integran. }
 \label{arquitectura}
 \end{figure}
+
+En el gráfico \ref{arquitectura} se pueden ver un resumen de los `módulos'  que forman el sistema, que a grandes rasgos son las piezas fundamentales de cualquier proyecto de minería de datos. 
 
 Descendiendo un nivel más de abstracción en el gráfico \ref{flujo}, encontramos definidas las tecnologías usadas en cada uno de los módulos vistos anteriormente y donde se detalla el flujo de información por el modelo creado. Dada la importancia del proceso de \textbf{minería de datos} en este proyecto, este módulo se verá mas detenidamente en el capítulo \ref{minería}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=13cm]{./Capitulo5/imagenes/flujo.png}
+\includegraphics[width=12cm]{./Capitulo5/imagenes/flujo.png}
 \caption{Flujo del proceso de obtención del modelo y tecnologías usadas. }
 \label{flujo}
 \end{figure}
@@ -150,11 +150,7 @@ Tras el proceso de limpieza anterior en un volumen tan grande de datos cabe espe
 
 \subsection{Selección de instancias}
 \label{seleccion}
-La selección de instancias trata de obtener un conjunto de datos de dimensión inferior al original de manera que los procesos posteriores de minería puedan manejar mejor estos datos, u obtener información con valor de una manera menos influenciada por el ruido de observaciones no relevantes para el problema en cuestión. 
-
-Dado el gran volumen de datos que manejamos, y la variedad infinita de temáticas posibles que se pudieran estar hablando en Twitter durante los meses de obtención de datos, cabe esperar en la etapa de minería de datos una gran  explosión de itemsets frecuentes y  reglas de asociación, que en la mayoría de los casos no serían relevantes para el estudio de tendencias u opiniones respecto a personas, lo cual es nuestro objetivo. Por ello, parece un paso claro que antes de llegar a etapas superiores del modelo, filtremos y eliminemos aquellos tuits que no hacen referencia a personas. 
-
-Necesitamos por tanto reconocer las entidades presentes en un tuit y esto puede hacerse usando la técnica de \textit{Name Entity Recognition} \cite{ner} , de ahora en adelante NER por sus siglas en inglés.  Propuesto por la Universidad de Stanford, el método está implementado en Java, aunque viene integrado en diversos paquetes para R, por lo que permite de una manera sencilla la obtención de `\textit{entidades nombradas}' en un texto en función del tipo que deseemos buscar, como por ejemplo, personas, lugares, empresas e incluso monedas. El algoritmo usado para este proceso ha sido el siguiente:  
+La selección de instancias trata de obtener un conjunto de datos de dimensión inferior al original de manera que los procesos posteriores de minería puedan manejar mejor estos datos, u obtener información con valor de una manera menos influenciada por el ruido de observaciones no relevantes para el problema en cuestión. Dado el gran volumen de datos que manejamos, y la variedad infinita de temáticas posibles que se pudieran estar hablando en Twitter durante los meses de obtención de datos, cabe esperar en la etapa de minería de datos una gran  explosión de itemsets frecuentes y  reglas de asociación, que en la mayoría de los casos no serían relevantes para el estudio de tendencias u opiniones respecto a personas, lo cual es nuestro objetivo. Por ello, parece un paso claro que antes de llegar a etapas superiores del modelo, filtremos y eliminemos aquellos tuits que no hacen referencia a personas. Necesitamos por tanto reconocer las entidades presentes en un tuit y esto puede hacerse usando la técnica de \textit{Name Entity Recognition} \cite{ner} , de ahora en adelante NER por sus siglas en inglés.  Propuesto por la Universidad de Stanford, el método está implementado en Java, aunque viene integrado en diversos paquetes para R, por lo que permite de una manera sencilla la obtención de `\textit{entidades nombradas}' en un texto en función del tipo que deseemos buscar, como por ejemplo, personas, lugares, empresas e incluso monedas. El algoritmo usado para este proceso ha sido el siguiente:  
  
  
 \begin{algorithm}[H]
