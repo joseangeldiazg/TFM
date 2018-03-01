@@ -239,6 +239,12 @@ En nuestro problema, tendremos tantos documentos como tuits tenemos, es decir 14
 
 \subsection{Filtrado basado en visualización}
 
+El primer paso lógico para reducir el problema puede estar en acotar palabras raras o que tendrán poco valor en nuestro problema por ser poco comunes y por tanto nunca podrán ser parte de una tendencia u opinión recurrente. Consideraremos palabras raras aquellas cuya longitud por ejemplo exceda de 18 caracteres. 
+
+Para hacernos una idea de manera rápida de cuales son estas palabras y sus frecuencias podremos utilizar una representacion en forma de \textbf{nube de términos}. Esta representación, fue usada por primera vez sobre la novela \textit{Microserfs}, donde por medio de un software creado por  Jim Flanagan se obtenían sus palabras y se representaban en función de colores y tamaños según su aparición en la novela teniendo en el centro de la nube aquellos términos más comunes o relevantes. Desde el auge de la web, los blogs y las redes sociales esta representación se ha hecho muy popular ya que permite en un solo vistazo el resumen de las temáticas de una web o blog por tomar algún ejemplo. La idea esencial de las nubes de palabras, reside por tanto en contabilizar las palabras o términos de un determinado documento o conjunto de documentos, eliminar aquellas que no dicen nada y representar en orden de más relevancia desde el centro hacia los bordes las palabras que también tendrán atributos como el color (más acentuado) o el tamaño (más grande) en función de su importancia o presencia. Usaremos por tanto un gráfico de nube de términos para obtener estas palabras raras y sus frecuencias en función del tamaño y color. El resultado puede verse en la figura \ref{raras}. 
+
+Parece que nuestro primer paso ha surtido efecto ya que hemos encontrado palabras y uniones de palabras provenientes de \textit{hashtags} que para nada son interesantes en nuestro problema, pero antes de borrarlas cabe la necesidad de estudiar cómo de frecuentes son estas palabras por lo que usaremos un histograma que contará el número de palabras en función de varios rangos de tamaños de las mismas. El resultado de este histograma podemos verlo en la figura \ref{freqraras}.
+
 \begin{figure}[h]
 \centering
 \includegraphics[width=9cm]{./Capitulo5/imagenes/raras.png}
@@ -246,11 +252,7 @@ En nuestro problema, tendremos tantos documentos como tuits tenemos, es decir 14
 \label{raras}
 \end{figure}
 
-El primer paso lógico para reducir el problema puede estar en acotar palabras raras o que tendrán poco valor en nuestro problema por ser poco comunes y por tanto nunca podrán ser parte de una tendencia u opinión recurrente. Consideraremos palabras raras aquellas cuya longitud por ejemplo exceda de 18 caracteres. Para ver qué palabras eran estas usamos un gráfico de nube de términos, y el resultado puede verse en la figura \ref{raras}. 
-
-Parece que nuestro primer paso ha surtido efecto ya que hemos encontrado palabras y uniones de palabras provenientes de \textit{hashtags} que para nada son interesantes en nuestro problema, pero antes de borrarlas cabe la necesidad de estudiar cómo de frecuentes son estas palabras por lo que usaremos un histograma que contará el número de palabras en función de varios rangos de tamaños de las mismas. El resultado de este histograma podemos verlo en la figura \ref{freqraras}.
-
-\begin{figure}[H]
+\begin{figure}[h]
 \centering
 \includegraphics[width=12cm]{./Capitulo5/imagenes/freqraras.png}
 \caption{Frecuencia de palabras en función del tamaño.}

@@ -166,11 +166,17 @@ Acorde a los resultados, podríamos definir ciertas tendencias en cuanto a la soc
 
 \subsection{Filtrado de reglas}
 
-Para la obtención de mejores resultados, filtraremos las reglas por el consecuente o antecedente en función de nombres propios que hemos obtenido de nuestro proceso de análisis exploratorio de datos. Dado que  el período de tiempo en el que nos centramos coincide con la campaña electoral de EEUU, nos hemos decantado por obtener las reglas generadas con consecuente igual a \textbf{donald-trump} o \textbf{hillary-clinton}. Sería imposible realizar un estudio acorde para un proyecto de estas características de todas las reglas generadas para nombres propios en Twitter en este período, por ello se han cogido estas dos a modo de ejemplo, pero es necesario señalar que el mismo estudio se podría aplicar sobre otros nombres, que no tendrían ni porqué pertenecer al mundo de la política. 
+En base a los resultados anteriores, nuevamente vuelve a hacerse necesario un proceso de refinado sobre las reglas de asociación obtenidas. Este proceso es necesario ya que al carecer de filtrado en el proceso de obtención de los datos y ser twitter una fuente de datos muy `ruidosa' donde se pueden encontrar temas muy dispares, las mejores reglas obtenidas en función de las medidas de bondad básicas no serán para nada interesantes, sino que deberemos indagar en algunas con peores medidas de confianza o soporte pero que si puedan traducirse en conocimiento útil. 
 
-Por tanto, filtraremos las reglas donde el consecuente es \textbf{donald-trump} o \textbf{hillary-clinton} y eliminaremos las reglas redundantes. Al finalizar este proceso, tendremos un conjunto de 156 reglas para Donald Trump y un conjunto de 93 reglas para Hillary Clinton. Dado el número de estas, en las siguientes sub-secciones estudiaremos, visualizaremos e interpretaremos algunas de las más interesantes  que el proceso ha obtenido. 
+Por tanto, para la obtención de mejores resultados, filtraremos las reglas por el consecuente o antecedente en función de nombres propios que hemos obtenido de nuestros procesos de filtrado anteriores. Dado que  el período de tiempo en el que nos centramos coincide con la campaña electoral de EEUU, nos hemos decantado por obtener las reglas generadas con consecuente igual a \textbf{donald-trump} o \textbf{hillary-clinton}. Sería imposible realizar un estudio acorde para un proyecto de estas características de todas las reglas generadas para nombres propios en Twitter en este período, por ello se han cogido estas dos a modo de ejemplo, pero es necesario señalar que el mismo estudio se podría aplicar sobre otros nombres, que no tendrían ni porqué pertenecer al mundo de la política. 
 
-\subsubsection{Donald Trump}
+Por tanto, filtraremos las reglas donde el consecuente es \textbf{donald-trump} o \textbf{hillary-clinton} y eliminaremos las reglas redundantes. Al finalizar este proceso, tendremos un conjunto de 156 reglas para Donald Trump y un conjunto de 93 reglas para Hillary Clinton. Dado el número de estas, en las siguientes secciones estudiaremos, visualizaremos e interpretaremos algunas de las más interesantes  que el proceso ha obtenido. 
+
+\section{Visualización e Interpretación}
+
+En esta sección se realiza una interpretación detallada de las reglas de asociación obtenidas para estos personajes, elegidos a modo de ejemplo, para validar el funcionamiento del sistema. Dado que las reglas de asociación no dejan de ser una representación de términos y una relación de co-ocurrencia de los mismos, nuevamente, se usará la representación de nubes de términos de las reglas para poder obtener las tendencias asociadas a un determinado personaje de manera resumida y en un solo gráfico. 
+
+\subsection{Donald Trump}
 
 Como hemos mencionado anteriormente, para \textbf{Donald Trump} se ha generado un conjunto de 156 reglas cuya distribución en función de soporte, confianza y número de ítems en la regla puede verse en el gráfico \ref{distrump}. Atendiendo a este gráfico, podemos ver cómo la práctica totalidad de las reglas se sitúan en la parte izquierda lo que nos indica que los valores de soporte son más bien bajos aunque aceptables en función de la cantidad de datos con los que está formada la muestra. Por otro lado la confianza se distribuye normalmente y  la práctica totalidad de las reglas están formadas por tres o cuatro ítems. 
 
@@ -209,14 +215,14 @@ Aunque su estudio manual es necesario puede llegar a ser tedioso. Por ello, resu
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=11cm]{./Capitulo8/imagenes/burbujas.png}
+\includegraphics[width=10cm]{./Capitulo8/imagenes/burbujas.png}
 \caption{Grafo de las reglas para Donald Trump.}
 \label{burbujas}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=11cm]{./Capitulo8/imagenes/cloudtrump.png}
+\includegraphics[width=10cm]{./Capitulo8/imagenes/cloudtrump.png}
 \caption{Nube de palabras de las reglas para Donald Trump.}
 \label{cloudtrump}
 \end{figure}
@@ -224,7 +230,7 @@ Aunque su estudio manual es necesario puede llegar a ser tedioso. Por ello, resu
 Si atendemos por tanto a la representación de las reglas con nube de términos, hasta una persona sin conocimientos sobre la temática podría deducir de qué se está hablando en Twitter y cuáles son las tendencias en relación con el candidato. Por ejemplo encontramos las palabras \textit{transgender, rape, child } sobre las cuales anteriormente en nuestro proceso manual hemos podido obtener tendencias. También aparece \textit{Iowa} como relevante, una palabra que anteriormente en el proceso manual obviamos y que ahora gracias a este gráfico vemos que es interesante. Si volvemos a localizar manualmente las reglas con este ítem en el antecedente, veremos que este fue un estado decisivo y muy rivalizado durante las elecciones presidenciales, por lo que las encuestas y la opinión pública generaban continuamente información al respecto.  
 
 
-\subsubsection{Hillary Clinton}
+\subsection{Hillary Clinton}
 
 Para \textbf{Hillary Clinton} se han obtenido un total de 93 reglas de asociación. La distribución de las mismas, acorde a sus medidas de bondad puede verse en el gráfico \ref{dishillary}. Atendiendo al mismo, podemos ver como en este caso las reglas se sitúan a lo largo del eje X de manera más uniforme que como lo hacían en el gráfico \ref{distrump}, contando con un buen número de reglas en el borde derecho lo que nos indica buenos valores de soporte en las mismas. A diferencia de lo ocurrido con \textbf{Trump}, aquí casi todas las reglas implican 3 ítems, teniendo muy pocas de orden distinto a 3. 
 
@@ -269,9 +275,9 @@ Si realizamos un enfoque de interpretación por grupos, podríamos definir clarame
 
 Por último, corroboraremos nuestros resultados con la nube de palabras, donde podremos ahondar de manera sencilla en otras tendencias que \textit{a priori} podamos no haber tenido en cuenta. El gráfico elaborado puede verse en la figura \ref{cloudhillary} y en este caso constatamos la totalidad de las conclusiones obtenidas anteriormente, donde destacamos la importancia de la relación entre las opiniones de Bernie Sanders y la propia Hillary Clinton. Por otro lado, volvemos a ver Iowa, algo que ya cabría esperar desde el momento en que estudiamos la nube de términos de las reglas de \textbf{Trump}, ya que al ser un estado disputado entre ambos candidatos, las reglas relacionadas serán bidireccionales.  
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{./Capitulo8/imagenes/cloudhillary.png}
+\includegraphics[width=9cm]{./Capitulo8/imagenes/cloudhillary.png}
 \caption{Nube de palabras de las reglas para Hillary Clinton.}
 \label{cloudhillary}
 \end{figure}
