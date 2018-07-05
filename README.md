@@ -6,6 +6,10 @@ Repositorio para los archivos relacionados con el proyecto de fin del Máster en
 
 https://joseangeldiazg.github.io/TFM/
 
+# Repositorio con el código fuente
+
+https://github.com/joseangeldiazg/twitter-text-mining
+
 # Técnologias usadas
 
 * Spark
