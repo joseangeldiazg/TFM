@@ -10,6 +10,10 @@ https://joseangeldiazg.github.io/TFM/
 
 https://github.com/joseangeldiazg/twitter-text-mining
 
+# Documentacion pdf del proyecto
+
+https://drive.google.com/open?id=1gJt54IFYWVMbk72_5baUWpQGLdMY9TxU
+
 # Técnologias usadas
 
 * Spark
